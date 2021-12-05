@@ -1,12 +1,20 @@
 import { FC } from 'react'
-import { extendTheme, withDefaultColorScheme } from '@chakra-ui/react'
-import { ChakraProvider } from '@chakra-ui/react'
+import { extendTheme, withDefaultColorScheme, ChakraProvider } from '@chakra-ui/react'
+
+// Foundation
+import { typography } from './foundation/typography'
+import { colors } from './foundation/colors'
+
+// Components
+import { customButton } from './components/customButton'
 
 const customTheme = extendTheme(
   {
-    colors: {},
+    colors,
+    ...typography,
+    components: { Button: customButton }
   },
-  withDefaultColorScheme({ colorScheme: 'purple' }),
+  withDefaultColorScheme({ colorScheme: 'purple' })
 )
 
 export const CustomThemeProvider: FC = ({ children }) => (
