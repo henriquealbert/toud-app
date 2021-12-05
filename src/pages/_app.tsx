@@ -1,6 +1,7 @@
-import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import type { AppProps } from 'next/app'
 import { CustomThemeProvider } from 'theme'
+import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -8,9 +9,11 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Toud</title>
       </Head>
-      <CustomThemeProvider>
-        <Component {...pageProps} />
-      </CustomThemeProvider>
+      <SessionProvider session={pageProps.session}>
+        <CustomThemeProvider>
+          <Component {...pageProps} />
+        </CustomThemeProvider>
+      </SessionProvider>
     </>
   )
 }
