@@ -18,7 +18,7 @@ const SignUpPage = () => {
         </Flex>
       </Flex>
 
-      <Flex w="full" h="full" bg="red">
+      <Flex w="full" h="full" bg="gray.100">
         imagem
       </Flex>
     </SimpleGrid>
