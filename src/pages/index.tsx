@@ -1,20 +1,11 @@
 import { Button, Flex, Heading } from '@chakra-ui/react'
-import { api } from 'lib/api'
 import type { NextPage } from 'next'
 import { useSession, signIn } from 'next-auth/react'
+import NextLink from 'next/link'
 
 const Home: NextPage = () => {
-  const { data, status } = useSession()
+  const { data } = useSession()
   console.log(data)
-
-  const handleSignUp = async ({ email, password }: { email: string; password: string }) => {
-    const res = await api.post('/users', {
-      email: email,
-      password: password,
-      username: email
-    })
-    return res.data
-  }
 
   return (
     <Flex direction="column" h="100vh" align="center" justify="center">
@@ -33,9 +24,11 @@ const Home: NextPage = () => {
       >
         Entrar
       </Button>
-      <Button variant="secondary" w="400px">
-        Criar conta
-      </Button>
+      <NextLink href="/signup">
+        <Button as="a" variant="secondary" w="400px" cursor="pointer">
+          Criar conta
+        </Button>
+      </NextLink>
     </Flex>
   )
 }

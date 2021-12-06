@@ -29,6 +29,6 @@ api.interceptors.response.use(
         message: 'An unexpected error happened. Please, try again.'
       }
     }
-    return Promise.resolve({ error: err })
+    return Promise.resolve(err)
   }
 )
