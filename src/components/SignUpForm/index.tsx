@@ -31,6 +31,8 @@ export const SignUpForm = () => {
   })
 
   const handleSignUp = async (values: valuesTypes) => {
+    if (Object.keys(errors).length > 0) return
+
     const { error } = (await api.post('/users', { ...values, username: values.email })) as any
 
     if (error.message === 'Email already taken') {
@@ -86,7 +88,7 @@ export const SignUpForm = () => {
       </FormControl>
 
       <Checkbox id="terms" {...register('terms')} mb={6} isInvalid={!!errors.terms}>
-        <Text as="span" fontSize="xs">
+        <Text as="span" fontSize="xs" color="text" fontWeight="light">
           Estou de acordo com Termos de serviço e Política de privacidade.
         </Text>
       </Checkbox>

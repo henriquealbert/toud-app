@@ -3,7 +3,8 @@ export const customFormErrorMessage = {
     text: {
       mt: 1,
       fontSize: 'xs',
-      ml: 3
+      ml: 3,
+      fontWeight: 'light'
     }
   }
 }
