@@ -8,5 +8,6 @@ export const colors = {
     700: '#3C0D99',
     800: '#312F4F'
   },
-  text: '#696D8C'
+  text: '#696D8C',
+  border: '#D2D3DA'
 }
