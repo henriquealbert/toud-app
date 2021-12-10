@@ -1,8 +1,8 @@
 import { Flex, Heading, Text, SimpleGrid, Img, Box } from '@chakra-ui/react'
-import { SignUpForm } from 'components/SignUpForm'
+import { LoginForm } from 'components/LoginForm'
 import NextLink from 'next/link'
 
-const SignUpPage = () => (
+const LoginPage = () => (
   <SimpleGrid columns={2} minH="100vh">
     <Flex direction="column" flex="1">
       <NextLink href="/" passHref>
@@ -11,15 +11,14 @@ const SignUpPage = () => (
         </Box>
       </NextLink>
 
-      <Flex direction="column" maxW="438px" mx="auto">
+      <Flex direction="column" w="438px" mx="auto" h="calc(100% - 150px)" justify="center">
         <Heading color="purple.800" fontSize="3xl" mb={3}>
-          Crie sua conta agora
+          Login
         </Heading>
-        <Text color="text" mb={3}>
-          Olá, crie sua conta na Toud e começe a vincular seus anuncios para milhares de pessoas
-          usando infuencers reais.
+        <Text color="text" mb={10}>
+          Olá, acesse sua conta na Toud.
         </Text>
-        <SignUpForm />
+        <LoginForm />
       </Flex>
     </Flex>
 
@@ -33,4 +32,4 @@ const SignUpPage = () => (
   </SimpleGrid>
 )
 
-export default SignUpPage
+export default LoginPage

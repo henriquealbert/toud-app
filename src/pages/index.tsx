@@ -1,6 +1,6 @@
-import { Button, Flex, Heading } from '@chakra-ui/react'
+import { Button, Flex, Heading, Text } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import { useSession, signIn } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import NextLink from 'next/link'
 
 const Home: NextPage = () => {
@@ -10,20 +10,16 @@ const Home: NextPage = () => {
   return (
     <Flex direction="column" h="100vh" align="center" justify="center">
       <Heading mb={10}>Toud App</Heading>
-      <Button
-        w="400px"
-        mb={4}
-        onClick={() =>
-          signIn('credentials', {
-            user: JSON.stringify({
-              identifier: 'henrique@email.com',
-              password: '123456'
-            })
-          })
-        }
-      >
-        Entrar
-      </Button>
+      {data && (
+        <Text my={4}>
+          Logado como: <strong>{data?.user?.email}</strong>
+        </Text>
+      )}
+      <NextLink href="/login">
+        <Button as="a" w="400px" mb={4} cursor="pointer">
+          Entrar
+        </Button>
+      </NextLink>
       <NextLink href="/signup">
         <Button as="a" variant="secondary" w="400px" cursor="pointer">
           Criar conta

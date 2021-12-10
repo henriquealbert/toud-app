@@ -10,7 +10,11 @@ export default NextAuth({
       name: 'credentials',
       async authorize(credentials: any) {
         const user = JSON.parse(credentials.user)
-        const res = await api.post('/auth/local', user)
+        const res = (await api.post('/auth/local', user)) as any
+
+        if (res.error) {
+          throw new Error('E-mail ou senha inválidos.')
+        }
 
         if (res.data.user) {
           return { ...res.data.user, jwt: res.data.jwt }

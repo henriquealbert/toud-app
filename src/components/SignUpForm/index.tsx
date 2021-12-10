@@ -40,17 +40,21 @@ export const SignUpForm = () => {
       return
     }
 
-    try {
-      await signIn('credentials', {
-        user: JSON.stringify({
-          identifier: values.email,
-          password: values.password
-        })
-      })
-      push('/dashboard')
-    } catch (error) {
-      console.error(error)
+    const { error: loginError } = (await signIn('credentials', {
+      user: JSON.stringify({
+        identifier: values.email,
+        password: values.password
+      }),
+      redirect: false
+    })) as any
+
+    if (loginError) {
+      setError('email', { message: loginError, type: 'server' })
+      setError('password', { message: loginError, type: 'server' })
+      return
     }
+
+    push('/dashboard')
   }
 
   return (
@@ -66,7 +70,7 @@ export const SignUpForm = () => {
       </FormControl>
 
       <FormControl id="email" mb={3} isInvalid={!!errors.email}>
-        <FormLabel htmlFor="email">Email</FormLabel>
+        <FormLabel htmlFor="email">E-mail</FormLabel>
         <Input type="email" placeholder="Digite aqui seu melhor e-mail" {...register('email')} />
         <>{!!errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}</>
       </FormControl>
