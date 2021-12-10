@@ -80,14 +80,7 @@ export const LoginForm = () => {
         Entrar
       </Button>
       <NextLink href="/signup" passHref>
-        <Button
-          as="a"
-          cursor="pointer"
-          mt={3}
-          variant="secondary"
-          isLoading={isSubmitting}
-          isDisabled={isSubmitting}
-        >
+        <Button as="a" cursor="pointer" mt={3} variant="secondary">
           Criar conta
         </Button>
       </NextLink>
