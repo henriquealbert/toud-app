@@ -54,7 +54,7 @@ export const SignUpForm = () => {
       return
     }
 
-    push('/dashboard')
+    push('/')
   }
 
   return (

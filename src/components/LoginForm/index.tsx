@@ -43,7 +43,7 @@ export const LoginForm = () => {
       return
     }
 
-    push('/dashboard')
+    push('/')
   }
 
   return (
