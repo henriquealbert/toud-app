@@ -43,7 +43,14 @@ export const UserMenu = () => {
           {user?.email}
         </Text>
         <MenuDivider m={0} />
-        <MenuItem py={3} px={4} color="text" fontSize="lg" on onClick={() => signOut()}>
+        <MenuItem
+          py={3}
+          px={4}
+          color="text"
+          fontSize="lg"
+          on
+          onClick={() => signOut({ callbackUrl: '/login' })}
+        >
           <Icon as={MdLogout} w={5} h={5} mr={2} />
           Sair
         </MenuItem>
