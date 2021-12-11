@@ -1,15 +1,13 @@
-import { Flex, Heading, Text, SimpleGrid, Img, Box } from '@chakra-ui/react'
-import { LoginForm } from 'components/LoginForm'
-import NextLink from 'next/link'
+import type { NextPage } from 'next'
+import { Flex, Heading, Text, SimpleGrid, Img } from '@chakra-ui/react'
 
-const LoginPage = () => (
+import { LoginForm } from 'components/LoginForm'
+import { ToudLogo } from 'components/shared/ToudLogo'
+
+const LoginPage: NextPage = () => (
   <SimpleGrid columns={2} minH="100vh">
     <Flex direction="column" flex="1">
-      <NextLink href="/" passHref>
-        <Box as="a" w="fit-content">
-          <Img src="/img/logo.svg" alt="Toud logo" w="86px" h="28px" m={4} />
-        </Box>
-      </NextLink>
+      <ToudLogo m={4} />
 
       <Flex direction="column" w="438px" mx="auto" h="calc(100% - 150px)" justify="center">
         <Heading color="purple.800" fontSize="3xl" mb={3}>

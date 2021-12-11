@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import { Loader } from '../Loader'
 import { useAuth } from 'contexts/AuthContext'
+import { Header } from './Header'
 
 export const PrivateLayout = ({ children }: props) => {
   const { push } = useRouter()
@@ -15,9 +16,19 @@ export const PrivateLayout = ({ children }: props) => {
     }
   }, [isLoading, push, user])
 
-  if (isLoading) return <Loader />
+  if (user) {
+    return (
+      <Flex direction="column" minH="100vh">
+        <Header />
 
-  return <Flex direction="column">{children}</Flex>
+        <Flex direction="column" w="90%" mx="auto">
+          {children}
+        </Flex>
+      </Flex>
+    )
+  }
+
+  return <Loader />
 }
 
 type props = {
