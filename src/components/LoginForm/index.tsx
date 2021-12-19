@@ -1,6 +1,5 @@
 import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
 import {
   FormControl,
   Flex,
@@ -14,6 +13,7 @@ import NextLink from 'next/link'
 
 import { loginValidator } from './validations'
 import { useRouter } from 'next/router'
+import { yupResolver } from '@hookform/resolvers/yup'
 
 export const LoginForm = () => {
   const { push } = useRouter()

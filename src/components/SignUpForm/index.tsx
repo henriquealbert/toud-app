@@ -1,7 +1,5 @@
-import { useState } from 'react'
-import { signIn } from 'next-auth/react'
 import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup/dist/yup'
+import { yupResolver } from '@hookform/resolvers/yup'
 import {
   FormControl,
   Input,
@@ -33,28 +31,17 @@ export const SignUpForm = () => {
   const handleSignUp = async (values: valuesTypes) => {
     if (Object.keys(errors).length > 0) return
 
-    const { error } = (await api.post('/users', { ...values, username: values.email })) as any
+    const { error } = (await api.post('/auth/local/register', {
+      ...values,
+      username: values.email
+    })) as any
 
-    if (error.message === 'Email already taken') {
+    if (error?.message === 'Email already taken') {
       setError('email', { message: 'Email já cadastrado.' })
       return
     }
 
-    const { error: loginError } = (await signIn('credentials', {
-      user: JSON.stringify({
-        identifier: values.email,
-        password: values.password
-      }),
-      redirect: false
-    })) as any
-
-    if (loginError) {
-      setError('email', { message: loginError, type: 'server' })
-      setError('password', { message: loginError, type: 'server' })
-      return
-    }
-
-    push('/')
+    push('/login')
   }
 
   return (
