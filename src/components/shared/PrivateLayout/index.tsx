@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import { Loader } from '../Loader'
 import { useAuth } from 'contexts/AuthContext'
 import { Header } from './Header'
+import { Sidebar } from './Sidebar'
 
 export const PrivateLayout = ({ children }: props) => {
   const { push } = useRouter()
@@ -18,11 +19,14 @@ export const PrivateLayout = ({ children }: props) => {
 
   if (user) {
     return (
-      <Flex direction="column" minH="100vh">
+      <Flex direction="column" minH="100vh" bgColor="gray.100">
         <Header />
+        <Flex>
+          <Sidebar />
 
-        <Flex direction="column" w="90%" mx="auto">
-          {children}
+          <Flex direction="column" w="full" mx={10} h="full" minH="calc(100vh - 60px)">
+            {children}
+          </Flex>
         </Flex>
       </Flex>
     )

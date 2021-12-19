@@ -17,6 +17,27 @@ export const customButton = {
       _active: {
         bg: 'purple.400'
       }
+    },
+    link: {
+      fontWeight: 'normal',
+      textTransform: 'none',
+      w: 'auto',
+      cursor: 'pointer'
+    },
+    sidebar: {
+      fontWeight: 'normal',
+      textTransform: 'none',
+      w: 'auto',
+      cursor: 'pointer',
+      p: 0,
+      m: 0,
+      h: 'auto',
+      _hover: {
+        color: 'purple.500'
+      },
+      _focus: {
+        boxShadow: 'none'
+      }
     }
   }
 }

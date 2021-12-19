@@ -2,14 +2,14 @@ import type { NextPage } from 'next'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { Box } from '@chakra-ui/react'
 
-const Home: NextPage = () => {
+const PaymentsPage: NextPage = () => {
   return (
     <PrivateLayout>
       <Box bgColor="white" h="calc(100vh - 60px)">
-        Acompanhamento
+        Pagamentos
       </Box>
     </PrivateLayout>
   )
 }
 
-export default Home
+export default PaymentsPage

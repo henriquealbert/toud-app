@@ -61,16 +61,7 @@ export const LoginForm = () => {
       </FormControl>
       <Flex justify="flex-end">
         <NextLink href="/forgot-password" passHref>
-          <Button
-            as="a"
-            variant="link"
-            w="auto"
-            mb={10}
-            fontSize="sm"
-            textTransform="none"
-            fontWeight="normal"
-            cursor="pointer"
-          >
+          <Button as="a" variant="link" mb={10} fontSize="sm">
             Esqueceu sua senha?
           </Button>
         </NextLink>
