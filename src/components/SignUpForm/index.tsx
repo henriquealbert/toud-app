@@ -8,7 +8,8 @@ import {
   Button,
   Text,
   Box,
-  FormErrorMessage
+  FormErrorMessage,
+  useToast
 } from '@chakra-ui/react'
 
 import { api } from 'lib/api'
@@ -17,6 +18,7 @@ import { PhoneInput } from 'components/shared/PhoneInput'
 import { useRouter } from 'next/router'
 
 export const SignUpForm = () => {
+  const toast = useToast()
   const { push } = useRouter()
   const {
     register,
@@ -36,10 +38,19 @@ export const SignUpForm = () => {
       username: values.email
     })) as any
 
-    if (error?.message === 'Email already taken') {
+    if (error) {
       setError('email', { message: 'Email já cadastrado.' })
       return
     }
+
+    toast({
+      title: 'Conta criada!',
+      description: `Enviamos um e-mail para ${values.email}. Verifique sua caixa de entrada.`,
+      status: 'success',
+      duration: 15000,
+      isClosable: true,
+      position: 'top-right'
+    })
 
     push('/login')
   }

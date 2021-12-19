@@ -13,7 +13,13 @@ export default NextAuth({
         const res = (await api.post('/auth/local', user)) as any
 
         if (res.error) {
-          throw new Error('E-mail ou senha inválidos.')
+          if (res.error.message === 'Your account email is not confirmed') {
+            throw new Error('Conta não confirmada. Verifique seu e-mail.')
+          }
+          if (res.error.message === 'Invalid identifier or password') {
+            throw new Error('E-mail ou senha inválidos.')
+          }
+          throw new Error('Erro interno. Tente novamente.')
         }
 
         if (res.data.user) {
