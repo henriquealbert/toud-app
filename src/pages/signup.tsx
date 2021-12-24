@@ -9,7 +9,7 @@ const SignUpPage: NextPage = () => (
     <Flex direction="column" flex="1">
       <ToudLogo m={4} />
 
-      <Flex direction="column" maxW="438px" mx="auto">
+      <Flex direction="column" maxW="438px" mx="auto" justify="center" flex={1}>
         <Heading color="purple.800" fontSize="3xl" mb={3}>
           Crie sua conta agora
         </Heading>

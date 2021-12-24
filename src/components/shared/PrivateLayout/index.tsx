@@ -24,7 +24,7 @@ export const PrivateLayout = ({ children }: props) => {
         <Flex>
           <Sidebar />
 
-          <Flex direction="column" w="full" mx={10} h="full" minH="calc(100vh - 60px)">
+          <Flex direction="column" w="full" p={8} h="full" minH="calc(100vh - 60px)">
             {children}
           </Flex>
         </Flex>
