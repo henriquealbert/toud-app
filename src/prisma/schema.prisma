@@ -10,8 +10,13 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  USER
+  ADMIN
+}
+
 model User {
-  id                  String        @id @default(cuid())
+  id                  String        @id @default(uuid()) @unique
   name                String
   email               String        @unique
   password            String?
@@ -21,6 +26,7 @@ model User {
   updatedAt           DateTime      @updatedAt @map("updated_at")
   phoneNumber         String        @map("phone_number")
   terms               Boolean       @map("terms")
+  role                Role          @map("role") @default(USER)
 
   @@map("user")
 }

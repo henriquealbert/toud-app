@@ -31,7 +31,7 @@ export const LoginForm = () => {
 
     const { error } = (await signIn('credentials', {
       user: JSON.stringify({
-        identifier: values.email,
+        email: values.email,
         password: values.password
       }),
       redirect: false

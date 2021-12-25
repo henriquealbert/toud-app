@@ -26,7 +26,7 @@ api.interceptors.response.use(
       console.log('An unexpected error happened ', error)
       err = {
         status: 500,
-        message: 'An unexpected error happened. Please, try again.'
+        message: 'Um erro inesperado aconteceu. Por favor, tente novamente.'
       }
     }
     return Promise.resolve(err)

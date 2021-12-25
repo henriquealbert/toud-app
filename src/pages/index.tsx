@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { Box, Heading, Text } from '@chakra-ui/react'
 import { useQuery } from 'react-query'
-import { getCampaigns } from 'api/campaign/getCampaigns'
+import { getCampaigns } from 'domain/campaign/getCampaigns'
 import { useAuth } from 'contexts/AuthContext'
 
 const Home: NextPage = () => {
