@@ -1,3 +1,4 @@
+import { accountVerification } from 'domain/emails/accountVerification'
 import { generatePasswordHash } from 'lib/password'
 import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
@@ -45,18 +46,20 @@ export async function signup(params: signupParamsTypes) {
   const pwdHash = await generatePasswordHash(password)
 
   try {
-    const [user] = await prisma.$transaction([
-      prisma.user.create({
-        data: {
-          email,
-          password: pwdHash,
-          name,
-          phoneNumber,
-          terms
-        }
-      })
-      // send email verification
-    ])
+    const user = await prisma.user.create({
+      data: {
+        email,
+        password: pwdHash,
+        name,
+        phoneNumber,
+        terms
+      }
+    })
+
+    const { error } = await accountVerification({ email })
+    if (error) {
+      return error
+    }
 
     return {
       data: {
@@ -67,13 +70,13 @@ export async function signup(params: signupParamsTypes) {
         role: user.role
       }
     }
-  } catch (error: any) {
+  } catch (error) {
     return {
       error: {
         status: 500,
         errors: {
           email: {
-            message: error.message || 'Um erro inesperado aconteceu. Por favor, tente novamente.'
+            message: 'Um erro inesperado aconteceu. Por favor, tente novamente.'
           }
         }
       }

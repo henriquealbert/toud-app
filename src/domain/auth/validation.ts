@@ -17,3 +17,9 @@ export const signupValidator = yup
     terms: yup.boolean().oneOf([true], 'Você precisa aceitar os termos de uso').required()
   })
   .required()
+
+export const verifyAccountValidator = yup
+  .object({
+    token: yup.string().required()
+  })
+  .required()
