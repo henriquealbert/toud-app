@@ -41,7 +41,7 @@ export async function getUserById(params: meParamsTypes) {
       }
     }
   } catch (error) {
-    console.log('Error verifying token. ', JSON.stringify(error))
+    console.error('Error verifying token. ', JSON.stringify(error))
     return {
       error: {
         status: 400,

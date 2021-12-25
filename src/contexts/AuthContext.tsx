@@ -7,7 +7,6 @@ const AuthContext = createContext({} as ContextTypes)
 
 const AuthProvider: FC = ({ children }) => {
   const { data, status } = useSession()
-  console.log(data)
   const { data: user, isLoading } = useQuery(
     'user',
     async () => await getUser({ token: data?.accessToken as string }),

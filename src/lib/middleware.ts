@@ -6,7 +6,7 @@ export const newHandler =
     try {
       await handler(req, res)
     } catch (error) {
-      console.log(error)
+      console.error(error)
       return res
         .status(500)
         .json({ message: 'Um erro inesperado aconteceu. Por favor, tente novamente.' })
