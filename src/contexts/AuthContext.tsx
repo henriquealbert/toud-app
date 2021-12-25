@@ -1,23 +1,28 @@
-// import { getUser } from 'api/user/getUser'
 import { useSession } from 'next-auth/react'
 import { createContext, FC, useContext } from 'react'
 import { useQuery } from 'react-query'
+import { getUser } from './getUser'
 
 const AuthContext = createContext({} as ContextTypes)
 
 const AuthProvider: FC = ({ children }) => {
   const { data, status } = useSession()
-  // const { data: user, isLoading } = useQuery(
-  //   'user',
-  //   async () => await getUser({ token: data?.accessToken as string }),
-  //   {
-  //     enabled: !!data,
-  //     staleTime: 60 * 60 * 1000, // 1 hour
-  //     keepPreviousData: true
-  //   }
-  // )
+  console.log(data)
+  const { data: user, isLoading } = useQuery(
+    'user',
+    async () => await getUser({ token: data?.accessToken as string }),
+    {
+      enabled: !!data,
+      staleTime: 60 * 60 * 1000, // 1 hour
+      keepPreviousData: true
+    }
+  )
 
-  return <AuthContext.Provider value={{}}>{children}</AuthContext.Provider>
+  return (
+    <AuthContext.Provider value={{ user, isLoading: isLoading || status === 'loading' }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }
 
 const useAuth = () => {
@@ -33,6 +38,6 @@ const useAuth = () => {
 export { useAuth, AuthProvider }
 
 type ContextTypes = {
-  // user: any | null
-  // isLoading: boolean
+  user: any | null
+  isLoading: boolean
 }

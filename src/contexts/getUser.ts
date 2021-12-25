@@ -1,7 +1,7 @@
 import { api } from 'lib/api'
 
 export const getUser = async ({ token }: { token: string }) => {
-  const { data, error } = (await api.get('/users/me', {
+  const { data, error } = (await api.get('/auth/me', {
     headers: {
       Authorization: `Bearer ${token}`
     }

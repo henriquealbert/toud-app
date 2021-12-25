@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-import { loginValidator } from './validations'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { loginValidator } from 'domain/auth/validation'
 
 export const LoginForm = () => {
   const { push } = useRouter()
