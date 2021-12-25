@@ -44,7 +44,7 @@ export const SignUpForm = () => {
       title: 'Conta criada!',
       description: `Enviamos um e-mail para ${values.email}. Verifique sua caixa de entrada.`,
       status: 'success',
-      duration: 15000,
+      duration: 8000,
       isClosable: true,
       position: 'top-right'
     })

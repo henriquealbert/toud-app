@@ -15,7 +15,7 @@ const ActivateAccount = ({ data, error }: propsTypes) => {
         title: 'Conta verificada!',
         description: 'Sua conta foi verificada com sucesso! Faça login para continuar.',
         status: 'success',
-        duration: 15000,
+        duration: 5000,
         isClosable: true,
         position: 'top-right'
       })
@@ -25,7 +25,7 @@ const ActivateAccount = ({ data, error }: propsTypes) => {
         title: 'Erro ao verificar conta!',
         description: 'Não foi possível verificar sua conta. Tente novamente mais tarde.',
         status: 'error',
-        duration: 15000,
+        duration: 5000,
         isClosable: true,
         position: 'top-right'
       })
