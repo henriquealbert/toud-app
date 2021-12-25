@@ -16,8 +16,18 @@ export async function getUserById(params: meParamsTypes) {
 
   const { token } = fields as meParamsTypes
 
+  if (!token) {
+    return {
+      error: {
+        status: 400,
+        errors: { token: { message: 'Token inválido.' } }
+      }
+    }
+  }
+
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET as string) as jwtPayload
+    const JWT_SECRET = process.env.JWT_SECRET as string
+    const decoded = jwt.verify(token, JWT_SECRET) as jwtPayload
 
     const user = await prisma.user.findFirst({
       where: {
@@ -59,5 +69,5 @@ type jwtPayload = {
 }
 
 type meParamsTypes = {
-  token: string
+  token: string | undefined
 }
