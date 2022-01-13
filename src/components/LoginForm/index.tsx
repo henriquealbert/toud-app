@@ -23,7 +23,11 @@ export const LoginForm = () => {
     setError,
     formState: { isSubmitting, errors }
   } = useForm({
-    resolver: yupResolver(loginValidator)
+    resolver: yupResolver(loginValidator),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   })
 
   const handleSignUp = async (values: valuesTypes) => {

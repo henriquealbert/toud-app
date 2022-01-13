@@ -4,7 +4,7 @@ import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
 import { signupValidator } from './validation'
 
-export async function signup(params: signupParamsTypes) {
+export async function signup(params: signupParamsTypes): Promise<signupResponseTypes> {
   const { fields, errors } = await validate(signupValidator, params)
 
   if (errors) {
@@ -58,7 +58,7 @@ export async function signup(params: signupParamsTypes) {
 
     const { error } = await accountVerification({ email })
     if (error) {
-      return error
+      return { error }
     }
 
     return {
@@ -90,4 +90,22 @@ type signupParamsTypes = {
   terms: boolean
   name: string
   phoneNumber: string
+}
+
+type signupResponseTypes = {
+  data?: {
+    id: string
+    email: string
+    name: string
+    phoneNumber: string
+    role: string
+  }
+  error?: {
+    status: number
+    errors: {
+      email?: {
+        message: string
+      }
+    }
+  }
 }

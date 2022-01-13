@@ -4,7 +4,7 @@ import { validate } from 'lib/yup'
 import { accountVerificationValidator } from './validation'
 import { DateTime } from 'luxon'
 
-export async function accountVerification(params: paramsTypes) {
+export async function accountVerification(params: paramsTypes): Promise<responseTypes> {
   const { fields, errors } = await validate(accountVerificationValidator, params)
 
   if (errors) {
@@ -55,4 +55,18 @@ export async function accountVerification(params: paramsTypes) {
 
 type paramsTypes = {
   email: string
+}
+
+type responseTypes = {
+  data?: {
+    message: string
+  }
+  error?: {
+    status: number
+    errors: {
+      email?: {
+        message: string
+      }
+    }
+  }
 }

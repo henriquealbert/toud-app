@@ -7,7 +7,7 @@ import { useAuth } from 'contexts/AuthContext'
 
 const Home: NextPage = () => {
   const { user } = useAuth()
-  const { data } = useQuery('campaigns', async () => await getCampaigns({ userId: user.id }))
+  // const { data } = useQuery('campaigns', async () => await getCampaigns({ userId: user.id }))
   return (
     <PrivateLayout>
       <Heading fontSize="3xl" color="purple.800" mb={2}>

@@ -27,7 +27,14 @@ export const SignUpForm = () => {
     setError,
     formState: { isSubmitting, errors }
   } = useForm({
-    resolver: yupResolver(signupValidator)
+    resolver: yupResolver(signupValidator),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      terms: false
+    }
   })
 
   const handleSignUp = async (values: valuesTypes) => {
