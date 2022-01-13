@@ -45,9 +45,9 @@ export const LoginForm = () => {
       setError('email', { message: error, type: 'server' })
       setError('password', { message: error, type: 'server' })
       return
+    } else {
+      push('/')
     }
-
-    push('/')
   }
 
   return (
