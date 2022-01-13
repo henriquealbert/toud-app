@@ -1,7 +1,7 @@
-import { api } from 'lib/api'
 import { useSession } from 'next-auth/react'
 import { createContext, FC, useContext } from 'react'
 import { useQuery } from 'react-query'
+import { getUser } from './getUser'
 
 const AuthContext = createContext({} as ContextTypes)
 
@@ -39,17 +39,4 @@ export { useAuth, AuthProvider }
 type ContextTypes = {
   user: any | null
   isLoading: boolean
-}
-
-const getUser = async ({ token }: { token: string }) => {
-  const { data, error } = (await api.get('/users/me', {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })) as any
-
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
 }

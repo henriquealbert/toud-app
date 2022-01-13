@@ -13,9 +13,9 @@ import {
 } from '@chakra-ui/react'
 
 import { api } from 'lib/api'
-import { signUpValidator } from './validations'
 import { PhoneInput } from 'components/shared/PhoneInput'
 import { useRouter } from 'next/router'
+import { signupValidator } from 'domain/auth/validation'
 
 export const SignUpForm = () => {
   const toast = useToast()
@@ -27,16 +27,20 @@ export const SignUpForm = () => {
     setError,
     formState: { isSubmitting, errors }
   } = useForm({
-    resolver: yupResolver(signUpValidator)
+    resolver: yupResolver(signupValidator),
+    defaultValues: {
+      name: '',
+      email: '',
+      password: '',
+      phoneNumber: '',
+      terms: false
+    }
   })
 
   const handleSignUp = async (values: valuesTypes) => {
     if (Object.keys(errors).length > 0) return
 
-    const { error } = (await api.post('/auth/local/register', {
-      ...values,
-      username: values.email
-    })) as any
+    const { error } = (await api.post('/auth/signup', values)) as any
 
     if (error) {
       setError('email', { message: 'Email já cadastrado.' })
@@ -47,7 +51,7 @@ export const SignUpForm = () => {
       title: 'Conta criada!',
       description: `Enviamos um e-mail para ${values.email}. Verifique sua caixa de entrada.`,
       status: 'success',
-      duration: 15000,
+      duration: 8000,
       isClosable: true,
       position: 'top-right'
     })

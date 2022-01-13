@@ -11,9 +11,9 @@ import {
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
 
-import { loginValidator } from './validations'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { loginValidator } from 'domain/auth/validation'
 
 export const LoginForm = () => {
   const { push } = useRouter()
@@ -23,7 +23,11 @@ export const LoginForm = () => {
     setError,
     formState: { isSubmitting, errors }
   } = useForm({
-    resolver: yupResolver(loginValidator)
+    resolver: yupResolver(loginValidator),
+    defaultValues: {
+      email: '',
+      password: ''
+    }
   })
 
   const handleSignUp = async (values: valuesTypes) => {
@@ -31,7 +35,7 @@ export const LoginForm = () => {
 
     const { error } = (await signIn('credentials', {
       user: JSON.stringify({
-        identifier: values.email,
+        email: values.email,
         password: values.password
       }),
       redirect: false
@@ -41,9 +45,9 @@ export const LoginForm = () => {
       setError('email', { message: error, type: 'server' })
       setError('password', { message: error, type: 'server' })
       return
+    } else {
+      push('/')
     }
-
-    push('/')
   }
 
   return (

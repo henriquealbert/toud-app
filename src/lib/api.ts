@@ -23,10 +23,10 @@ api.interceptors.response.use(
         message: 'Dependency failed. Please, try again.'
       }
     } else {
-      console.log('An unexpected error happened ', error)
+      console.error('An unexpected error happened ', error)
       err = {
         status: 500,
-        message: 'An unexpected error happened. Please, try again.'
+        message: 'Um erro inesperado aconteceu. Por favor, tente novamente.'
       }
     }
     return Promise.resolve(err)

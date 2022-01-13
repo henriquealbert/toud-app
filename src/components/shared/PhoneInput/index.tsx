@@ -1,5 +1,5 @@
 import { Input } from '@chakra-ui/input'
-import { useController, Control } from 'react-hook-form'
+import { useController } from 'react-hook-form'
 import InputMask from 'react-input-mask'
 
 export const PhoneInput = ({ name, control, placeholder }: props) => {
@@ -22,5 +22,5 @@ export const PhoneInput = ({ name, control, placeholder }: props) => {
 type props = {
   name: string
   placeholder?: string
-  control: Control
+  control: any
 }

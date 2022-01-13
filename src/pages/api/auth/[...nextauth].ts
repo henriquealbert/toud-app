@@ -10,22 +10,12 @@ export default NextAuth({
       name: 'credentials',
       async authorize(credentials: any) {
         const user = JSON.parse(credentials.user)
-        const res = (await api.post('/auth/local', user)) as any
+        const { data } = (await api.post('/auth/login', user)) as any
 
-        if (res.error) {
-          if (res.error.message === 'Your account email is not confirmed') {
-            throw new Error('Conta não confirmada. Verifique seu e-mail.')
-          }
-          if (res.error.message === 'Invalid identifier or password') {
-            throw new Error('E-mail ou senha inválidos.')
-          }
-          throw new Error('Erro interno. Tente novamente.')
-        }
-
-        if (res.data.user) {
-          return { ...res.data.user, jwt: res.data.jwt }
+        if (data) {
+          return { ...data.user, jwt: data.jwt }
         } else {
-          return null
+          throw new Error('E-mail ou senha inválidos.')
         }
       }
     })
