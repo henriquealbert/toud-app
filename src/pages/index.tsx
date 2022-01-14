@@ -1,13 +1,8 @@
 import type { NextPage } from 'next'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { Box, Heading, Text } from '@chakra-ui/react'
-import { useQuery } from 'react-query'
-import { getCampaigns } from 'domain/campaign/getCampaigns'
-import { useAuth } from 'contexts/AuthContext'
 
 const Home: NextPage = () => {
-  const { user } = useAuth()
-  // const { data } = useQuery('campaigns', async () => await getCampaigns({ userId: user.id }))
   return (
     <PrivateLayout>
       <Heading fontSize="3xl" color="purple.800" mb={2}>
