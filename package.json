@@ -7,7 +7,8 @@
     "start": "next start",
     "lint": "next lint",
     "update": "yarn upgrade-interactive --latest",
-    "reset-db": "npx prisma migrate reset -f"
+    "db-reset": "npx prisma migrate reset -f",
+    "db-push": "prisma generate && prisma db push"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.4",
@@ -25,7 +26,7 @@
     "next-auth": "^4.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-hook-form": "^7.23.0",
+    "react-hook-form": "^7.24.0",
     "react-icons": "^4.3.1",
     "react-input-mask": "^2.0.4",
     "react-query": "^3.34.8",
