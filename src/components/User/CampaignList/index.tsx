@@ -13,7 +13,7 @@ export const CampaignList = () => {
   const { user } = useAuth()
 
   const data = useMemo(() => {
-    return user?.campaigns.map((campaign) => ({
+    return user?.campaigns?.map((campaign) => ({
       id: campaign.id,
       name: campaign.name,
       status: campaign.status,

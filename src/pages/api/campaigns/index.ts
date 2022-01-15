@@ -1,6 +1,7 @@
-import { createCampaign } from 'domain/campaign/createCampaign'
-import { newHandler, withMethods } from 'lib/middleware'
 import { NextApiRequest, NextApiResponse } from 'next'
+
+import { newHandler, withMethods } from 'lib/middleware'
+import { createCampaign } from 'domain/campaign/createCampaign'
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   // if (req.method === 'GET') {
