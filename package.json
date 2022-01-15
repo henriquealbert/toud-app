@@ -8,7 +8,8 @@
     "lint": "next lint",
     "update": "yarn upgrade-interactive --latest",
     "db-reset": "npx prisma migrate reset -f",
-    "db-push": "prisma generate && prisma db push"
+    "db-push": "prisma generate && prisma db push",
+    "seed:dev": "node src/prisma/seedDev.js"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.7.4",
