@@ -9,7 +9,7 @@ async function main() {
       name: 'The User',
       isActive: true,
       isVerified: true,
-      password: '$2b$10$JNEr1LRmoUgPWzbt8ve/a.ZcDIpMQK9II2OCj42kjNdWkG0.yluky',
+      password: '$2b$10$GOjP2MEi1LAsZ87m4Imx1OvNNAuexZX2SF0kLV57FbE4x2NPQRfvy',
       phoneNumber: '+5511999999999',
       terms: true
     }
