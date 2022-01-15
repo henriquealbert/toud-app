@@ -14,4 +14,4 @@ export type createCampaignParams = {
   filesIds: string[]
 }
 
-type GenderType = typeof GENDER_MALE | typeof GENDER_FEMALE | typeof GENDER_BOTH
+export type GenderType = typeof GENDER_MALE | typeof GENDER_FEMALE | typeof GENDER_BOTH

@@ -1,8 +1,11 @@
 import type { NextPage } from 'next'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { Box, Heading, Text } from '@chakra-ui/react'
+import { useAuth } from 'contexts/AuthContext'
 
 const Home: NextPage = () => {
+  const { user } = useAuth()
+  console.log(user)
   return (
     <PrivateLayout>
       <Heading fontSize="3xl" color="purple.800" mb={2}>
