@@ -34,6 +34,32 @@ export async function getUserById(params: meParamsTypes) {
         id: decoded.id,
         email: decoded.email,
         isActive: true
+      },
+      include: {
+        campaigns: {
+          select: {
+            id: true,
+            name: true,
+            amount: true,
+            createdAt: true,
+            status: true,
+            activity: {
+              select: {
+                name: true
+              }
+            },
+            campaignOnPlacement: {
+              select: {
+                placement: {
+                  select: {
+                    id: true,
+                    name: true
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     })
 
@@ -47,7 +73,8 @@ export async function getUserById(params: meParamsTypes) {
         email: user.email,
         name: user.name,
         phoneNumber: user.phoneNumber,
-        role: user.role
+        role: user.role,
+        campaigns: user.campaigns
       }
     }
   } catch (error) {

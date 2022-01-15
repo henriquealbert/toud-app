@@ -1,13 +1,9 @@
 import type { NextPage } from 'next'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { Box, Heading, Text } from '@chakra-ui/react'
-import { useQuery } from 'react-query'
-import { getCampaigns } from 'domain/campaign/getCampaigns'
-import { useAuth } from 'contexts/AuthContext'
+import { CampaignList } from 'components/User/CampaignList'
 
 const Home: NextPage = () => {
-  const { user } = useAuth()
-  // const { data } = useQuery('campaigns', async () => await getCampaigns({ userId: user.id }))
   return (
     <PrivateLayout>
       <Heading fontSize="3xl" color="purple.800" mb={2}>
@@ -20,7 +16,10 @@ const Home: NextPage = () => {
         bgColor="white"
         boxShadow="0px 3px 8px 4px rgba(193, 212, 255, 0.25)"
         borderRadius="lg"
-      ></Box>
+        p={8}
+      >
+        <CampaignList />
+      </Box>
     </PrivateLayout>
   )
 }
