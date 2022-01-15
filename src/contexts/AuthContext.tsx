@@ -1,7 +1,9 @@
+import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/react'
 import { createContext, FC, useContext } from 'react'
-import { useQuery } from 'react-query'
+
 import { api } from 'lib/api'
+import { UserType } from 'domain/user/types'
 
 const AuthContext = createContext({} as ContextTypes)
 
@@ -37,7 +39,7 @@ const useAuth = () => {
 export { useAuth, AuthProvider }
 
 type ContextTypes = {
-  user: any | null
+  user: UserType | null
   isLoading: boolean
 }
 

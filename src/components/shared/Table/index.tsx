@@ -1,17 +1,20 @@
 /* eslint-disable react/jsx-key */
 import { useTable, useSortBy, useGlobalFilter } from 'react-table'
-import { Box, Flex, Icon, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-import { Search } from './Search'
 import { MdOutlineArrowDropDown, MdOutlineArrowDropUp } from 'react-icons/md'
+import { Box, Flex, Icon, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
+
+import { Search } from './Search'
 
 export const Table = ({
   data,
   columns,
-  isSearchable = true
+  isSearchable = true,
+  initialState
 }: {
   data: any
   columns: any
   isSearchable?: boolean
+  initialState: any
 }) => {
   const {
     state,
@@ -25,9 +28,7 @@ export const Table = ({
     {
       columns,
       data,
-      initialState: {
-        sortBy: [{ id: 'col1', desc: false }]
-      }
+      initialState
     },
     useGlobalFilter,
     useSortBy
@@ -53,7 +54,7 @@ export const Table = ({
                   color="text"
                   letterSpacing="normal"
                   fontWeight="normal"
-                  maxW="215px"
+                  maxW={column.maxWidth || '215px'}
                 >
                   <Flex alignItems="center" h={4}>
                     {column.render('Header')}
@@ -87,7 +88,7 @@ export const Table = ({
                     color="text"
                     p={6}
                     isTruncated
-                    maxW="215px"
+                    maxW={cell.column.maxWidth || '215px'}
                     {...cell.getCellProps()}
                   >
                     {cell.render('Cell')}

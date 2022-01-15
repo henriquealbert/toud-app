@@ -1,58 +1,49 @@
-import { Box, Flex, Icon } from '@chakra-ui/react'
-import { Table } from 'components/shared/Table'
 import { useMemo } from 'react'
-import { MdExpandMore } from 'react-icons/md'
 import NextLink from 'next/link'
+import { DateTime } from 'luxon'
+import { MdExpandMore } from 'react-icons/md'
+import { Box, Flex, Icon } from '@chakra-ui/react'
+
+import { formatPrice } from 'lib/formatPrice'
+import { useAuth } from 'contexts/AuthContext'
+import { Table } from 'components/shared/Table'
 import { StatusBadge } from 'components/shared/StatusBadge'
 
 export const CampaignList = () => {
-  const data = useMemo(
-    () => [
-      {
-        id: 1,
-        name: 'Carne vegetal',
-        activity: 'Veganismo',
-        amount: 'R$ 500,00',
-        createdAt: '17/11/2021',
-        placement: 'Stories Instagram',
-        status: 'Em andamento'
-      },
-      {
-        id: 2,
-        name: 'Desmatamento na Amazonia bem grande este ano aqui tambem ta chovendo',
-        activity: 'Veganismo',
-        amount: 'R$ 100,00',
-        createdAt: '25/11/2021',
-        placement: 'Stories Instagram',
-        status: 'Em analise'
-      },
-      {
-        id: 3,
-        name: 'Músicas para todos',
-        activity: 'Música',
-        amount: 'R$ 200,00',
-        createdAt: '02/11/2021',
-        placement: 'Stories Instagram',
-        status: 'Reprovado'
-      },
-      {
-        id: 4,
-        name: 'Novo CD da banda...',
-        activity: 'Música',
-        amount: 'R$ 300,00',
-        createdAt: '10/10/2021',
-        placement: 'Stories Instagram',
-        status: 'Finalizado'
-      }
-    ],
-    []
-  )
+  const { user } = useAuth()
+
+  const data = useMemo(() => {
+    return user?.campaigns.map((campaign) => ({
+      id: campaign.id,
+      name: campaign.name,
+      status: campaign.status,
+      activity: campaign.activity.name,
+      createdAt: DateTime.fromISO(campaign.createdAt).toLocaleString(DateTime.DATE_SHORT, {
+        locale: 'pt-BR'
+      }),
+      amount: formatPrice(campaign.amount),
+      placement: campaign.campaignOnPlacement[0].placement.name // SUPPORTING ONLY ONE PLACEMENT FOR NOW
+    }))
+  }, [user?.campaigns])
 
   const columns = useMemo(
     () => [
       {
         Header: 'Título',
-        accessor: 'name'
+        accessor: 'name',
+        Cell: ({
+          cell: {
+            row: { original }
+          }
+        }: any) => {
+          return (
+            <NextLink href={`/campaigns/${original.id}`} passHref>
+              <Box as="a" _hover={{ textDecor: 'underline' }}>
+                {original.name}
+              </Box>
+            </NextLink>
+          )
+        }
       },
       {
         Header: 'Segmento',
@@ -80,7 +71,7 @@ export const CampaignList = () => {
         }: any) => {
           return (
             <Flex justify="space-between" align="center">
-              <StatusBadge>{original.status}</StatusBadge>
+              <StatusBadge status={original.status} />
               <NextLink href={`/campaigns/${original.id}`} passHref>
                 <Box as="a">
                   <Icon
@@ -94,14 +85,18 @@ export const CampaignList = () => {
               </NextLink>
             </Flex>
           )
-        }
+        },
+        maxWidth: '140px'
       }
     ],
     []
   )
+  const initialState = {
+    sortBy: [{ id: 'name', desc: false }]
+  }
   return (
-    <Box>
-      <Table data={data} columns={columns} />
+    <Box mb={8}>
+      <Table data={data} columns={columns} initialState={initialState} />
     </Box>
   )
 }
