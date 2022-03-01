@@ -65,7 +65,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
 
         <FormControl id="gender" mb={3} ml={5} isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gênero do público alvo</FormLabel>
-          <Select options={genderOptions} />
+          <Select options={genderOptions} placeholder="Selecione o gênero do público alvo" />
 
           <>{!!errors.gender && <FormErrorMessage>{errors.gender?.message}</FormErrorMessage>}</>
         </FormControl>
@@ -74,7 +74,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
       <Flex w="full" mt={8}>
         <FormControl id="activityId" mb={3} isInvalid={!!errors.activityId}>
           <FormLabel htmlFor="activityId">Segmento</FormLabel>
-          <Select options={activitiesOptions} />
+          <Select options={activitiesOptions} placeholder="Escolha o segmento da campanha" />
           <>
             {!!errors.activityId && (
               <FormErrorMessage>{errors.activityId?.message}</FormErrorMessage>
@@ -118,7 +118,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
         {specificState && (
           <FormControl id="state" mb={3} ml={5} isInvalid={!!errors.state}>
             <FormLabel htmlFor="state">Estado em que será divulgado</FormLabel>
-            <Select options={stateOptions} />
+            <Select options={stateOptions} placeholder="Selecione o estado em que será divulgado" />
             <>{!!errors.state && <FormErrorMessage>{errors.state?.message}</FormErrorMessage>}</>
           </FormControl>
         )}
