@@ -13,8 +13,10 @@ export const NewCampaign = ({ activities }: NewCampaignProps) => {
   }
 
   return (
-    <Flex>
-      {step === 1 && <FormStep1 handleNextStep={handleNextStep} activities={activities} />}
+    <Flex justifyContent="center">
+      <Flex maxW="5xl" w="full">
+        {step === 1 && <FormStep1 handleNextStep={handleNextStep} activities={activities} />}
+      </Flex>
     </Flex>
   )
 }

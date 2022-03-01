@@ -9,27 +9,23 @@ import {
   RadioGroup,
   Stack
 } from '@chakra-ui/react'
-import axios from 'axios'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { Activity } from 'domain/activity/types'
-import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import Select from 'react-select'
+import { formatActivitiesOptions, genderOptions, step1Schema, useBrazilianStates } from './helpers'
 
 export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
-  const [specificState, setSpecificState] = useState(false)
-  const [stateOptions, setStateOptions] = useState([])
-
-  useEffect(() => {
-    if (stateOptions.length < 1) {
-      getStates({ setStateOptions })
-    }
-  }, [stateOptions])
+  const { statesOptions, setSpecificState, specificState } = useBrazilianStates()
 
   const {
     register,
     handleSubmit,
+    setValue,
+    clearErrors,
     formState: { errors }
   } = useForm({
+    resolver: yupResolver(step1Schema(specificState)),
     defaultValues: {
       name: '',
       activityId: '',
@@ -43,14 +39,9 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
     console.log(values)
   }
 
-  const activitiesOptions = activities?.map((activity) => ({
-    value: activity.id,
-    label: activity.name
-  }))
-
   return (
     <Flex as="form" direction="column" onSubmit={handleSubmit(handleSubmitForm)} flex={1}>
-      <Flex w="full">
+      <Flex w="full" my={8}>
         <FormControl id="name" mb={3} isInvalid={!!errors.name}>
           <FormLabel htmlFor="name">Nome da campanha</FormLabel>
           <Input
@@ -63,7 +54,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
           <>{!!errors.name && <FormErrorMessage>{errors.name?.message}</FormErrorMessage>}</>
         </FormControl>
 
-        <FormControl id="gender" mb={3} ml={5} isInvalid={!!errors.gender}>
+        <FormControl id="gender" mb={3} ml={8} isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gênero do público alvo</FormLabel>
           <Select options={genderOptions} placeholder="Selecione o gênero do público alvo" />
 
@@ -71,10 +62,13 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
         </FormControl>
       </Flex>
 
-      <Flex w="full" mt={8}>
+      <Flex w="full" my={8}>
         <FormControl id="activityId" mb={3} isInvalid={!!errors.activityId}>
           <FormLabel htmlFor="activityId">Segmento</FormLabel>
-          <Select options={activitiesOptions} placeholder="Escolha o segmento da campanha" />
+          <Select
+            options={formatActivitiesOptions(activities)}
+            placeholder="Escolha o segmento da campanha"
+          />
           <>
             {!!errors.activityId && (
               <FormErrorMessage>{errors.activityId?.message}</FormErrorMessage>
@@ -82,18 +76,22 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
           </>
         </FormControl>
 
-        <FormControl id="location" mb={3} ml={5} isInvalid={!!errors.location}>
+        <FormControl id="location" mb={3} ml={8} isInvalid={!!errors.location}>
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
           <RadioGroup ml={3}>
-            <Stack direction="column" spacing={5}>
+            <Stack direction="column" spacing={4}>
               <Radio
                 value="Brasil todo"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
-                onChange={() => setSpecificState(false)}
+                onChange={() => {
+                  setSpecificState(false)
+                  setValue('location', 'BR')
+                  clearErrors('location')
+                }}
               >
                 Brasil todo
               </Radio>
@@ -102,7 +100,10 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
-                onChange={() => setSpecificState(true)}
+                onChange={() => {
+                  setSpecificState(true)
+                  clearErrors('location')
+                }}
               >
                 Em um estado específico
               </Radio>
@@ -113,19 +114,22 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
           </>
         </FormControl>
       </Flex>
-      <Flex mt={5}>
+      <Flex>
         <Flex w="full" />
         {specificState && (
           <FormControl id="state" mb={3} ml={5} isInvalid={!!errors.state}>
             <FormLabel htmlFor="state">Estado em que será divulgado</FormLabel>
-            <Select options={stateOptions} placeholder="Selecione o estado em que será divulgado" />
+            <Select
+              options={statesOptions}
+              placeholder="Selecione o estado em que será divulgado"
+            />
             <>{!!errors.state && <FormErrorMessage>{errors.state?.message}</FormErrorMessage>}</>
           </FormControl>
         )}
       </Flex>
 
-      <Flex mt={10} maxW="245px">
-        <Button>Salvar</Button>
+      <Flex mt={12} maxW="245px">
+        <Button type="submit">Salvar</Button>
       </Flex>
     </Flex>
   )
@@ -137,26 +141,4 @@ type FormStep1Props = {
 }
 type formValues = {
   name: string
-}
-
-const genderOptions = [
-  { label: 'Masculino', value: 'MALE' },
-  { label: 'Feminino', value: 'FEMALE' },
-  { label: 'Ambos', value: 'BOTH' }
-]
-
-const getStates = async ({ setStateOptions }: any) => {
-  const resp = await axios.get('https://brasilapi.com.br/api/ibge/uf/v1')
-
-  if (resp.status === 200) {
-    const states = resp.data
-      .map((state: any) => ({
-        value: state.sigla,
-        label: state.nome
-      }))
-      .sort((a: any, b: any) => a.label.localeCompare(b.label))
-    return setStateOptions(states)
-  } else {
-    return console.log('error getting states')
-  }
 }
