@@ -9,7 +9,7 @@ export const Sidebar = () => {
   const { pathname } = useRouter()
   return (
     <Flex bgColor="white" direction="column" w="full" maxW="325px" p={10}>
-      <NextLink href="new-campaign" passHref>
+      <NextLink href="/campaigns/create" passHref>
         <Button as="a" h="50px" leftIcon={<Icon as={BiPlus} w={6} h={6} />}>
           Nova Campanha
         </Button>
