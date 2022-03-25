@@ -10,15 +10,16 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { SelectInput } from 'components/shared/SelectInput'
 import { Activity } from 'domain/activity/types'
-import { useForm } from 'react-hook-form'
-import Select from 'react-select'
+import { Controller, useForm } from 'react-hook-form'
 import { formatActivitiesOptions, genderOptions, step1Schema, useBrazilianStates } from './helpers'
 
 export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
   const { statesOptions, setSpecificState, specificState } = useBrazilianStates()
 
   const {
+    control,
     register,
     handleSubmit,
     setValue,
@@ -36,7 +37,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
   })
 
   const handleSubmitForm = async (values: formValues) => {
-    console.log(values)
+    alert(JSON.stringify(values, null, 2))
   }
 
   return (
@@ -56,7 +57,22 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
 
         <FormControl id="gender" mb={3} ml={8} isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gênero do público alvo</FormLabel>
-          <Select options={genderOptions} placeholder="Selecione o gênero do público alvo" />
+          <Controller
+            name="gender"
+            control={control}
+            render={({ field: { onBlur, onChange, value, name } }) => (
+              <SelectInput
+                options={genderOptions}
+                placeholder="Selecione o gênero do público alvo"
+                onChange={(option: any) => {
+                  onChange(option?.value)
+                  setValue(name, option?.value)
+                }}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
+          />
 
           <>{!!errors.gender && <FormErrorMessage>{errors.gender?.message}</FormErrorMessage>}</>
         </FormControl>
@@ -65,10 +81,24 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
       <Flex w="full" my={8}>
         <FormControl id="activityId" mb={3} isInvalid={!!errors.activityId}>
           <FormLabel htmlFor="activityId">Segmento</FormLabel>
-          <Select
-            options={formatActivitiesOptions(activities)}
-            placeholder="Escolha o segmento da campanha"
+          <Controller
+            name="activityId"
+            control={control}
+            render={({ field: { onBlur, onChange, value, name } }) => (
+              <SelectInput
+                isSearchable
+                options={formatActivitiesOptions(activities)}
+                placeholder="Escolha o segmento da campanha"
+                onChange={(option: any) => {
+                  onChange(option?.value)
+                  setValue(name, option?.value)
+                }}
+                onBlur={onBlur}
+                value={value}
+              />
+            )}
           />
+
           <>
             {!!errors.activityId && (
               <FormErrorMessage>{errors.activityId?.message}</FormErrorMessage>
@@ -119,10 +149,24 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
         {specificState && (
           <FormControl id="state" mb={3} ml={5} isInvalid={!!errors.state}>
             <FormLabel htmlFor="state">Estado em que será divulgado</FormLabel>
-            <Select
-              options={statesOptions}
-              placeholder="Selecione o estado em que será divulgado"
+            <Controller
+              name="state"
+              control={control}
+              render={({ field: { onBlur, onChange, value, name } }) => (
+                <SelectInput
+                  isSearchable
+                  options={statesOptions}
+                  placeholder="Selecione o estado em que será divulgado"
+                  onChange={(option: any) => {
+                    onChange(option?.value)
+                    setValue(name, option?.value)
+                  }}
+                  onBlur={onBlur}
+                  value={value}
+                />
+              )}
             />
+
             <>{!!errors.state && <FormErrorMessage>{errors.state?.message}</FormErrorMessage>}</>
           </FormControl>
         )}

@@ -22,7 +22,9 @@ export const customInput = {
         borderColor: 'border',
         borderRadius: 'base',
         _focus: {
-          borderColor: 'purple.500'
+          borderColor: 'purple.500',
+          border: '2px solid var(--chakra-colors-purple-500)',
+          padding: '0 15px'
         },
         _placeholder: {
           fontWeight: 'light'
