@@ -26,6 +26,9 @@ export const customInput = {
         },
         _placeholder: {
           fontWeight: 'light'
+        },
+        _invalid: {
+          borderColor: 'red.500'
         }
       }
     }

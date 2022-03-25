@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { Flex, Heading, Text, SimpleGrid, Img } from '@chakra-ui/react'
 
-import { SignUpForm } from 'components/SignUpForm'
+import { SignUpForm } from 'components/Auth/SignUpForm'
 import { ToudLogo } from 'components/shared/ToudLogo'
 
 const SignUpPage: NextPage = () => (
