@@ -27,7 +27,7 @@ async function main() {
     data: {
       filename: 'file.jpg',
       key: 'key',
-      type: 'IMAGE',
+      mimetype: 'image/jpeg',
       url: 'url',
       userId: user.id
     }
