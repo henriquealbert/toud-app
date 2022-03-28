@@ -22,7 +22,7 @@ export const CampaignList = () => {
         locale: 'pt-BR'
       }),
       amount: formatPrice(campaign.amount),
-      placement: campaign.campaignOnPlacement[0].placement.name // SUPPORTING ONLY ONE PLACEMENT FOR NOW
+      placement: 'Instagram Stories' // SUPPORTING ONLY ONE PLACEMENT FOR NOW
     }))
   }, [user?.campaigns])
 
