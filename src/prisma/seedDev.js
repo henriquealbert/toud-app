@@ -16,11 +16,11 @@ async function main() {
   })
 
   await prisma.activity.createMany({
-    data: [{ name: 'Activity 1' }, { name: 'Activity 2' }]
+    data: activitiesData
   })
 
   await prisma.placement.createMany({
-    data: [{ name: 'Placement 1' }, { name: 'Placement 2' }]
+    data: [{ name: 'Instagram Stories' }]
   })
 
   await prisma.userFile.create({
@@ -42,3 +42,29 @@ main()
   .finally(async () => {
     await prisma.$disconnect()
   })
+
+const activitiesData = [
+  { name: 'Saúde e Esportes' },
+  { name: 'Finanças e Investimentos' },
+  { name: 'Negócios e Carreira' },
+  { name: 'Espiritualidade' },
+  { name: 'Sexualidade' },
+  { name: 'Entretenimento' },
+  { name: 'Culinária e Gastronomia' },
+  { name: 'Idiomas' },
+  { name: 'Direito' },
+  { name: 'Apps & Software' },
+  { name: 'Literatura' },
+  { name: 'Casa e Construção' },
+  { name: 'Desenvolvimento Pessoal' },
+  { name: 'Moda e Beleza' },
+  { name: 'Animais e Plantas' },
+  { name: 'Educacional' },
+  { name: 'Hobbies' },
+  { name: 'Internet' },
+  { name: 'Ecologia e Meio Ambiente' },
+  { name: 'Música e Artes' },
+  { name: 'Tecnologia da Informação' },
+  { name: 'Empreendedorismo Digital' },
+  { name: 'Outros' }
+]
