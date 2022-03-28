@@ -11,6 +11,7 @@ import {
   Textarea
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { UploadFiles } from 'components/shared/UploadFiles'
 import { useAuth } from 'contexts/AuthContext'
 import { useForm } from 'react-hook-form'
 import { FormStep2Props } from './types'
@@ -31,7 +32,8 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep }: FormStep2Props) =>
     defaultValues: {
       hasDescription: 'Yes',
       description: '',
-      userId: user?.id || ''
+      userId: user?.id || '',
+      filesIds: []
     }
   })
   const { hasDescription } = watch()
@@ -109,24 +111,29 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep }: FormStep2Props) =>
               <FormLabel htmlFor="description" mb={2}>
                 Qual é o roteiro que o influencer deve seguir?
               </FormLabel>
-              <Textarea rows={4} />
+              <Textarea rows={4} {...register('description')} />
+              <>
+                {!!errors.description && (
+                  <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
+                )}
+              </>
             </FormControl>
           )}
           <FormControl
-            id="description"
+            id="filesIds"
             mb={3}
             mt={hasDescription === 'Yes' ? 8 : 0}
             isInvalid={!!errors.description}
           >
-            <FormLabel htmlFor="description" mb={2}>
+            <FormLabel htmlFor="filesIds" mb={2}>
               Upload de anúncio em vídeo ou imagem
             </FormLabel>
-            <Input />
+            <UploadFiles />
           </FormControl>
         </Flex>
 
         <FormControl ml={8}>
-          <FormLabel htmlFor="description" mb={2}>
+          <FormLabel htmlFor="" mb={2}>
             Dia de veiculação
           </FormLabel>
 

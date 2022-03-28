@@ -21,11 +21,6 @@ enum Gender {
   BOTH
 }
 
-enum FileType {
-  IMAGE
-  VIDEO
-}
-
 enum Status {
   DRAFT
   SUBMITTED
@@ -118,7 +113,7 @@ model UserFile {
   key        String    @unique
   filename   String
   url        String
-  type       FileType
+  mimetype   String
   isActive   Boolean   @default(true) @map("is_active")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
