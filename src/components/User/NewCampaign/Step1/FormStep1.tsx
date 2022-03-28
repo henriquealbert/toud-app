@@ -22,11 +22,13 @@ import {
 } from './helpers'
 import { FormStep1Props } from './types'
 
-export const FormStep1 = ({ handleNextStep }: FormStep1Props) => {
+export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
   const { user } = useAuth()
-  const { statesOptions, setSpecificState, specificState } = useBrazilianStates()
   const activitiesOptions = useActivities()
-  const { submitForm, isSubmitting } = useHandleSubmitFormStep1({ handleNextStep })
+  const { statesOptions, setSpecificState, specificState } = useBrazilianStates({
+    state: data?.state
+  })
+  const { submitForm, isSubmitting } = useHandleSubmitFormStep1({ handleNextStep, data })
 
   const {
     control,
@@ -38,11 +40,11 @@ export const FormStep1 = ({ handleNextStep }: FormStep1Props) => {
   } = useForm({
     resolver: yupResolver(step1Schema(specificState)),
     defaultValues: {
-      name: '',
-      activityId: '',
-      gender: '',
-      location: '',
-      state: '',
+      name: data?.name || '',
+      activityId: data?.activityId || '',
+      gender: data?.gender || '',
+      location: data?.location || '',
+      state: data?.state || '',
       userId: user?.id || ''
     }
   })
@@ -117,10 +119,10 @@ export const FormStep1 = ({ handleNextStep }: FormStep1Props) => {
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
-          <RadioGroup ml={3}>
+          <RadioGroup ml={3} defaultValue={specificState ? 'state' : 'br'}>
             <Stack direction="column" spacing={4}>
               <Radio
-                value="Brasil todo"
+                value="br"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
@@ -133,7 +135,7 @@ export const FormStep1 = ({ handleNextStep }: FormStep1Props) => {
                 Brasil todo
               </Radio>
               <Radio
-                value="Estado"
+                value="state"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"

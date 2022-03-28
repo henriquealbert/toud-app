@@ -6,7 +6,7 @@ import yup from 'lib/yup'
 import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
-import { FormStep1Values, useHandleSubmitFormStep1Props } from './types'
+import { FormStep1Values, useBrazilianStatesProps, useHandleSubmitFormStep1Props } from './types'
 
 const formatActivitiesOptions = (activities: Activity[]) =>
   activities?.map((activity) => ({
@@ -26,9 +26,9 @@ export const genderOptions = [
   { label: 'Masculino', value: 'MALE' }
 ]
 
-export const useBrazilianStates = () => {
+export const useBrazilianStates = ({ state }: useBrazilianStatesProps) => {
   const [statesOptions, setStatesOptions] = useState([])
-  const [specificState, setSpecificState] = useState(false)
+  const [specificState, setSpecificState] = useState(!!state || false)
 
   useEffect(() => {
     if (statesOptions.length < 1 && specificState) {
@@ -75,26 +75,32 @@ export const step1Schema = (specificState: boolean) => {
   }
 }
 
-export const useHandleSubmitFormStep1 = ({ handleNextStep }: useHandleSubmitFormStep1Props) => {
+export const useHandleSubmitFormStep1 = ({
+  handleNextStep,
+  data
+}: useHandleSubmitFormStep1Props) => {
   const { data: session } = useSession()
   const [isLoading, setLoading] = useState(false)
 
   const submitForm = async (values: FormStep1Values) => {
+    if (data?.id) {
+      return handleNextStep(data)
+    }
+
     setLoading(true)
-    const { data } = (await api.post('/campaigns', values, {
+    const { data: createdCampaign } = (await api.post('/campaigns', values, {
       headers: {
         Authorization: `Bearer ${session?.accessToken}`
       }
     })) as any
 
-    if (!data) {
+    if (!createdCampaign) {
       setLoading(false)
       return alert('Erro ao criar campanha')
     }
 
-    handleNextStep(data)
     setLoading(false)
-    return data
+    handleNextStep({ ...createdCampaign, state: values.state })
   }
 
   return { submitForm, isSubmitting: isLoading }

@@ -1,7 +1,9 @@
 import { GenderType } from 'domain/campaign/types'
+import { NewCampaignDataType } from '../types'
 
 export type FormStep1Props = {
   handleNextStep: (data: any) => void
+  data?: NewCampaignDataType | any
 }
 export type FormStep1Values = {
   name: string
@@ -13,4 +15,9 @@ export type FormStep1Values = {
 }
 export type useHandleSubmitFormStep1Props = {
   handleNextStep: (data: any) => void
+  data?: NewCampaignDataType | any
+}
+
+export type useBrazilianStatesProps = {
+  state?: string
 }
