@@ -43,7 +43,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
       name: data?.name || '',
       activityId: data?.activityId || '',
       gender: data?.gender || '',
-      location: data?.location || '',
+      location: data?.location || 'BR',
       state: data?.state || '',
       userId: user?.id || ''
     }
@@ -119,16 +119,17 @@ export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
-          <RadioGroup ml={3} defaultValue={specificState ? 'state' : 'br'}>
+          <RadioGroup ml={3} defaultValue={data?.state ? 'state' : 'BR'}>
             <Stack direction="column" spacing={4}>
               <Radio
-                value="br"
+                value="BR"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
                 onChange={() => {
                   setSpecificState(false)
                   setValue('location', 'BR')
+                  setValue('state', '')
                   clearErrors('location')
                 }}
               >
@@ -170,6 +171,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
                     onChange(option?.value)
                     setValue('location', option?.value)
                     setValue(name, option?.value)
+                    clearErrors('location')
                   }}
                   onBlur={onBlur}
                   value={value}

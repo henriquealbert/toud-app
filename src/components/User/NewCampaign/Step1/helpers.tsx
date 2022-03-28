@@ -70,7 +70,7 @@ export const step1Schema = (specificState: boolean) => {
       activityId: yup.string().required('Campo obrigatório'),
       gender: yup.string().oneOf(['MALE', 'FEMALE', 'BOTH']).required('Campo obrigatório'),
       location: yup.string().required('Campo obrigatório'),
-      state: yup.string()
+      state: yup.string().optional()
     })
   }
 }
@@ -83,25 +83,49 @@ export const useHandleSubmitFormStep1 = ({
   const [isLoading, setLoading] = useState(false)
 
   const submitForm = async (values: FormStep1Values) => {
-    if (data?.id) {
-      return handleNextStep(data)
-    }
-
     setLoading(true)
-    const { data: createdCampaign } = (await api.post('/campaigns', values, {
-      headers: {
-        Authorization: `Bearer ${session?.accessToken}`
+    const token = session?.accessToken as string
+
+    if (data?.id) {
+      const { data: updatedCampaign } = await updateCampaign(data?.id, token, values)
+
+      if (!updatedCampaign) {
+        setLoading(false)
+        return alert('Erro ao atualizar campanha')
       }
-    })) as any
 
-    if (!createdCampaign) {
       setLoading(false)
-      return alert('Erro ao criar campanha')
-    }
+      handleNextStep({ ...updatedCampaign, state: values.state })
+    } else {
+      const { data: createdCampaign } = await createCampaign(token, values)
 
-    setLoading(false)
-    handleNextStep({ ...createdCampaign, state: values.state })
+      if (!createdCampaign) {
+        setLoading(false)
+        return alert('Erro ao criar campanha')
+      }
+
+      setLoading(false)
+      handleNextStep({ ...createdCampaign, state: values.state })
+    }
   }
 
   return { submitForm, isSubmitting: isLoading }
+}
+
+const updateCampaign = async (campaignId: string, token: string, values: FormStep1Values) => {
+  if (!campaignId) return alert('Erro ao atualizar campanha')
+
+  return (await api.put(`/campaigns/${campaignId}`, values, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })) as any
+}
+
+const createCampaign = async (token: string, values: FormStep1Values) => {
+  return (await api.post('/campaigns', values, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })) as any
 }

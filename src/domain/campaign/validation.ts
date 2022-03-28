@@ -10,3 +10,20 @@ export const createCampaignValidator = yup
     activityId: yup.string().required()
   })
   .required()
+
+export const updateCampaignValidator = yup
+  .object({
+    id: yup.string().required(),
+    name: yup.string(),
+    description: yup.string(),
+    gender: yup.string().oneOf(ALL_GENDERS),
+    location: yup.string(),
+    amount: yup.number(),
+    expectedDate: yup.string(),
+    estimatedReach: yup.string(),
+    userId: yup.string(),
+    activityId: yup.string(),
+    placementsIds: yup.array(yup.string()),
+    filesIds: yup.array(yup.string())
+  })
+  .required()

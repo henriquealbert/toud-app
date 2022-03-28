@@ -11,6 +11,15 @@ import {
 
 export type createCampaignParams = {
   name: string
+  gender: GenderType
+  location: string
+  userId: string
+  activityId: string
+}
+
+export type updateCampaignParams = {
+  id: string
+  name: string
   description: string
   gender: GenderType
   location: string
