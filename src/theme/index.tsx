@@ -10,6 +10,7 @@ import { customButton } from './components/customButton'
 import { customFormLabel } from './components/customFormLabel'
 import { customInput } from './components/customInput'
 import { customFormErrorMessage } from './components/customFormErrorMessage'
+import { customTextarea } from './components/customTextarea'
 
 const customTheme = extendTheme(
   {
@@ -19,7 +20,8 @@ const customTheme = extendTheme(
       Button: customButton,
       FormLabel: customFormLabel,
       Input: customInput,
-      FormError: customFormErrorMessage
+      FormError: customFormErrorMessage,
+      Textarea: customTextarea
     }
   },
   withDefaultColorScheme({ colorScheme: 'purple' })

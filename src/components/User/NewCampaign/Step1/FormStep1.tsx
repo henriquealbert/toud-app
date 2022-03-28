@@ -119,7 +119,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
-          <RadioGroup ml={3} defaultValue={data?.state ? 'state' : 'BR'}>
+          <RadioGroup ml={3} defaultValue={data?.state ? 'state' : 'BR'} color="text">
             <Stack direction="column" spacing={4}>
               <Radio
                 value="BR"
