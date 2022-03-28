@@ -2,8 +2,8 @@ import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/react'
 import { createContext, FC, useContext } from 'react'
 
-import { api } from 'lib/api'
 import { UserType } from 'domain/user/types'
+import { fetcher } from 'lib/fetcher'
 
 const AuthContext = createContext({} as ContextTypes)
 
@@ -43,15 +43,9 @@ type ContextTypes = {
   isLoading: boolean
 }
 
-const getMe = async ({ token }: { token: string }) => {
-  const { data, error } = (await api.get('/auth/me', {
+const getMe = async ({ token }: { token: string }) =>
+  await fetcher('/auth/me', {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  })) as any
-
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
-}
+  })

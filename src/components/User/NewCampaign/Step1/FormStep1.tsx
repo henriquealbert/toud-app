@@ -11,12 +11,12 @@ import {
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SelectInput } from 'components/shared/SelectInput'
-import { Activity } from 'domain/activity/types'
 import { Controller, useForm } from 'react-hook-form'
-import { formatActivitiesOptions, genderOptions, step1Schema, useBrazilianStates } from './helpers'
+import { useActivities, genderOptions, step1Schema, useBrazilianStates } from './helpers'
 
-export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
+export const FormStep1 = ({ handleNextStep }: FormStep1Props) => {
   const { statesOptions, setSpecificState, specificState } = useBrazilianStates()
+  const activitiesOptions = useActivities()
 
   const {
     control,
@@ -87,7 +87,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
             render={({ field: { onBlur, onChange, value, name } }) => (
               <SelectInput
                 isSearchable
-                options={formatActivitiesOptions(activities)}
+                options={activitiesOptions}
                 placeholder="Escolha o segmento da campanha"
                 onChange={(option: any) => {
                   onChange(option?.value)
@@ -181,7 +181,6 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
 
 type FormStep1Props = {
   handleNextStep: (data: any) => void
-  activities: Activity[]
 }
 type formValues = {
   name: string

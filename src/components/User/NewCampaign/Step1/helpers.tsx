@@ -1,13 +1,21 @@
 import axios from 'axios'
 import { Activity } from 'domain/activity/types'
+import { fetcher } from 'lib/fetcher'
 import yup from 'lib/yup'
 import { useEffect, useState } from 'react'
+import { useQuery } from 'react-query'
 
-export const formatActivitiesOptions = (activities: Activity[]) => {
+const formatActivitiesOptions = (activities: Activity[]) => {
   return activities?.map((activity) => ({
     value: activity.id,
     label: activity.name
   }))
+}
+
+export const useActivities = () => {
+  const { data } = useQuery('activities', async () => await fetcher('/activities'))
+
+  return data ? formatActivitiesOptions(data) : []
 }
 
 export const genderOptions = [
