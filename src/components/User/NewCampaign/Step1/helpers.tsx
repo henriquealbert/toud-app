@@ -1,16 +1,18 @@
 import axios from 'axios'
 import { Activity } from 'domain/activity/types'
+import { api } from 'lib/api'
 import { fetcher } from 'lib/fetcher'
 import yup from 'lib/yup'
+import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { useQuery } from 'react-query'
+import { FormStep1Values, useHandleSubmitFormStep1Props } from './types'
 
-const formatActivitiesOptions = (activities: Activity[]) => {
-  return activities?.map((activity) => ({
+const formatActivitiesOptions = (activities: Activity[]) =>
+  activities?.map((activity) => ({
     value: activity.id,
     label: activity.name
   }))
-}
 
 export const useActivities = () => {
   const { data } = useQuery('activities', async () => await fetcher('/activities'))
@@ -19,9 +21,9 @@ export const useActivities = () => {
 }
 
 export const genderOptions = [
-  { label: 'Masculino', value: 'MALE' },
+  { label: 'Ambos', value: 'BOTH' },
   { label: 'Feminino', value: 'FEMALE' },
-  { label: 'Ambos', value: 'BOTH' }
+  { label: 'Masculino', value: 'MALE' }
 ]
 
 export const useBrazilianStates = () => {
@@ -40,13 +42,13 @@ export const useBrazilianStates = () => {
     if (resp.status === 200) {
       const states = resp.data
         .map((state: any) => ({
-          value: state.sigla,
+          value: `${state.nome} - BR`,
           label: state.nome
         }))
         .sort((a: any, b: any) => a.label.localeCompare(b.label))
       return setStatesOptions(states)
     } else {
-      return console.log('error getting states')
+      return console.error('error getting states')
     }
   }
 
@@ -71,4 +73,29 @@ export const step1Schema = (specificState: boolean) => {
       state: yup.string()
     })
   }
+}
+
+export const useHandleSubmitFormStep1 = ({ handleNextStep }: useHandleSubmitFormStep1Props) => {
+  const { data: session } = useSession()
+  const [isLoading, setLoading] = useState(false)
+
+  const submitForm = async (values: FormStep1Values) => {
+    setLoading(true)
+    const { data } = (await api.post('/campaigns', values, {
+      headers: {
+        Authorization: `Bearer ${session?.accessToken}`
+      }
+    })) as any
+
+    if (!data) {
+      setLoading(false)
+      return alert('Erro ao criar campanha')
+    }
+
+    handleNextStep(data)
+    setLoading(false)
+    return data
+  }
+
+  return { submitForm, isSubmitting: isLoading }
 }

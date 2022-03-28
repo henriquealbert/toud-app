@@ -15,56 +15,33 @@ export async function createCampaign(params: createCampaignParams) {
     }
   }
 
-  const {
-    name,
-    activityId,
-    amount,
-    description,
-    estimatedReach,
-    expectedDate,
-    filesIds,
-    gender,
-    location,
-    placementsIds,
-    userId
-  } = fields as createCampaignParams
+  const { name, activityId, gender, location, userId } = fields as createCampaignParams
 
   const createdCampaign = await prisma.campaign.create({
     data: {
-      amount,
-      estimatedReach,
-      expectedDate,
-      gender,
-      location,
+      userId,
       name,
       activityId,
-      userId,
-      description,
-      files: {
-        connect: filesIds.map((f) => ({ id: f }))
-      }
+      gender,
+      location
     },
     include: {
-      activity: true,
-      files: true
+      activity: true
     }
   })
 
-  const campaignOnPlacement = await Promise.all(
-    placementsIds.map(async (p) => {
-      return await prisma.campaignOnPlacement.create({
-        data: { campaignId: createdCampaign.id, placementId: p },
-        select: {
-          campaignId: true,
-          placementId: true,
-          isActive: true,
-          placement: true
+  if (!createdCampaign) {
+    return {
+      error: {
+        status: 500,
+        errors: {
+          message: 'Error creating campaign'
         }
-      })
-    })
-  )
+      }
+    }
+  }
 
   return {
-    data: { ...createdCampaign, campaignOnPlacement }
+    data: createdCampaign
   }
 }

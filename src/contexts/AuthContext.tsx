@@ -8,12 +8,12 @@ import { fetcher } from 'lib/fetcher'
 const AuthContext = createContext({} as ContextTypes)
 
 const AuthProvider: FC = ({ children }) => {
-  const { data, status } = useSession()
+  const { data: session, status } = useSession()
   const { data: user, isLoading } = useQuery(
     'me',
-    async () => await getMe({ token: data?.accessToken as string }),
+    async () => await getMe({ token: session?.accessToken as string }),
     {
-      enabled: !!data,
+      enabled: !!session,
       staleTime: 60 * 60 * 1000, // 1 hour
       keepPreviousData: true
     }

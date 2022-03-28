@@ -18,6 +18,7 @@ export const NewCampaign = () => {
         <StepsProgress step={step} />
 
         {step === 1 && <FormStep1 handleNextStep={handleNextStep} />}
+        {step === 2 && 'step 2'}
       </Flex>
     </Flex>
   )
