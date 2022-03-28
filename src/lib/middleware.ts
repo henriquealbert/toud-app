@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import jwt from 'jsonwebtoken'
+import { getUserById } from 'domain/user/getUserById'
 
 export const newHandler =
   (handler: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
@@ -37,10 +37,11 @@ export const withUser =
       return res.status(401).json({ message: 'Forbidden access' })
     }
 
-    try {
-      jwt.verify(token, process.env.JWT_SECRET as string)
-      return handler(req, res)
-    } catch (error) {
+    const { error } = await getUserById({ token })
+
+    if (error) {
       return res.status(401).json({ message: 'Forbidden access' })
     }
+
+    return handler(req, res)
   }
