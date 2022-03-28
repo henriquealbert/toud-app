@@ -28,7 +28,6 @@ async function main() {
       filename: 'file.jpg',
       key: 'key',
       mimetype: 'image/jpeg',
-      url: 'url',
       userId: user.id
     }
   })
