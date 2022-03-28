@@ -112,7 +112,6 @@ model UserFile {
   userId     String    @map("user_id")
   key        String    @unique
   filename   String
-  url        String
   mimetype   String
   isActive   Boolean   @default(true) @map("is_active")
   createdAt  DateTime  @default(now()) @map("created_at")

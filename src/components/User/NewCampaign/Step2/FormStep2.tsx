@@ -16,7 +16,7 @@ import { useAuth } from 'contexts/AuthContext'
 import { useForm } from 'react-hook-form'
 import { FormStep2Props } from './types'
 
-export const FormStep2 = ({ handleNextStep, handlePrevStep }: FormStep2Props) => {
+export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Props) => {
   const { user } = useAuth()
 
   const {
@@ -128,7 +128,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep }: FormStep2Props) =>
             <FormLabel htmlFor="filesIds" mb={2}>
               Upload de anúncio em vídeo ou imagem
             </FormLabel>
-            <UploadFiles />
+            <UploadFiles onChange={(files) => console.log(files)} campaignId={data?.id} />
           </FormControl>
         </Flex>
 

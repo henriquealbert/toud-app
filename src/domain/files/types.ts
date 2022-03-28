@@ -1,12 +1,14 @@
 export type createFilesParams = {
   userId: string
-  files: file[]
+  files: fileType[]
+  campaignId: string
 }
 
-type file = {
+export type fileType = {
   key: string
   filename: string
   url: string
   originalname: string
   mimetype: string
+  path: string
 }

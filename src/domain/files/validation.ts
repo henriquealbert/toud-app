@@ -8,5 +8,6 @@ export const createFilesValidator = yup.object().shape({
       mimetype: yup.string().required()
     })
   ),
-  userId: yup.string().required()
+  userId: yup.string().required(),
+  campaignId: yup.string().required()
 })

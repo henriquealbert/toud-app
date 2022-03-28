@@ -24,7 +24,7 @@ export const NewCampaign = () => {
 
         {step === 1 && <FormStep1 handleNextStep={handleNextStep} data={data} />}
         {step === 2 && (
-          <FormStep2 handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} />
+          <FormStep2 handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} data={data} />
         )}
       </Flex>
     </Flex>

@@ -1,16 +1,19 @@
-import { Flex, Icon } from '@chakra-ui/react'
+import { Flex, Icon, Spinner } from '@chakra-ui/react'
 import { useAuth } from 'contexts/AuthContext'
 import { api } from 'lib/api'
 import { useSession } from 'next-auth/react'
-import { ChangeEvent, useRef } from 'react'
+import { ChangeEvent, useRef, useState } from 'react'
 import { FiUpload } from 'react-icons/fi'
+import { MdDone } from 'react-icons/md'
 
-export const UploadFiles = ({ onChange, accept = '*' }: UploadFilesProps) => {
+export const UploadFiles = ({ onChange, accept = '*', campaignId }: UploadFilesProps) => {
   const { user } = useAuth()
   const { data: session } = useSession()
   const inputRef = useRef<HTMLInputElement>(null)
+  const [status, setStatus] = useState('')
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    setStatus('loading')
     const files = e.target.files
     if (!files) return
 
@@ -18,40 +21,61 @@ export const UploadFiles = ({ onChange, accept = '*' }: UploadFilesProps) => {
     for (let i = 0; i < files.length; i++) {
       form.append('files', files[i])
     }
-    form.append('data', JSON.stringify({ userId: user?.id }))
+    form.append('data', JSON.stringify({ userId: user?.id, campaignId }))
 
-    const resp = await api.post('/files', form, {
+    const { data, error } = (await api.post('/files', form, {
       headers: {
         'Content-Type': 'multipart/form-data',
         Authorization: `Bearer ${session?.accessToken}`
       }
-    })
-    onChange && onChange(e.target.files)
+    })) as any
+
+    if (error) {
+      setStatus('')
+      return alert('Erro ao enviar arquivos')
+    }
+
+    onChange && onChange(data)
+    setStatus('success')
   }
 
   return (
     <Flex
       h="60px"
-      justify="center"
       align="center"
       bg="white"
+      px={5}
       borderRadius="base"
       border="dashed"
       borderColor="gray.300"
-      cursor="pointer"
+      cursor={!status ? 'pointer' : 'not-allowed'}
       color="purple.500"
       _hover={{
-        bgColor: 'gray.50'
+        bgColor: !status ? 'gray.50' : 'white'
       }}
       _active={{
-        bgColor: 'gray.100'
+        bgColor: !status ? 'gray.100' : 'white'
       }}
       role="button"
       onClick={() => {
-        inputRef?.current?.click()
+        if (!status) {
+          inputRef?.current?.click()
+        }
       }}
     >
-      <Icon as={FiUpload} mr={4} h="18px" w="18px" /> Clique para escolher o arquivo e fazer upload{' '}
+      {status === 'loading' && <Spinner mx="auto" />}
+      {status === 'success' && (
+        <>
+          <Icon as={MdDone} h="20px" w="20px" mr={4} />
+          <span>Uploads concluídos</span>
+        </>
+      )}
+      {!status && (
+        <>
+          <Icon as={FiUpload} mr={4} h="18px" w="18px" />
+          <span>Clique para escolher o arquivo e fazer upload</span>
+        </>
+      )}
       <input
         type="file"
         hidden
@@ -68,4 +92,5 @@ export const UploadFiles = ({ onChange, accept = '*' }: UploadFilesProps) => {
 type UploadFilesProps = {
   onChange: (files: FileList | null) => void
   accept?: string
+  campaignId: string
 }
