@@ -30,6 +30,9 @@ export type updateCampaignParams = {
   activityId: string
   placementsIds: string[]
   filesIds: string[]
+  status: StatusType
+  isActive: boolean
+  notes: string
 }
 
 export type GenderType = typeof GENDER_MALE | typeof GENDER_FEMALE | typeof GENDER_BOTH

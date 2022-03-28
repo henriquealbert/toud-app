@@ -1,5 +1,5 @@
 import yup from 'lib/yup'
-import { ALL_GENDERS } from './constants'
+import { ALL_GENDERS, ALL_STATUS } from './constants'
 
 export const createCampaignValidator = yup
   .object({
@@ -24,6 +24,9 @@ export const updateCampaignValidator = yup
     userId: yup.string(),
     activityId: yup.string(),
     placementsIds: yup.array(yup.string()),
-    filesIds: yup.array(yup.string())
+    filesIds: yup.array(yup.string()),
+    status: yup.string().oneOf(ALL_STATUS),
+    isActive: yup.bool(),
+    notes: yup.string()
   })
   .required()

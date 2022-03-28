@@ -25,7 +25,10 @@ export async function updateCampaign(params: updateCampaignParams) {
     description,
     estimatedReach,
     expectedDate,
-    id
+    id,
+    status,
+    isActive,
+    notes
     // filesIds,
     // placementsIds
   } = fields as updateCampaignParams
@@ -41,7 +44,10 @@ export async function updateCampaign(params: updateCampaignParams) {
       amount,
       description,
       estimatedReach,
-      expectedDate
+      expectedDate,
+      status,
+      isActive,
+      notes
     },
     include: {
       activity: true,
