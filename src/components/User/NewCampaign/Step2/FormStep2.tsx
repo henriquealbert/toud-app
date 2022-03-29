@@ -33,7 +33,8 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
       hasDescription: 'Yes',
       description: '',
       userId: user?.id || '',
-      filesIds: []
+      filesIds: [] as string[],
+      expectedDate: ''
     }
   })
   const { hasDescription } = watch()
@@ -128,7 +129,15 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
             <FormLabel htmlFor="filesIds" mb={2}>
               Upload de anúncio em vídeo ou imagem
             </FormLabel>
-            <UploadFiles onChange={(files) => console.log(files)} campaignId={data?.id} />
+            <UploadFiles
+              onChange={(files) =>
+                setValue(
+                  'filesIds',
+                  files.map((f) => f.id)
+                )
+              }
+              campaignId={data?.id}
+            />
           </FormControl>
         </Flex>
 

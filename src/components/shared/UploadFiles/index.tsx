@@ -90,7 +90,19 @@ export const UploadFiles = ({ onChange, accept = '*', campaignId }: UploadFilesP
 }
 
 type UploadFilesProps = {
-  onChange: (files: FileList | null) => void
+  onChange: (files: file[]) => void
   accept?: string
-  campaignId: string
+  campaignId?: string
+}
+
+type file = {
+  campaignId?: string
+  createdAt: string
+  filename: string
+  id: string
+  isActive: boolean
+  key: string
+  mimetype: string
+  updatedAt: string
+  userId: string
 }
