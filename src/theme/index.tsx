@@ -11,6 +11,7 @@ import { customFormLabel } from './components/customFormLabel'
 import { customInput } from './components/customInput'
 import { customFormErrorMessage } from './components/customFormErrorMessage'
 import { customTextarea } from './components/customTextarea'
+import { customTooltip } from './components/customTooltip'
 
 const customTheme = extendTheme(
   {
@@ -21,7 +22,8 @@ const customTheme = extendTheme(
       FormLabel: customFormLabel,
       Input: customInput,
       FormError: customFormErrorMessage,
-      Textarea: customTextarea
+      Textarea: customTextarea,
+      Tooltip: customTooltip
     }
   },
   withDefaultColorScheme({ colorScheme: 'purple' })

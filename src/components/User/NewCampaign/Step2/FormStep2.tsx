@@ -4,13 +4,17 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Icon,
   Radio,
   RadioGroup,
   Stack,
-  Textarea
+  Textarea,
+  Tooltip
 } from '@chakra-ui/react'
+import { parseISO } from 'date-fns'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
+import { MdOutlineErrorOutline } from 'react-icons/md'
 
 import { useAuth } from 'contexts/AuthContext'
 import { UploadFiles } from 'components/shared/UploadFiles'
@@ -18,7 +22,6 @@ import { CalendarInput } from 'components/shared/CalendarInput'
 import { step2Schema, useHandleSubmitFormStep2 } from './helpers'
 
 import { FormStep2Props, FormStep2Values } from './types'
-import { parseISO } from 'date-fns'
 
 export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Props) => {
   const { user } = useAuth()
@@ -123,8 +126,9 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
             </FormControl>
           )}
           <FormControl id="filesIds" mb={3} mt={hasDescription === 'Yes' ? 8 : 0}>
-            <FormLabel htmlFor="filesIds" mb={2}>
+            <FormLabel htmlFor="filesIds" mb={2} display="flex">
               Upload de anúncio em vídeo ou imagem
+              <ExclamationTooltip label="O arquivos devem seguir as dimensões das redes sociais escolhidas. Por exemplo, para Instagram Stories as dimensões de vídeos e imagens são de 1080 x 1920." />
             </FormLabel>
             <UploadFiles
               onChange={(files) =>
@@ -140,8 +144,9 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
         </Flex>
 
         <FormControl ml={8} id="expectedDate" isInvalid={!!errors.expectedDate}>
-          <FormLabel htmlFor="expectedDate" mb={2}>
+          <FormLabel htmlFor="expectedDate" mb={2} display="flex">
             Dia de veiculação
+            <ExclamationTooltip label="Só é possível vincular anúncios para o dia seguinte da data atual." />
           </FormLabel>
           <Controller
             name="expectedDate"
@@ -174,5 +179,15 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
         </Button>
       </Flex>
     </Flex>
+  )
+}
+
+const ExclamationTooltip = ({ label }: { label: string }) => {
+  return (
+    <Tooltip hasArrow placement="top" bgColor="purple.500" label={label}>
+      <div>
+        <Icon ml={2} as={MdOutlineErrorOutline} w="24px" h="24px" color="purple.500" />
+      </div>
+    </Tooltip>
   )
 }
