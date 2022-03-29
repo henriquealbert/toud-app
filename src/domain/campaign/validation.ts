@@ -11,22 +11,23 @@ export const createCampaignValidator = yup
   })
   .required()
 
-export const updateCampaignValidator = yup
-  .object({
-    id: yup.string().required(),
-    name: yup.string(),
-    description: yup.string(),
-    gender: yup.string().oneOf(ALL_GENDERS),
-    location: yup.string(),
-    amount: yup.number(),
-    expectedDate: yup.string(),
-    estimatedReach: yup.string(),
-    userId: yup.string(),
-    activityId: yup.string(),
-    placementsIds: yup.array(yup.string()),
-    filesIds: yup.array(yup.string()),
-    status: yup.string().oneOf(ALL_STATUS),
-    isActive: yup.bool(),
-    notes: yup.string()
-  })
-  .required()
+export const updateCampaignValidator = yup.object({
+  id: yup.string().required(),
+  userId: yup.string().required(),
+  expectedDate: yup.mixed().oneOf([null, yup.date()]).optional(),
+  name: yup.string().optional(),
+  description: yup.string().optional(),
+  gender: yup.string().oneOf(ALL_GENDERS).optional(),
+  location: yup.string().optional(),
+  amount: yup.number().optional(),
+  estimatedReach: yup.string().optional(),
+  activityId: yup.string().optional(),
+  placementsIds: yup.array(yup.string()).optional(),
+  filesIds: yup
+    .array()
+    .of(yup.object({ id: yup.string() }))
+    .optional(),
+  status: yup.string().oneOf(ALL_STATUS).optional(),
+  isActive: yup.bool().optional(),
+  notes: yup.string().optional()
+})

@@ -24,12 +24,12 @@ export type updateCampaignParams = {
   gender: GenderType
   location: string
   amount: number
-  expectedDate: Date
+  expectedDate?: Date | null
   estimatedReach: string
   userId: string
   activityId: string
   placementsIds: string[]
-  filesIds: string[]
+  filesIds: Array<{ id: string }>
   status: StatusType
   isActive: boolean
   notes: string

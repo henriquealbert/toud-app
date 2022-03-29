@@ -5,7 +5,7 @@ import { FormStep2 } from './Step2/FormStep2'
 import { StepsProgress } from './StepsProgress'
 
 export const NewCampaign = () => {
-  const [step, setStep] = useState(2)
+  const [step, setStep] = useState(1)
   const [data, setData] = useState({})
 
   const handleNextStep = (data: any) => {

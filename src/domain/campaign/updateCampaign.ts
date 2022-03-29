@@ -28,15 +28,33 @@ export async function updateCampaign(params: updateCampaignParams) {
     id,
     status,
     isActive,
-    notes
-    // filesIds,
+    notes,
+    filesIds
     // placementsIds
   } = fields as updateCampaignParams
+
+  const [campaign] = await prisma.campaign.findMany({
+    where: {
+      id,
+      userId
+    },
+    select: {
+      id: true
+    }
+  })
+
+  if (!campaign) {
+    return {
+      error: {
+        status: 404,
+        message: 'Campaign not found'
+      }
+    }
+  }
 
   const updatedCampaign = await prisma.campaign.update({
     where: { id },
     data: {
-      userId,
       name,
       activityId,
       gender,
@@ -47,11 +65,12 @@ export async function updateCampaign(params: updateCampaignParams) {
       expectedDate,
       status,
       isActive,
-      notes
+      notes,
+      files: { connect: filesIds }
     },
     include: {
-      activity: true,
-      files: true
+      files: true,
+      activity: true
     }
   })
 
@@ -59,9 +78,7 @@ export async function updateCampaign(params: updateCampaignParams) {
     return {
       error: {
         status: 500,
-        errors: {
-          message: 'Error updating campaign'
-        }
+        message: 'Error updating campaign'
       }
     }
   }

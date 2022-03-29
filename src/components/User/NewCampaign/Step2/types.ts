@@ -5,3 +5,16 @@ export type FormStep2Props = {
   handlePrevStep: () => void
   data?: NewCampaignDataType | any
 }
+
+export type FormStep2Values = {
+  hasDescription: 'Yes' | 'No'
+  description: string
+  userId: string
+  filesIds: Array<{ id: string }>
+  expectedDate: Date | null
+}
+
+export type useHandleSubmitFormStep2Props = {
+  handleNextStep: (data: any) => void
+  data?: NewCampaignDataType | any
+}

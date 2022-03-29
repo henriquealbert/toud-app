@@ -14,34 +14,31 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { UploadFiles } from 'components/shared/UploadFiles'
 import { useAuth } from 'contexts/AuthContext'
 import { useForm } from 'react-hook-form'
-import { FormStep2Props } from './types'
+import { step2Schema, useHandleSubmitFormStep2 } from './helpers'
+import { FormStep2Props, FormStep2Values } from './types'
 
 export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Props) => {
   const { user } = useAuth()
+  const { isSubmitting, submitForm } = useHandleSubmitFormStep2({ handleNextStep, data })
 
   const {
-    control,
     register,
     handleSubmit,
     setValue,
     clearErrors,
     watch,
     formState: { errors }
-  } = useForm({
-    // resolver: yupResolver(step1Schema(specificState)),
+  } = useForm<FormStep2Values>({
+    resolver: yupResolver(step2Schema),
     defaultValues: {
       hasDescription: 'Yes',
       description: '',
       userId: user?.id || '',
-      filesIds: [] as string[],
-      expectedDate: ''
+      filesIds: [],
+      expectedDate: null
     }
   })
   const { hasDescription } = watch()
-
-  const submitForm = (values: any) => {
-    alert(JSON.stringify(values, null, 2))
-  }
 
   return (
     <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(submitForm)}>
@@ -133,7 +130,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
               onChange={(files) =>
                 setValue(
                   'filesIds',
-                  files.map((f) => f.id)
+                  files.map((f) => ({ id: f.id }))
                 )
               }
               campaignId={data?.id}
@@ -154,12 +151,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
         <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
           Voltar
         </Button>
-        <Button
-          type="submit"
-          //  isLoading={isSubmitting}
-          loadingText="Salvando..."
-          w="245px"
-        >
+        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
           Salvar
         </Button>
       </Flex>

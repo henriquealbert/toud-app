@@ -20,7 +20,7 @@ import {
   useBrazilianStates,
   useHandleSubmitFormStep1
 } from './helpers'
-import { FormStep1Props } from './types'
+import { FormStep1Props, FormStep1Values } from './types'
 
 export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
   const { user } = useAuth()
@@ -37,7 +37,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
     setValue,
     clearErrors,
     formState: { errors }
-  } = useForm({
+  } = useForm<FormStep1Values>({
     resolver: yupResolver(step1Schema(specificState)),
     defaultValues: {
       name: data?.name || '',
