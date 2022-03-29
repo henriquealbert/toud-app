@@ -99,7 +99,7 @@ export const useHandleSubmitFormStep1 = ({
       }
 
       setLoading(false)
-      handleNextStep({ ...updatedCampaign, state: values.state })
+      handleNextStep({ ...updatedCampaign, ...data, state: values.state })
     } else {
       const { data: createdCampaign } = await createCampaign(token, values)
 

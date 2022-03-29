@@ -26,7 +26,7 @@ export const useHandleSubmitFormStep = ({ handleNextStep, data }: useHandleSubmi
     }
 
     setLoading(false)
-    handleNextStep({ ...values, ...updatedCampaign })
+    handleNextStep({ ...values, ...data, ...updatedCampaign })
   }
 
   return { submitForm, isSubmitting: isLoading }

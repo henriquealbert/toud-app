@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -24,6 +23,7 @@ import { CalendarInput } from 'components/shared/CalendarInput'
 
 import { FormStep2Values } from './types'
 import { FormStepProps } from '../types'
+import { FooterButtons } from '../FooterButtons'
 
 export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
   const { user } = useAuth()
@@ -180,14 +180,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
         </FormControl>
       </Flex>
 
-      <Flex mt={12}>
-        <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
-          Voltar
-        </Button>
-        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
-          Salvar
-        </Button>
-      </Flex>
+      <FooterButtons isSubmitting={isSubmitting} handlePrevStep={handlePrevStep} />
     </Flex>
   )
 }

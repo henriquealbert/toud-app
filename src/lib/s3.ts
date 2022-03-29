@@ -59,7 +59,7 @@ export const removeFileFromS3 = async ({ key }: { key: string }) => {
       })
       .promise()
   } catch (error: any) {
-    console.log('removeFileFromS3', error)
+    console.error('removeFileFromS3', error)
     return {
       error: {
         status: error.statusCode,

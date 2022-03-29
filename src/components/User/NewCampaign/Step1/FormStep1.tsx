@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -13,6 +12,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 
 import { useAuth } from 'contexts/AuthContext'
+import { FooterButtons } from '../FooterButtons'
 import { SelectInput } from 'components/shared/SelectInput'
 import {
   useActivities,
@@ -187,11 +187,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
         )}
       </Flex>
 
-      <Flex mt={12} maxW="245px">
-        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando...">
-          Salvar
-        </Button>
-      </Flex>
+      <FooterButtons isSubmitting={isSubmitting} canGoBack={false} />
     </Flex>
   )
 }

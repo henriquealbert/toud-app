@@ -1,11 +1,4 @@
-import {
-  Button,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  FormHelperText
-} from '@chakra-ui/react'
+import { Flex, FormControl, FormErrorMessage, FormLabel, FormHelperText } from '@chakra-ui/react'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
@@ -17,6 +10,7 @@ import { NumberInput } from 'components/shared/NumberInput'
 import { FormStep3Values } from './types'
 import { FormStepProps } from '../types'
 import { useAuth } from 'contexts/AuthContext'
+import { FooterButtons } from '../FooterButtons'
 
 export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
   const { user } = useAuth()
@@ -67,14 +61,7 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
       </Flex>
       <Audience value={amount} />
 
-      <Flex mt={12}>
-        <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
-          Voltar
-        </Button>
-        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
-          Salvar
-        </Button>
-      </Flex>
+      <FooterButtons isSubmitting={isSubmitting} handlePrevStep={handlePrevStep} />
     </Flex>
   )
 }

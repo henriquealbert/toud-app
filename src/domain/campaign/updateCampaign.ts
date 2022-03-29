@@ -62,7 +62,7 @@ export async function updateCampaign(params: updateCampaignParams) {
       amount,
       description,
       estimatedReach,
-      expectedDate: expectedDate || null,
+      expectedDate,
       status,
       isActive,
       notes,

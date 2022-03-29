@@ -39,3 +39,8 @@ export type useHandleSubmitFormStepProps = {
   handleNextStep: (data: any) => void
   data?: NewCampaignDataType
 }
+export type FooterButtonsProps = {
+  handlePrevStep?: () => void
+  isSubmitting: boolean
+  canGoBack?: boolean
+}

@@ -2,10 +2,11 @@ import { useState } from 'react'
 import { Flex } from '@chakra-ui/react'
 import { FormStep1 } from './Step1/FormStep1'
 import { FormStep2 } from './Step2/FormStep2'
+import { FormStep3 } from './Step3/FormStep3'
 import { StepsProgress } from './StepsProgress'
+import { ReviewCampaign } from './Step4/ReviewCampaign'
 
 import { NewCampaignDataType } from './types'
-import { FormStep3 } from './Step3/FormStep3'
 
 export const NewCampaign = () => {
   const [step, setStep] = useState(1)
@@ -31,6 +32,13 @@ export const NewCampaign = () => {
         )}
         {step === 3 && (
           <FormStep3 handleNextStep={handleNextStep} handlePrevStep={handlePrevStep} data={data} />
+        )}
+        {step === 4 && (
+          <ReviewCampaign
+            handleNextStep={handleNextStep}
+            handlePrevStep={handlePrevStep}
+            data={data}
+          />
         )}
       </Flex>
     </Flex>
