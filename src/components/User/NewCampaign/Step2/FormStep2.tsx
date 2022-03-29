@@ -147,7 +147,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
                   files.map((f) => ({ id: f.id }))
                 )
               }
-              value={filesIds}
+              value={filesIds.length > 0 ? filesIds : undefined}
               campaignId={data?.id}
             />
           </FormControl>

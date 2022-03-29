@@ -32,7 +32,7 @@ type activity = {
 
 export type FormStepProps = {
   handleNextStep: (data: any) => void
-  handlePrevStep: () => void
+  handlePrevStep?: () => void
   data?: NewCampaignDataType
 }
 export type useHandleSubmitFormStepProps = {

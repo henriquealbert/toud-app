@@ -8,7 +8,7 @@ import { NewCampaignDataType } from './types'
 import { FormStep3 } from './Step3/FormStep3'
 
 export const NewCampaign = () => {
-  const [step, setStep] = useState(3)
+  const [step, setStep] = useState(1)
   const [data, setData] = useState<NewCampaignDataType>()
 
   const handleNextStep = (data: NewCampaignDataType) => {

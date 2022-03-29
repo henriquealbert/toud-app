@@ -16,8 +16,10 @@ import { NumberInput } from 'components/shared/NumberInput'
 
 import { FormStep3Values } from './types'
 import { FormStepProps } from '../types'
+import { useAuth } from 'contexts/AuthContext'
 
 export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
+  const { user } = useAuth()
   const { isSubmitting, submitForm } = useHandleSubmitFormStep({ handleNextStep, data })
 
   const {
@@ -28,13 +30,15 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
   } = useForm<FormStep3Values>({
     resolver: yupResolver(step3Schema),
     defaultValues: {
-      amount: data?.amount || ''
+      amount: data?.amount || '',
+      userId: user?.id || ''
     }
   })
   const { amount } = watch()
 
   const handleSubmitForm = async (values: FormStep3Values) => {
     const formattedValues = {
+      ...values,
       amount: parseValue(String(values.amount))
     }
     await submitForm(formattedValues)

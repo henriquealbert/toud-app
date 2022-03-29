@@ -1,7 +1,8 @@
 import yup from 'lib/yup'
 
 export const step3Schema = yup.object().shape({
-  amount: yup.string().required('Campo obrigatório')
+  amount: yup.string().required('Campo obrigatório'),
+  userId: yup.string().required('Campo obrigatório')
 })
 
 export const parseValue = (value: string) => {
