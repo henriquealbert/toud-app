@@ -6,7 +6,7 @@ import { formatReviewData } from './helpers'
 export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
   const reviewData = formatReviewData(data)
   return (
-    <Flex as="form" direction="column" flex={1}>
+    <Flex direction="column" flex={1}>
       <Flex
         p={20}
         bgColor="white"
