@@ -17,6 +17,7 @@ export const NumberInput = ({ name, control, placeholder, ...props }: props) => 
       value={value}
       thousandSeparator={'.'}
       allowNegative={false}
+      fixedDecimalScale
       decimalScale={2}
       decimalSeparator={','}
       prefix={'R$'}

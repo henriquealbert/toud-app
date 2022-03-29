@@ -4,29 +4,44 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   FormHelperText
 } from '@chakra-ui/react'
-import { NumberInput } from 'components/shared/NumberInput'
 import { useForm } from 'react-hook-form'
-import { FormStep3Values } from './types'
+import { yupResolver } from '@hookform/resolvers/yup'
 
-export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: any) => {
+import { Audience } from './Audience'
+import { parseValue, step3Schema } from './helpers'
+import { useHandleSubmitFormStep } from '../helpers'
+import { NumberInput } from 'components/shared/NumberInput'
+
+import { FormStep3Values } from './types'
+import { FormStepProps } from '../types'
+
+export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
+  const { isSubmitting, submitForm } = useHandleSubmitFormStep({ handleNextStep, data })
+
   const {
-    register,
     handleSubmit,
-    setValue,
-    clearErrors,
     watch,
     control,
     formState: { errors }
   } = useForm<FormStep3Values>({
-    // resolver: yupResolver(step2Schema),
-    defaultValues: { amount: '' }
+    resolver: yupResolver(step3Schema),
+    defaultValues: {
+      amount: data?.amount || ''
+    }
   })
+  const { amount } = watch()
+
+  const handleSubmitForm = async (values: FormStep3Values) => {
+    const formattedValues = {
+      amount: parseValue(String(values.amount))
+    }
+    await submitForm(formattedValues)
+  }
 
   return (
-    <Flex as="form" direction="column" flex={1}>
+    <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(handleSubmitForm)}>
       <Flex w="full" my={8}>
         <FormControl id="amount" mb={3} isInvalid={!!errors.amount}>
           <FormLabel htmlFor="amount" mb={2} ml={0}>
@@ -46,17 +61,13 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: any) => {
           <>{!!errors.amount && <FormErrorMessage>{errors.amount?.message}</FormErrorMessage>}</>
         </FormControl>
       </Flex>
+      <Audience value={amount} />
 
       <Flex mt={12}>
         <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
           Voltar
         </Button>
-        <Button
-          type="submit"
-          //  isLoading={isSubmitting}
-          loadingText="Salvando..."
-          w="245px"
-        >
+        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
           Salvar
         </Button>
       </Flex>

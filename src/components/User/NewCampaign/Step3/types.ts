@@ -1,3 +1,6 @@
 export type FormStep3Values = {
-  amount: string
+  amount: string | number
+}
+export type AudienceProps = {
+  value: string | number
 }

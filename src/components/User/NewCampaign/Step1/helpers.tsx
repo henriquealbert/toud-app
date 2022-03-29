@@ -8,7 +8,9 @@ import { api } from 'lib/api'
 import { fetcher } from 'lib/fetcher'
 
 import { Activity } from 'domain/activity/types'
-import { FormStep1Values, useBrazilianStatesProps, useHandleSubmitFormStep1Props } from './types'
+import { FormStep1Values, useBrazilianStatesProps } from './types'
+import { useHandleSubmitFormStepProps } from '../types'
+import { updateCampaign } from '../helpers'
 
 const formatActivitiesOptions = (activities: Activity[]) =>
   activities?.map((activity) => ({
@@ -80,7 +82,7 @@ export const step1Schema = (specificState: boolean) => {
 export const useHandleSubmitFormStep1 = ({
   handleNextStep,
   data
-}: useHandleSubmitFormStep1Props) => {
+}: useHandleSubmitFormStepProps) => {
   const { data: session } = useSession()
   const [isLoading, setLoading] = useState(false)
 
@@ -112,16 +114,6 @@ export const useHandleSubmitFormStep1 = ({
   }
 
   return { submitForm, isSubmitting: isLoading }
-}
-
-const updateCampaign = async (campaignId: string, token: string, values: FormStep1Values) => {
-  if (!campaignId) return alert('Erro ao atualizar campanha')
-
-  return (await api.put(`/campaigns/${campaignId}`, values, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })) as any
 }
 
 const createCampaign = async (token: string, values: FormStep1Values) => {

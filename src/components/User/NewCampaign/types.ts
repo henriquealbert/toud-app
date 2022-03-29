@@ -19,6 +19,7 @@ export type NewCampaignDataType = {
   userId: string
   hasDescription: 'Yes' | 'No'
   filesIds?: Array<{ id: string }>
+  state?: string
 }
 
 type activity = {
@@ -27,4 +28,14 @@ type activity = {
   isActive: boolean
   createdAt: string
   updatedAt: string
+}
+
+export type FormStepProps = {
+  handleNextStep: (data: any) => void
+  handlePrevStep: () => void
+  data?: NewCampaignDataType
+}
+export type useHandleSubmitFormStepProps = {
+  handleNextStep: (data: any) => void
+  data?: NewCampaignDataType
 }

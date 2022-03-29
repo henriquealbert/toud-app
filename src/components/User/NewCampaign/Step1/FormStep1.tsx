@@ -22,9 +22,10 @@ import {
   useHandleSubmitFormStep1
 } from './helpers'
 
-import { FormStep1Props, FormStep1Values } from './types'
+import { FormStep1Values } from './types'
+import { FormStepProps } from '../types'
 
-export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
+export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
   const { user } = useAuth()
   const activitiesOptions = useActivities()
   const { statesOptions, setSpecificState, specificState } = useBrazilianStates({
