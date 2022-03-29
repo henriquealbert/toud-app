@@ -2,7 +2,7 @@ import { sendEmail } from 'lib/email'
 import jwt from 'jsonwebtoken'
 import { validate } from 'lib/yup'
 import { accountVerificationValidator } from './validation'
-import { DateTime } from 'luxon'
+import { format } from 'date-fns'
 
 export async function accountVerification(params: paramsTypes): Promise<responseTypes> {
   const { fields, errors } = await validate(accountVerificationValidator, params)
@@ -32,7 +32,7 @@ export async function accountVerification(params: paramsTypes): Promise<response
           <p>Se você não solicitou a verificação deste endereço, ignore este e-mail.</p>
           <p>Obrigado,<br />
           Equipe Toud.</p>
-          <p style="opacity: 0;">${DateTime.now().toFormat('dd LLL yyyy - HH:mm:ss')}</p>
+          <p style="opacity: 0;">${format(new Date(), 'dd-MM-yyyy HH:mm:ss')}</p>
     `,
     text: `Olá, Clique neste link para verificar seu endereço de e-mail. ${process.env.NEXT_PUBLIC_APP_URL}/activate?token=${token}`
   })

@@ -11,16 +11,28 @@ import {
 
 export type createCampaignParams = {
   name: string
+  gender: GenderType
+  location: string
+  userId: string
+  activityId: string
+}
+
+export type updateCampaignParams = {
+  id: string
+  name: string
   description: string
   gender: GenderType
   location: string
   amount: number
-  expectedDate: Date
+  expectedDate?: Date | null
   estimatedReach: string
   userId: string
   activityId: string
   placementsIds: string[]
-  filesIds: string[]
+  filesIds: Array<{ id: string }>
+  status: StatusType
+  isActive: boolean
+  notes: string
 }
 
 export type GenderType = typeof GENDER_MALE | typeof GENDER_FEMALE | typeof GENDER_BOTH

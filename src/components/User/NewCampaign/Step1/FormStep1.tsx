@@ -10,13 +10,27 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SelectInput } from 'components/shared/SelectInput'
-import { Activity } from 'domain/activity/types'
 import { Controller, useForm } from 'react-hook-form'
-import { formatActivitiesOptions, genderOptions, step1Schema, useBrazilianStates } from './helpers'
 
-export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
-  const { statesOptions, setSpecificState, specificState } = useBrazilianStates()
+import { useAuth } from 'contexts/AuthContext'
+import { SelectInput } from 'components/shared/SelectInput'
+import {
+  useActivities,
+  genderOptions,
+  step1Schema,
+  useBrazilianStates,
+  useHandleSubmitFormStep1
+} from './helpers'
+
+import { FormStep1Props, FormStep1Values } from './types'
+
+export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {
+  const { user } = useAuth()
+  const activitiesOptions = useActivities()
+  const { statesOptions, setSpecificState, specificState } = useBrazilianStates({
+    state: data?.state
+  })
+  const { submitForm, isSubmitting } = useHandleSubmitFormStep1({ handleNextStep, data })
 
   const {
     control,
@@ -25,23 +39,20 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
     setValue,
     clearErrors,
     formState: { errors }
-  } = useForm({
+  } = useForm<FormStep1Values>({
     resolver: yupResolver(step1Schema(specificState)),
     defaultValues: {
-      name: '',
-      activityId: '',
-      gender: '',
-      location: '',
-      state: ''
+      name: data?.name || '',
+      activityId: data?.activityId || '',
+      gender: data?.gender || '',
+      location: data?.location || 'BR',
+      state: data?.state || '',
+      userId: user?.id || ''
     }
   })
 
-  const handleSubmitForm = async (values: formValues) => {
-    alert(JSON.stringify(values, null, 2))
-  }
-
   return (
-    <Flex as="form" direction="column" onSubmit={handleSubmit(handleSubmitForm)} flex={1}>
+    <Flex as="form" direction="column" onSubmit={handleSubmit(submitForm)} flex={1}>
       <Flex w="full" my={8}>
         <FormControl id="name" mb={3} isInvalid={!!errors.name}>
           <FormLabel htmlFor="name">Nome da campanha</FormLabel>
@@ -87,7 +98,7 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
             render={({ field: { onBlur, onChange, value, name } }) => (
               <SelectInput
                 isSearchable
-                options={formatActivitiesOptions(activities)}
+                options={activitiesOptions}
                 placeholder="Escolha o segmento da campanha"
                 onChange={(option: any) => {
                   onChange(option?.value)
@@ -110,23 +121,24 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
-          <RadioGroup ml={3}>
+          <RadioGroup ml={3} defaultValue={data?.state ? 'state' : 'BR'} color="text">
             <Stack direction="column" spacing={4}>
               <Radio
-                value="Brasil todo"
+                value="BR"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
                 onChange={() => {
                   setSpecificState(false)
                   setValue('location', 'BR')
+                  setValue('state', '')
                   clearErrors('location')
                 }}
               >
                 Brasil todo
               </Radio>
               <Radio
-                value="Estado"
+                value="state"
                 bg="white"
                 borderColor="border"
                 boxShadow="2px 2px 4px rgba(166, 166, 166, 0.2)"
@@ -159,7 +171,9 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
                   placeholder="Selecione o estado em que será divulgado"
                   onChange={(option: any) => {
                     onChange(option?.value)
+                    setValue('location', option?.value)
                     setValue(name, option?.value)
+                    clearErrors('location')
                   }}
                   onBlur={onBlur}
                   value={value}
@@ -173,16 +187,10 @@ export const FormStep1 = ({ handleNextStep, activities }: FormStep1Props) => {
       </Flex>
 
       <Flex mt={12} maxW="245px">
-        <Button type="submit">Salvar</Button>
+        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando...">
+          Salvar
+        </Button>
       </Flex>
     </Flex>
   )
-}
-
-type FormStep1Props = {
-  handleNextStep: (data: any) => void
-  activities: Activity[]
-}
-type formValues = {
-  name: string
 }

@@ -2,18 +2,18 @@ import { useQuery } from 'react-query'
 import { useSession } from 'next-auth/react'
 import { createContext, FC, useContext } from 'react'
 
-import { api } from 'lib/api'
 import { UserType } from 'domain/user/types'
+import { fetcher } from 'lib/fetcher'
 
 const AuthContext = createContext({} as ContextTypes)
 
 const AuthProvider: FC = ({ children }) => {
-  const { data, status } = useSession()
+  const { data: session, status } = useSession()
   const { data: user, isLoading } = useQuery(
     'me',
-    async () => await getMe({ token: data?.accessToken as string }),
+    async () => await getMe({ token: session?.accessToken as string }),
     {
-      enabled: !!data,
+      enabled: !!session,
       staleTime: 60 * 60 * 1000, // 1 hour
       keepPreviousData: true
     }
@@ -43,15 +43,9 @@ type ContextTypes = {
   isLoading: boolean
 }
 
-const getMe = async ({ token }: { token: string }) => {
-  const { data, error } = (await api.get('/auth/me', {
+const getMe = async ({ token }: { token: string }) =>
+  await fetcher('/auth/me', {
     headers: {
       Authorization: `Bearer ${token}`
     }
-  })) as any
-
-  if (error) {
-    throw new Error(error.message)
-  }
-  return data
-}
+  })

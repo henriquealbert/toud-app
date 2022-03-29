@@ -23,14 +23,14 @@ export const customInput = {
         borderRadius: 'base',
         _focus: {
           borderColor: 'purple.500',
-          border: '2px solid var(--chakra-colors-purple-500)',
-          padding: '0 15px'
+          boxShadow: '0 0 0 1px var(--chakra-colors-purple-500)'
         },
         _placeholder: {
           fontWeight: 'light'
         },
         _invalid: {
-          borderColor: 'red.500'
+          borderColor: 'red.500',
+          boxShadow: '0 0 0 1px var(--chakra-colors-red-500)'
         }
       }
     }

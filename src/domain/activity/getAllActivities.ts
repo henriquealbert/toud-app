@@ -9,6 +9,9 @@ export async function getAllActivities() {
       id: true,
       name: true,
       isActive: true
+    },
+    orderBy: {
+      name: 'asc'
     }
   })
 

@@ -6,7 +6,7 @@ export const StepsProgress = ({ step = 1 }: stepsControlProps) => {
     <Box my={4}>
       <Box maxW="220px" mb={4}>
         <Progress
-          value={1}
+          value={step}
           max={steps.length}
           borderRadius="base"
           size="xs"
@@ -16,7 +16,7 @@ export const StepsProgress = ({ step = 1 }: stepsControlProps) => {
       </Box>
       <Text color="text" fontSize="sm">
         Etapa {step} de {steps.length} -{' '}
-        <Text as="span" fontWeight="bold">
+        <Text as="span" color="text" fontWeight="bold">
           {currentStep}
         </Text>
       </Text>

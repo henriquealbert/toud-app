@@ -1,5 +1,8 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next'
-import jwt from 'jsonwebtoken'
+import { getUserById } from 'domain/user/getUserById'
+import { tmpdir } from 'os'
+import multer from 'multer'
+import { v4 as uuid } from 'uuid'
 
 export const newHandler =
   (handler: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
@@ -37,10 +40,37 @@ export const withUser =
       return res.status(401).json({ message: 'Forbidden access' })
     }
 
-    try {
-      jwt.verify(token, process.env.JWT_SECRET as string)
-      return handler(req, res)
-    } catch (error) {
+    const { error } = await getUserById({ token })
+
+    if (error) {
       return res.status(401).json({ message: 'Forbidden access' })
     }
+
+    return handler(req, res)
+  }
+
+const runMiddleware = (middleware: any) => async (req: NextApiRequest, res: NextApiResponse) => {
+  return new Promise((resolve, reject) => {
+    middleware(req, res, (result: any) => {
+      if (result instanceof Error) {
+        return reject(result)
+      }
+      return resolve(result)
+    })
+  })
+}
+
+const fileMiddleware = multer({
+  storage: multer.diskStorage({
+    destination: (req, file, cb) => cb(null, tmpdir()),
+    filename: (req, file, cb) => {
+      cb(null, uuid())
+    }
+  })
+}).array('files')
+
+export const withFile =
+  (handler: NextApiHandler) => async (req: NextApiRequest, res: NextApiResponse) => {
+    await runMiddleware(fileMiddleware)(req, res)
+    return handler(req, res)
   }

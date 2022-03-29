@@ -21,11 +21,6 @@ enum Gender {
   BOTH
 }
 
-enum FileType {
-  IMAGE
-  VIDEO
-}
-
 enum Status {
   DRAFT
   SUBMITTED
@@ -58,10 +53,10 @@ model Campaign {
   description         String?
   gender              Gender
   location            String
-  amount              Decimal               @db.Decimal(18, 2)
-  expectedDate        DateTime              @map("expected_date")
-  estimatedReach      String                @map("estimated_reach")
-  status              Status                @default(SUBMITTED)
+  amount              Decimal?              @db.Decimal(18, 2)
+  expectedDate        DateTime?             @map("expected_date")
+  estimatedReach      String?               @map("estimated_reach")
+  status              Status                @default(DRAFT)
   notes               String?
   isActive            Boolean               @default(true) @map("is_active")
   createdAt           DateTime              @default(now()) @map("created_at")
@@ -117,8 +112,7 @@ model UserFile {
   userId     String    @map("user_id")
   key        String    @unique
   filename   String
-  url        String
-  type       FileType
+  mimetype   String
   isActive   Boolean   @default(true) @map("is_active")
   createdAt  DateTime  @default(now()) @map("created_at")
   updatedAt  DateTime  @updatedAt @map("updated_at")
