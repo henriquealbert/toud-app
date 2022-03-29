@@ -43,4 +43,6 @@ export type FooterButtonsProps = {
   handlePrevStep?: () => void
   isSubmitting: boolean
   canGoBack?: boolean
+  canSubmit?: boolean
+  children?: React.ReactNode
 }

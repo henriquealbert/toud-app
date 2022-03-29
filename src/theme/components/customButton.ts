@@ -8,6 +8,16 @@ export const customButton = {
     w: 'full'
   },
   variants: {
+    success: {
+      bg: '#0BCD41',
+      color: 'white',
+      _hover: {
+        bg: 'green.400'
+      },
+      _active: {
+        bg: 'green.500'
+      }
+    },
     secondary: {
       bg: 'purple.200',
       color: 'purple.500',

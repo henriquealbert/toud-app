@@ -1,9 +1,15 @@
+import { useEffect } from 'react'
 import { Flex, Heading, Text, Tooltip } from '@chakra-ui/react'
 import { getCurrentAudience } from './helpers'
 import { AudienceProps } from './types'
 
-export const Audience = ({ value }: AudienceProps) => {
+export const Audience = ({ value, setValue }: AudienceProps) => {
   const currentAudience = getCurrentAudience(String(value))
+
+  useEffect(() => {
+    setValue('estimatedReach', currentAudience?.estimatedReach || '')
+  }, [currentAudience?.estimatedReach, setValue, value])
+
   return (
     <Flex
       boxShadow="0px 3px 8px 4px rgba(193, 212, 255, 0.25)"
