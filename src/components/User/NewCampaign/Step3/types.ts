@@ -1,1 +1,3 @@
-export const tt = []
+export type FormStep3Values = {
+  amount: string
+}
