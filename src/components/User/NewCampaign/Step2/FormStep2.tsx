@@ -1,5 +1,4 @@
 import {
-  Button,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -16,16 +15,19 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Controller, useForm } from 'react-hook-form'
 import { MdOutlineErrorOutline } from 'react-icons/md'
 
+import { step2Schema } from './helpers'
 import { useAuth } from 'contexts/AuthContext'
+import { useHandleSubmitFormStep } from '../helpers'
 import { UploadFiles } from 'components/shared/UploadFiles'
 import { CalendarInput } from 'components/shared/CalendarInput'
-import { step2Schema, useHandleSubmitFormStep2 } from './helpers'
 
-import { FormStep2Props, FormStep2Values } from './types'
+import { FormStep2Values } from './types'
+import { FormStepProps } from '../types'
+import { FooterButtons } from '../FooterButtons'
 
-export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Props) => {
+export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
   const { user } = useAuth()
-  const { isSubmitting, submitForm } = useHandleSubmitFormStep2({ handleNextStep, data })
+  const { isSubmitting, submitForm } = useHandleSubmitFormStep({ handleNextStep, data })
   const expectedDateValue = data?.expectedDate ? parseISO(String(data?.expectedDate)) : undefined
 
   const {
@@ -48,8 +50,16 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
   })
   const { hasDescription, filesIds } = watch()
 
+  const handleSubmitForm = async (values: FormStep2Values) => {
+    const formattedValues = {
+      ...values,
+      description: values.hasDescription === 'Yes' ? values.description : ''
+    }
+    await submitForm(formattedValues)
+  }
+
   return (
-    <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(submitForm)}>
+    <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(handleSubmitForm)}>
       <Flex w="full" my={8}>
         <FormControl id="hasDescription" mb={3} isInvalid={!!errors.hasDescription}>
           <FormLabel htmlFor="hasDescription" mb={2}>
@@ -137,7 +147,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
                   files.map((f) => ({ id: f.id }))
                 )
               }
-              value={filesIds}
+              value={filesIds.length > 0 ? filesIds : undefined}
               campaignId={data?.id}
             />
           </FormControl>
@@ -170,14 +180,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
         </FormControl>
       </Flex>
 
-      <Flex mt={12}>
-        <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
-          Voltar
-        </Button>
-        <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
-          Salvar
-        </Button>
-      </Flex>
+      <FooterButtons isSubmitting={isSubmitting} handlePrevStep={handlePrevStep} />
     </Flex>
   )
 }
