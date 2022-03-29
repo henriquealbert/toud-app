@@ -24,7 +24,8 @@ const texts = [
     ),
     min: 0,
     max: 249.99,
-    width: '0px'
+    width: '0px',
+    estimatedReach: '0'
   },
   {
     text: () => (
@@ -36,7 +37,8 @@ const texts = [
     ),
     min: 250,
     max: 499.99,
-    width: '210px'
+    width: '210px',
+    estimatedReach: '30.000 mil à 50.000 mil'
   },
   {
     text: () => (
@@ -48,7 +50,8 @@ const texts = [
     ),
     min: 500,
     max: 699.99,
-    width: '420px'
+    width: '420px',
+    estimatedReach: '60.000 mil à 80.000 mil'
   },
   {
     text: () => (
@@ -60,7 +63,8 @@ const texts = [
     ),
     min: 700,
     max: 999.99,
-    width: '525px'
+    width: '525px',
+    estimatedReach: '90.000 mil à 120.000 mil'
   },
   {
     text: () => (
@@ -72,7 +76,8 @@ const texts = [
     ),
     min: 1000,
     max: 1199.99,
-    width: '630px'
+    width: '630px',
+    estimatedReach: '130.000 mil à 150.000 mil'
   },
   {
     text: () => (
@@ -84,7 +89,8 @@ const texts = [
     ),
     min: 1200,
     max: 1499.99,
-    width: '735px'
+    width: '735px',
+    estimatedReach: '160.000 mil à 180.000 mil'
   },
   {
     text: () => (
@@ -96,6 +102,7 @@ const texts = [
     ),
     min: 1500,
     max: Infinity,
-    width: '840px'
+    width: '840px',
+    estimatedReach: '190.000 mil à 210.000 mil'
   }
 ]

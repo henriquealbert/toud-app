@@ -20,12 +20,14 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
     handleSubmit,
     watch,
     control,
+    setValue,
     formState: { errors }
   } = useForm<FormStep3Values>({
     resolver: yupResolver(step3Schema),
     defaultValues: {
       amount: data?.amount || '',
-      userId: user?.id || ''
+      userId: user?.id || '',
+      estimatedReach: data?.estimatedReach || ''
     }
   })
   const { amount } = watch()
@@ -59,7 +61,7 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
           <>{!!errors.amount && <FormErrorMessage>{errors.amount?.message}</FormErrorMessage>}</>
         </FormControl>
       </Flex>
-      <Audience value={amount} />
+      <Audience value={amount} setValue={setValue} />
 
       <FooterButtons isSubmitting={isSubmitting} handlePrevStep={handlePrevStep} />
     </Flex>

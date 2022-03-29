@@ -4,7 +4,9 @@ import { FooterButtonsProps } from './types'
 export const FooterButtons = ({
   isSubmitting = false,
   handlePrevStep,
-  canGoBack = true
+  canGoBack = true,
+  canSubmit = true,
+  children
 }: FooterButtonsProps) => (
   <Flex mt={12}>
     {canGoBack && (
@@ -12,8 +14,11 @@ export const FooterButtons = ({
         Voltar
       </Button>
     )}
-    <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
-      Salvar
-    </Button>
+    {canSubmit && (
+      <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
+        Salvar
+      </Button>
+    )}
+    {children}
   </Flex>
 )
