@@ -10,9 +10,10 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SelectInput } from 'components/shared/SelectInput'
-import { useAuth } from 'contexts/AuthContext'
 import { Controller, useForm } from 'react-hook-form'
+
+import { useAuth } from 'contexts/AuthContext'
+import { SelectInput } from 'components/shared/SelectInput'
 import {
   useActivities,
   genderOptions,
@@ -20,6 +21,7 @@ import {
   useBrazilianStates,
   useHandleSubmitFormStep1
 } from './helpers'
+
 import { FormStep1Props, FormStep1Values } from './types'
 
 export const FormStep1 = ({ handleNextStep, data }: FormStep1Props) => {

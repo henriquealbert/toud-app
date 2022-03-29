@@ -1,11 +1,13 @@
 import axios from 'axios'
-import { Activity } from 'domain/activity/types'
+import { useQuery } from 'react-query'
+import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+
+import yup from 'lib/yup'
 import { api } from 'lib/api'
 import { fetcher } from 'lib/fetcher'
-import yup from 'lib/yup'
-import { useSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import { useQuery } from 'react-query'
+
+import { Activity } from 'domain/activity/types'
 import { FormStep1Values, useBrazilianStatesProps, useHandleSubmitFormStep1Props } from './types'
 
 const formatActivitiesOptions = (activities: Activity[]) =>

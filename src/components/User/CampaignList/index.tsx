@@ -1,8 +1,8 @@
 import { useMemo } from 'react'
 import NextLink from 'next/link'
-import { DateTime } from 'luxon'
 import { MdExpandMore } from 'react-icons/md'
 import { Box, Flex, Icon } from '@chakra-ui/react'
+import { parseISO } from 'date-fns'
 
 import { formatPrice } from 'lib/formatPrice'
 import { useAuth } from 'contexts/AuthContext'
@@ -18,8 +18,8 @@ export const CampaignList = () => {
       name: campaign.name,
       status: campaign.status,
       activity: campaign.activity.name,
-      createdAt: DateTime.fromISO(campaign.createdAt).toLocaleString(DateTime.DATE_SHORT, {
-        locale: 'pt-BR'
+      createdAt: parseISO(campaign.createdAt).toLocaleString('pt-BR', {
+        dateStyle: 'short'
       }),
       amount: formatPrice(campaign.amount),
       placement: 'Instagram Stories' // SUPPORTING ONLY ONE PLACEMENT FOR NOW

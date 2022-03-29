@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
+import 'theme/global.css'
 
 import { CustomThemeProvider } from 'theme'
 import { AuthProvider } from 'contexts/AuthContext'

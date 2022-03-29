@@ -1,7 +1,9 @@
-import { api } from 'lib/api'
-import yup from 'lib/yup'
-import { useSession } from 'next-auth/react'
 import { useState } from 'react'
+import { useSession } from 'next-auth/react'
+
+import yup from 'lib/yup'
+import { api } from 'lib/api'
+
 import { FormStep2Values, useHandleSubmitFormStep2Props } from './types'
 
 const updateCampaign = async (campaignId: string, token: string, values: FormStep2Values) => {
@@ -58,6 +60,7 @@ export const step2Schema = yup.object().shape({
   userId: yup.string().required('Campo obrigatório'),
   filesIds: yup
     .array()
-    .of(yup.object({ id: yup.string().required('Campo obrigatório') }))
-    .optional()
+    .of(yup.object({ id: yup.string() }))
+    .optional(),
+  expectedDate: yup.date().required('Campo obrigatório')
 })

@@ -29,7 +29,8 @@ export const customInput = {
           fontWeight: 'light'
         },
         _invalid: {
-          borderColor: 'red.500'
+          borderColor: 'red.500',
+          boxShadow: '0 0 0 1px var(--chakra-colors-red-500)'
         }
       }
     }

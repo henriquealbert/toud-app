@@ -14,7 +14,7 @@ export const createCampaignValidator = yup
 export const updateCampaignValidator = yup.object({
   id: yup.string().required(),
   userId: yup.string().required(),
-  expectedDate: yup.mixed().oneOf([null, yup.date()]).optional(),
+  expectedDate: yup.date().optional(),
   name: yup.string().optional(),
   description: yup.string().optional(),
   gender: yup.string().oneOf(ALL_GENDERS).optional(),

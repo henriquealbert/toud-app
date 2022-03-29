@@ -6,11 +6,11 @@ import { ChangeEvent, useRef, useState } from 'react'
 import { FiUpload } from 'react-icons/fi'
 import { MdDone } from 'react-icons/md'
 
-export const UploadFiles = ({ onChange, accept = '*', campaignId }: UploadFilesProps) => {
+export const UploadFiles = ({ onChange, accept = '*', campaignId, value }: UploadFilesProps) => {
   const { user } = useAuth()
   const { data: session } = useSession()
   const inputRef = useRef<HTMLInputElement>(null)
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState<statusStates>(value ? 'success' : '')
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     setStatus('loading')
@@ -93,6 +93,7 @@ type UploadFilesProps = {
   onChange: (files: file[]) => void
   accept?: string
   campaignId?: string
+  value?: Array<{ id: string }>
 }
 
 type file = {
@@ -106,3 +107,5 @@ type file = {
   updatedAt: string
   userId: string
 }
+
+type statusStates = 'loading' | 'success' | ''

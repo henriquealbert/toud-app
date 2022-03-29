@@ -1,0 +1,16 @@
+.rdrSelected {
+  border-radius: 4px !important;
+}
+
+.rdrCalendarWrapper:not(.rdrDateRangeWrapper) .rdrDayHovered .rdrDayNumber:after {
+  border-radius: 4px !important;
+
+}
+
+.rdrDayStartPreview {
+  border-radius: 4px !important;
+}
+
+.rdrDayToday .rdrDayNumber span:after {
+  background: var(--chakra-colors-purple-400) !important;
+}

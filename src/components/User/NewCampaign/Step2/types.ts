@@ -3,7 +3,7 @@ import { NewCampaignDataType } from '../types'
 export type FormStep2Props = {
   handleNextStep: (data: any) => void
   handlePrevStep: () => void
-  data?: NewCampaignDataType | any
+  data?: NewCampaignDataType
 }
 
 export type FormStep2Values = {
@@ -11,10 +11,10 @@ export type FormStep2Values = {
   description: string
   userId: string
   filesIds: Array<{ id: string }>
-  expectedDate: Date | null
+  expectedDate: Date | undefined
 }
 
 export type useHandleSubmitFormStep2Props = {
   handleNextStep: (data: any) => void
-  data?: NewCampaignDataType | any
+  data?: NewCampaignDataType
 }

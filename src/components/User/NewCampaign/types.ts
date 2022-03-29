@@ -7,7 +7,7 @@ export type NewCampaignDataType = {
   createdAt: string
   description?: string | null
   estimatedReach?: string | null
-  expectedDate?: string | null
+  expectedDate?: Date | null | string
   gender: GenderType
   id: string
   isActive: boolean
@@ -17,6 +17,8 @@ export type NewCampaignDataType = {
   status: StatusType
   updatedAt: string
   userId: string
+  hasDescription: 'Yes' | 'No'
+  filesIds?: Array<{ id: string }>
 }
 
 type activity = {

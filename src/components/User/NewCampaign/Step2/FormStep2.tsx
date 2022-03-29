@@ -4,22 +4,26 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Input,
   Radio,
   RadioGroup,
   Stack,
   Textarea
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { UploadFiles } from 'components/shared/UploadFiles'
+import { Controller, useForm } from 'react-hook-form'
+
 import { useAuth } from 'contexts/AuthContext'
-import { useForm } from 'react-hook-form'
+import { UploadFiles } from 'components/shared/UploadFiles'
+import { CalendarInput } from 'components/shared/CalendarInput'
 import { step2Schema, useHandleSubmitFormStep2 } from './helpers'
+
 import { FormStep2Props, FormStep2Values } from './types'
+import { parseISO } from 'date-fns'
 
 export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Props) => {
   const { user } = useAuth()
   const { isSubmitting, submitForm } = useHandleSubmitFormStep2({ handleNextStep, data })
+  const expectedDateValue = data?.expectedDate ? parseISO(String(data?.expectedDate)) : undefined
 
   const {
     register,
@@ -27,18 +31,19 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
     setValue,
     clearErrors,
     watch,
+    control,
     formState: { errors }
   } = useForm<FormStep2Values>({
     resolver: yupResolver(step2Schema),
     defaultValues: {
-      hasDescription: 'Yes',
-      description: '',
+      hasDescription: data?.hasDescription || 'Yes',
+      description: data?.description || '',
       userId: user?.id || '',
-      filesIds: [],
-      expectedDate: null
+      filesIds: data?.filesIds || [],
+      expectedDate: expectedDateValue
     }
   })
-  const { hasDescription } = watch()
+  const { hasDescription, filesIds } = watch()
 
   return (
     <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(submitForm)}>
@@ -117,12 +122,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
               </>
             </FormControl>
           )}
-          <FormControl
-            id="filesIds"
-            mb={3}
-            mt={hasDescription === 'Yes' ? 8 : 0}
-            isInvalid={!!errors.description}
-          >
+          <FormControl id="filesIds" mb={3} mt={hasDescription === 'Yes' ? 8 : 0}>
             <FormLabel htmlFor="filesIds" mb={2}>
               Upload de anúncio em vídeo ou imagem
             </FormLabel>
@@ -133,17 +133,35 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStep2Pro
                   files.map((f) => ({ id: f.id }))
                 )
               }
+              value={filesIds}
               campaignId={data?.id}
             />
           </FormControl>
         </Flex>
 
-        <FormControl ml={8}>
-          <FormLabel htmlFor="" mb={2}>
+        <FormControl ml={8} id="expectedDate" isInvalid={!!errors.expectedDate}>
+          <FormLabel htmlFor="expectedDate" mb={2}>
             Dia de veiculação
           </FormLabel>
-
-          <Input />
+          <Controller
+            name="expectedDate"
+            control={control}
+            render={({ field: { onBlur, onChange, value, name } }) => (
+              <CalendarInput
+                placeholder="Selecione o dia de veiculação"
+                value={value}
+                onBlur={onBlur}
+                onChange={onChange}
+                name={name}
+                isInvalid={!!errors.expectedDate}
+              />
+            )}
+          />
+          <>
+            {!!errors.expectedDate && (
+              <FormErrorMessage>{errors.expectedDate?.message}</FormErrorMessage>
+            )}
+          </>
         </FormControl>
       </Flex>
 
