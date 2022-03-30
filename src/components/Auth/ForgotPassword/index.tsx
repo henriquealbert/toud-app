@@ -31,6 +31,7 @@ export const ForgotPassword = () => {
     handleSubmit,
     clearErrors,
     reset,
+    setError,
     formState: { isSubmitting, errors }
   } = useForm<valuesTypes>({
     resolver: yupResolver(
@@ -46,7 +47,7 @@ export const ForgotPassword = () => {
   const submitForm = async (values: valuesTypes) => {
     const { errors } = (await api.post('/auth/forgot-password', values)) as any
     if (errors) {
-      return alert(errors.email.message)
+      return setError('email', { message: errors?.email?.message, type: 'server' })
     }
     setShowSuccess(true)
   }
