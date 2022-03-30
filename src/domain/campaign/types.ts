@@ -62,3 +62,8 @@ export type UserCampaignType = {
     }
   ]
 }
+
+export type getCampaignByIdParams = {
+  id: string
+  userId: string
+}

@@ -31,3 +31,8 @@ export const updateCampaignValidator = yup.object({
   isActive: yup.bool().optional(),
   notes: yup.string().optional()
 })
+
+export const getCampaignByIdValidator = yup.object({
+  id: yup.string().required(),
+  userId: yup.string().required()
+})

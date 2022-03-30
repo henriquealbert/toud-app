@@ -8,7 +8,7 @@ import {
 } from 'domain/campaign/constants'
 import { StatusType } from 'domain/campaign/types'
 
-export const StatusBadge = ({ status }: { status: StatusType }) => (
+export const StatusBadge = ({ status = 'DRAFT' }: { status?: StatusType }) => (
   <Badge
     borderRadius="base"
     py="2px"
