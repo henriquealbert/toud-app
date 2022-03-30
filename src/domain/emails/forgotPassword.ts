@@ -29,14 +29,14 @@ export async function forgotPassword(params: paramsTypes): Promise<responseTypes
           <p>Clique neste link para alterar sua senha.</p>
           <a href="${
             process.env.NEXT_PUBLIC_APP_URL
-          }/reset-password?token=${token}">Clique aqui para alterar sua senha</a>
+          }/login?passwordToken=${token}">Clique aqui para alterar sua senha</a>
           <br />
           <p>Se você não solicitou a alteração de senha deste endereço, ignore este e-mail.</p>
           <p>Obrigado,<br />
           Equipe Toud.</p>
           <p style="opacity: 0;">${format(new Date(), 'dd-MM-yyyy HH:mm:ss')}</p>
     `,
-    text: `Olá, Clique neste link para alterar sua senha. ${process.env.NEXT_PUBLIC_APP_URL}/reset-password?token=${token}`
+    text: `Olá, Clique neste link para alterar sua senha. ${process.env.NEXT_PUBLIC_APP_URL}/login?passwordToken=${token}`
   })
 
   if (!response) {

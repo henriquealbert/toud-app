@@ -15,6 +15,7 @@ import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginValidator } from 'domain/auth/validation'
 import { ForgotPassword } from '../ForgotPassword'
+import { ResetPasswordModal } from '../ResetPassword'
 
 export const LoginForm = () => {
   const { push } = useRouter()
@@ -81,6 +82,8 @@ export const LoginForm = () => {
           Criar conta
         </Button>
       </NextLink>
+
+      <ResetPasswordModal />
     </>
   )
 }
