@@ -11,7 +11,7 @@ export const getStripe = () => {
   return stripePromise
 }
 
-export const redirectToCheckout = async ({ amount = 0, email = '', token = '' }) => {
+export const redirectToCheckout = async ({ amount = 0, email = '', token = '' }): Promise<any> => {
   const { data, status } = await api.post(
     '/stripe/checkout-sessions',
     {

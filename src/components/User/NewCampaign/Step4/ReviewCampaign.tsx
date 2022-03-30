@@ -1,10 +1,31 @@
 import { Button, Flex, Heading, SimpleGrid, Text } from '@chakra-ui/react'
+import { useAuth } from 'contexts/AuthContext'
+import { redirectToCheckout } from 'lib/stripe'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { FooterButtons } from '../FooterButtons'
 import { FormStepProps } from '../types'
 import { formatReviewData } from './helpers'
 
 export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
+  const { user } = useAuth()
+  const { data: session } = useSession()
   const reviewData = formatReviewData(data)
+  const [isLoading, setLoading] = useState(false)
+
+  const handleSubmit = async () => {
+    setLoading(true)
+    const { error } = await redirectToCheckout({
+      amount: data?.amount || 1,
+      email: user?.email,
+      token: session?.accessToken as string
+    })
+    setLoading(false)
+    if (error) {
+      alert(error.message)
+    }
+  }
+
   return (
     <Flex direction="column" flex={1}>
       <Flex
@@ -31,7 +52,14 @@ export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
         </SimpleGrid>
       </Flex>
       <FooterButtons isSubmitting={false} handlePrevStep={handlePrevStep} canSubmit={false}>
-        <Button type="button" variant="success" w="245px">
+        <Button
+          type="button"
+          variant="success"
+          w="245px"
+          isLoading={isLoading}
+          loadingText="Finalizando..."
+          onClick={handleSubmit}
+        >
           Finalizar
         </Button>
       </FooterButtons>
