@@ -14,6 +14,8 @@ import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { loginValidator } from 'domain/auth/validation'
+import { ForgotPassword } from '../ForgotPassword'
+import { ResetPasswordModal } from '../ResetPassword'
 
 export const LoginForm = () => {
   const { push } = useRouter()
@@ -51,27 +53,28 @@ export const LoginForm = () => {
   }
 
   return (
-    <Box as="form" onSubmit={handleSubmit(handleSignUp)}>
-      <FormControl id="email" mb={3} isInvalid={!!errors.email}>
-        <FormLabel htmlFor="email">E-mail</FormLabel>
-        <Input type="email" placeholder="Digite aqui seu e-mail" {...register('email')} />
-        <>{!!errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}</>
-      </FormControl>
+    <>
+      <Box as="form" id="login" onSubmit={handleSubmit(handleSignUp)}>
+        <FormControl id="email" mb={3} isInvalid={!!errors.email}>
+          <FormLabel htmlFor="email">E-mail</FormLabel>
+          <Input type="email" placeholder="Digite aqui seu e-mail" {...register('email')} />
+          <>{!!errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}</>
+        </FormControl>
 
-      <FormControl id="password" mb={3} isInvalid={!!errors.password}>
-        <FormLabel htmlFor="password">Senha</FormLabel>
-        <Input type="password" placeholder="Digite aqui sua senha" {...register('password')} />
-        <>{!!errors.password && <FormErrorMessage>{errors.password?.message}</FormErrorMessage>}</>
-      </FormControl>
+        <FormControl id="password" mb={3} isInvalid={!!errors.password}>
+          <FormLabel htmlFor="password">Senha</FormLabel>
+          <Input type="password" placeholder="Digite aqui sua senha" {...register('password')} />
+          <>
+            {!!errors.password && <FormErrorMessage>{errors.password?.message}</FormErrorMessage>}
+          </>
+        </FormControl>
+      </Box>
+
       <Flex justify="flex-end">
-        <NextLink href="/forgot-password" passHref>
-          <Button as="a" variant="link" mb={10} fontSize="sm">
-            Esqueceu sua senha?
-          </Button>
-        </NextLink>
+        <ForgotPassword />
       </Flex>
 
-      <Button type="submit" isLoading={isSubmitting} isDisabled={isSubmitting}>
+      <Button type="submit" form="login" isLoading={isSubmitting} isDisabled={isSubmitting}>
         Entrar
       </Button>
       <NextLink href="/signup" passHref>
@@ -79,7 +82,9 @@ export const LoginForm = () => {
           Criar conta
         </Button>
       </NextLink>
-    </Box>
+
+      <ResetPasswordModal />
+    </>
   )
 }
 

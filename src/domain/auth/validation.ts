@@ -23,3 +23,16 @@ export const verifyAccountValidator = yup
     token: yup.string().required()
   })
   .required()
+
+export const resetPasswordValidator = yup.object({
+  password: yup
+    .string()
+    .min(8, 'A senha deve ter no mínimo 8 caracteres')
+    .required('Campo obrigatório'),
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref('password'), null], 'As senhas não conferem')
+    .min(8, 'A senha deve ter no mínimo 8 caracteres')
+    .required('Campo obrigatório'),
+  token: yup.string().required('Campo obrigatório')
+})
