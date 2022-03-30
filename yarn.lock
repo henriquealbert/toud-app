@@ -1083,10 +1083,10 @@
   resolved "https://registry.yarnpkg.com/@types/qs/-/qs-6.9.7.tgz#63bb7d067db107cc1e457c303bc25d511febf6cb"
   integrity sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==
 
-"@types/ramda@^0.28.4":
-  version "0.28.4"
-  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.4.tgz#914d3ee28d8102d11d33a2854e93e1b534442b81"
-  integrity sha512-OVAF7ZrJxcWqxrZXaG1R/910vxAlDK8KBe3387VWcoLhwTUPvc+dpvRmPcoTv7/6up/hfCs9DcxTiICtJEw16A==
+"@types/ramda@^0.28.5":
+  version "0.28.5"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.28.5.tgz#224859ef5fb6d5252327e5a83093c078aa4ff7af"
+  integrity sha512-JK2aNBU3tBgcYF0ZgFglPBL9X4TV3MwachwUAKbb64O85qXYtN1I4jx6qyc2miRsBvXQqha9ToJiTpZrWX1OkQ==
   dependencies:
     ts-toolbelt "^6.15.1"
 
@@ -1422,10 +1422,10 @@ ast-types-flow@^0.0.7:
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.7.tgz#f70b735c6bca1a5c9c22d982c3e39e7feba3bdad"
   integrity sha1-9wtzXGvKGlycItmCw+Oef+ujva0=
 
-aws-sdk@^2.1102.0:
-  version "2.1102.0"
-  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1102.0.tgz#00cceeb39966bf0000ff64d7fb237c38640618f5"
-  integrity sha512-MMOncE8IG3Dop3WPza6ryTAEz413ftn/MtDO7ouessb3ljlg5BfqRkTe/rhPH5svqEqJvlh7qHnK0VjgJwmLTQ==
+aws-sdk@^2.1103.0:
+  version "2.1103.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.1103.0.tgz#b0c69b8fd0a31729860bd9218f3c691d06240fcb"
+  integrity sha512-naSAcfoLs55byP8djBHXgZQF3pcsgyX815HSPYjqkzmlukbE9mCVoguUp5rbqLYbLgcnMw4tp2N4ohpBB3voIg==
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
@@ -2003,10 +2003,15 @@ eslint-plugin-prettier@^4.0.0:
   dependencies:
     prettier-linter-helpers "^1.0.0"
 
-eslint-plugin-react-hooks@4.3.0, eslint-plugin-react-hooks@^4.3.0:
+eslint-plugin-react-hooks@4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.3.0.tgz#318dbf312e06fab1c835a4abef00121751ac1172"
   integrity sha512-XslZy0LnMn+84NEG9jSGR6eGqaZB3133L8xewQo3fQagbQuGt7a63gf+P1NGKZavEYEC3UXaWEAA/AqDkuN6xA==
+
+eslint-plugin-react-hooks@^4.4.0:
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-4.4.0.tgz#71c39e528764c848d8253e1aa2c7024ed505f6c4"
+  integrity sha512-U3RVIfdzJaeKDQKEJbz5p3NW8/L80PCATJAfuojwbaEL+gBjfGdhUcGde+WGUW46Q5sr/NgxevsIiDtNXrvZaQ==
 
 eslint-plugin-react@7.29.1:
   version "7.29.1"
@@ -3474,10 +3479,10 @@ react-focus-lock@2.5.2:
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
 
-react-hook-form@^7.28.1:
-  version "7.28.1"
-  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.28.1.tgz#95fc37be6c6b9d57212eb7eca055fb36d079b3b7"
-  integrity sha512-mgwxvXuvt3FMY/mdnWbPc++Zf1U5xYzkhOaL05mtFMLvXc9MvUhMUlKtUVuO12sOrgT3nPXBgVFawtiJ4ONrgg==
+react-hook-form@^7.29.0:
+  version "7.29.0"
+  resolved "https://registry.yarnpkg.com/react-hook-form/-/react-hook-form-7.29.0.tgz#5e7e41a483b70731720966ed8be52163ea1fecf1"
+  integrity sha512-NcJqWRF6el5HMW30fqZRt27s+lorvlCCDbTpAyHoodQeYWXgQCvZJJQLC1kRMKdrJknVH0NIg3At6TUzlZJFOQ==
 
 react-icons@^4.3.1:
   version "4.3.1"
