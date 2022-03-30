@@ -26,7 +26,7 @@ export const SignUpForm = () => {
     control,
     setError,
     formState: { isSubmitting, errors }
-  } = useForm({
+  } = useForm<valuesTypes>({
     resolver: yupResolver(signupValidator),
     defaultValues: {
       name: '',

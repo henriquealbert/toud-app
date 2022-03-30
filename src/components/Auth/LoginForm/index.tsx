@@ -22,7 +22,7 @@ export const LoginForm = () => {
     handleSubmit,
     setError,
     formState: { isSubmitting, errors }
-  } = useForm({
+  } = useForm<valuesTypes>({
     resolver: yupResolver(loginValidator),
     defaultValues: {
       email: '',

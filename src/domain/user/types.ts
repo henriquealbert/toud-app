@@ -11,3 +11,12 @@ export type UserType = {
 }
 
 export type RolesType = typeof ROLE_USER | typeof ROLE_ADMIN
+
+export type updateUserParamsTypes = {
+  id: string
+  name: string
+  email: string
+  phoneNumber: string
+  currentPassword: string
+  newPassword: string
+}
