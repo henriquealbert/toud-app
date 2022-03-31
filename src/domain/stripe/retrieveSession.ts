@@ -1,9 +1,9 @@
 import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
-import { stripeInstance } from 'lib/stripe'
 import { retrieveStripeSessionParams } from './types'
 import { retrieveStripeSessionValidator } from './validation'
 import { STATUS_DRAFT, STATUS_SUBMITTED } from 'domain/campaign/constants'
+import Stripe from 'stripe'
 
 export async function retrieveStripeSession(params: retrieveStripeSessionParams) {
   const { fields, errors } = await validate(retrieveStripeSessionValidator, params)
@@ -18,7 +18,9 @@ export async function retrieveStripeSession(params: retrieveStripeSessionParams)
 
   const { id } = fields as retrieveStripeSessionParams
 
-  const stripe = stripeInstance()
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2020-08-27'
+  })
 
   try {
     if (!id.startsWith('cs_')) {

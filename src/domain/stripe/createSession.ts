@@ -3,7 +3,7 @@ import { validate } from 'lib/yup'
 import { createStripeSessionParams } from './types'
 import { createStripeSessionValidator } from './validation'
 import { createStripeCustomer } from './createStripeCustomer'
-import { stripeInstance } from 'lib/stripe'
+import { Stripe } from 'stripe'
 
 export async function createStripeSession(params: createStripeSessionParams) {
   const { fields, errors } = await validate(createStripeSessionValidator, params)
@@ -26,7 +26,9 @@ export async function createStripeSession(params: createStripeSessionParams) {
     }
   }
 
-  const stripe = stripeInstance()
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2020-08-27'
+  })
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',

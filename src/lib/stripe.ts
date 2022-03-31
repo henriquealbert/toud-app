@@ -1,5 +1,4 @@
 import { loadStripe, Stripe } from '@stripe/stripe-js'
-import newStripeInstance from 'stripe'
 import { api } from './api'
 
 let stripePromise = null as Promise<Stripe | null> | null
@@ -43,10 +42,4 @@ export const redirectToCheckout = async ({
   if (error) {
     return { error: { message: 'Erro ao redirecionar para o checkout.' } }
   }
-}
-
-export const stripeInstance = () => {
-  return new newStripeInstance(process.env.STRIPE_SECRET_KEY as string, {
-    apiVersion: '2020-08-27'
-  })
 }

@@ -2,7 +2,7 @@ import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
 import { createStripeCustomerParams } from './types'
 import { createStripeCustomerValidator } from './validation'
-import { stripeInstance } from 'lib/stripe'
+import Stripe from 'stripe'
 
 export async function createStripeCustomer(params: createStripeCustomerParams) {
   const { fields, errors } = await validate(createStripeCustomerValidator, params)
@@ -38,7 +38,9 @@ export async function createStripeCustomer(params: createStripeCustomerParams) {
     }
   }
 
-  const stripe = stripeInstance()
+  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+    apiVersion: '2020-08-27'
+  })
 
   if (user.stripeId) {
     try {
