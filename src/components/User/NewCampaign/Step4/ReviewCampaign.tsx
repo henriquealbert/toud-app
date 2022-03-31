@@ -18,7 +18,8 @@ export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
     const { error } = await redirectToCheckout({
       amount: data?.amount || 1,
       email: user?.email,
-      token: session?.accessToken as string
+      token: session?.accessToken as string,
+      campaignId: data?.id
     })
     setLoading(false)
     if (error) {

@@ -6,16 +6,13 @@ import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import { fetcher } from 'lib/fetcher'
-import { useQuery } from 'react-query'
+import { useQuery, useQueryClient } from 'react-query'
 
 const SuccessCampaignPage = () => {
-  // TODO:
-  // update campaign status to EM ANALISE
-  // add stripe webhook
-
   const { query } = useRouter()
   const { data: session } = useSession()
-  const { data } = useQuery(
+
+  useQuery(
     'checkout-session',
     async () =>
       await fetcher(`/stripe/checkout-sessions/${query?.session_id}`, {
@@ -27,7 +24,12 @@ const SuccessCampaignPage = () => {
       enabled: !!session && !!query?.session_id
     }
   )
-  console.log(data)
+  const queryClient = useQueryClient()
+
+  const handleClearCache = () => {
+    queryClient.invalidateQueries('me')
+  }
+
   return (
     <PrivateLayout>
       <Flex direction="column" flex={1} px={28} py={12}>
@@ -41,7 +43,7 @@ const SuccessCampaignPage = () => {
         </Text>
 
         <NextLink href="/" passHref>
-          <Button as="a" maxW="245px">
+          <Button as="a" maxW="245px" onClick={handleClearCache}>
             ACOMPANHAR
           </Button>
         </NextLink>

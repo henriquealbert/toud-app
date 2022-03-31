@@ -1,8 +1,9 @@
-import Stripe from 'stripe'
+import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
 import { createStripeSessionParams } from './types'
 import { createStripeSessionValidator } from './validation'
 import { createStripeCustomer } from './createStripeCustomer'
+import { stripeInstance } from 'lib/stripe'
 
 export async function createStripeSession(params: createStripeSessionParams) {
   const { fields, errors } = await validate(createStripeSessionValidator, params)
@@ -15,7 +16,7 @@ export async function createStripeSession(params: createStripeSessionParams) {
     }
   }
 
-  const { email, amount } = fields as createStripeSessionParams
+  const { email, amount, campaignId } = fields as createStripeSessionParams
 
   const { data: customer, error: customerError } = await createStripeCustomer({ email })
 
@@ -25,7 +26,7 @@ export async function createStripeSession(params: createStripeSessionParams) {
     }
   }
 
-  const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2020-08-27' })
+  const stripe = stripeInstance()
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
@@ -44,6 +45,13 @@ export async function createStripeSession(params: createStripeSessionParams) {
       ],
       success_url: `${process.env.NEXT_PUBLIC_APP_URL}/campaigns/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_APP_URL}/`
+    })
+
+    await prisma.campaign.update({
+      where: { id: campaignId },
+      data: {
+        checkoutSessionId: session.id
+      }
     })
 
     return { data: session }
