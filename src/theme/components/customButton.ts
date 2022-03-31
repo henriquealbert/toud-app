@@ -16,6 +16,11 @@ export const customButton = {
       },
       _active: {
         bg: 'green.500'
+      },
+      _disabled: {
+        _hover: {
+          bgColor: '#0BCD41 !important'
+        }
       }
     },
     secondary: {
