@@ -1,7 +1,8 @@
+import Stripe from 'stripe'
 import { validate } from 'lib/yup'
 import { createStripeSessionParams } from './types'
 import { createStripeSessionValidator } from './validation'
-import Stripe from 'stripe'
+import { createStripeCustomer } from './createStripeCustomer'
 
 export async function createStripeSession(params: createStripeSessionParams) {
   const { fields, errors } = await validate(createStripeSessionValidator, params)
@@ -16,12 +17,20 @@ export async function createStripeSession(params: createStripeSessionParams) {
 
   const { email, amount } = fields as createStripeSessionParams
 
+  const { data: customer, error: customerError } = await createStripeCustomer({ email })
+
+  if (customerError) {
+    return {
+      error: customerError
+    }
+  }
+
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, { apiVersion: '2020-08-27' })
   try {
     const session = await stripe.checkout.sessions.create({
       mode: 'payment',
       submit_type: 'pay',
-      customer_email: email,
+      customer: customer.id,
       payment_method_types: ['card'],
       locale: 'pt-BR',
       line_items: [
