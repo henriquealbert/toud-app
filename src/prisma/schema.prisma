@@ -41,6 +41,7 @@ model User {
   phoneNumber String     @map("phone_number")
   terms       Boolean    @map("terms")
   role        Role       @default(USER) @map("role")
+  stripeId    String?    @map("stripe_id")
   campaigns   Campaign[]
   files       UserFile[]
 
@@ -67,6 +68,8 @@ model Campaign {
   activityId          String                @map("activity_id")
   campaignOnPlacement CampaignOnPlacement[]
   files               UserFile[]
+  paymentIntentId     String?               @unique @map("payment_intent_id")
+  checkoutSessionId   String?               @unique @map("checkout_session_id")
 
   @@map("campaign")
 }
