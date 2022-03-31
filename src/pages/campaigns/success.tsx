@@ -5,6 +5,9 @@ import { Heading, Flex, Text, Button, Icon } from '@chakra-ui/react'
 import { PrivateLayout } from 'components/shared/PrivateLayout'
 
 const SuccessCampaignPage = () => {
+  // TODO:
+  // update campaign status to EM ANALISE
+  // add stripe webhook
   return (
     <PrivateLayout>
       <Flex direction="column" flex={1} px={28} py={12}>
