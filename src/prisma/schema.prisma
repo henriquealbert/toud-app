@@ -124,3 +124,12 @@ model UserFile {
 
   @@map("user_file")
 }
+
+model Ping {
+  id        String   @id @unique @default(uuid())
+  notes     String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("ping")
+}
