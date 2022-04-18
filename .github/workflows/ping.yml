@@ -1,0 +1,19 @@
+name: Keep Supabase DB up
+on:
+  schedule:
+    - cron: '0 */72 * * *' # every 3 days
+jobs:
+  staging:
+    name: Staging job runner
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    steps:
+      - shell: bash
+        run: curl -m 300 -X GET https://staging.app.toud.io/api/jobs/ping
+  production:
+    name: Production job runner
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    steps:
+      - shell: bash
+        run: curl -m 300 -X GET https://app.toud.io/api/jobs/ping
