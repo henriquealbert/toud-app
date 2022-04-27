@@ -3,13 +3,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3001",
-    "build": "prisma generate && prisma db push && next build",
+    "build": "yarn migrate && next build",
     "start": "next start",
     "lint": "next lint",
     "update": "yarn upgrade-interactive --latest",
     "db:reset": "npx prisma migrate reset -f && prisma generate && prisma db push",
     "db:push": "prisma generate && prisma db push",
-    "seed:dev": "node src/prisma/seedDev.js"
+    "seed:dev": "node src/prisma/seedDev.js",
+    "migrate": "prisma generate && prisma migrate deploy"
   },
   "dependencies": {
     "@chakra-ui/react": "^1.8.8",
