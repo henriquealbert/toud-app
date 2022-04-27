@@ -1,7 +1,7 @@
 name: Keep Supabase DB up
 on:
   schedule:
-    - cron: '*/60 * * * *' # every hour
+    - cron: '0 0 * * *' # every day at 12AM
 jobs:
   staging:
     name: Staging job runner
