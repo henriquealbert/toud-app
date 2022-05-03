@@ -1,8 +1,8 @@
+import jwt from 'jsonwebtoken'
+import { comparePassword } from 'lib/password'
+import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
 import { loginValidator } from './validation'
-import jwt from 'jsonwebtoken'
-import prisma from 'lib/prisma'
-import { comparePassword } from 'lib/password'
 
 export async function login(params: loginParamsTypes) {
   const { fields, errors } = await validate(loginValidator, params)
@@ -29,18 +29,18 @@ export async function login(params: loginParamsTypes) {
     return wrongCredentials
   }
 
-  if (!user.isVerified) {
-    return {
-      error: {
-        status: 400,
-        errors: {
-          verification: {
-            message: 'Usuário não verificado.'
-          }
-        }
-      }
-    }
-  }
+  // if (!user.isVerified) {
+  //   return {
+  //     error: {
+  //       status: 400,
+  //       errors: {
+  //         verification: {
+  //           message: 'Usuário não verificado.'
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 
   const passwordMatch = await comparePassword({ password, hash: user.password as string })
 

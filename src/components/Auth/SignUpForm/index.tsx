@@ -1,24 +1,22 @@
-import { useForm } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  FormControl,
-  Input,
-  FormLabel,
-  Checkbox,
-  Button,
-  Text,
   Box,
+  Button,
+  Checkbox,
+  FormControl,
   FormErrorMessage,
-  useToast
+  FormLabel,
+  Input,
+  Text
 } from '@chakra-ui/react'
-
-import { api } from 'lib/api'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { PhoneInput } from 'components/shared/PhoneInput'
-import { useRouter } from 'next/router'
 import { signupValidator } from 'domain/auth/validation'
+import { api } from 'lib/api'
+import { signIn } from 'next-auth/react'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 
 export const SignUpForm = () => {
-  const toast = useToast()
   const { push } = useRouter()
   const {
     register,
@@ -47,16 +45,21 @@ export const SignUpForm = () => {
       return
     }
 
-    toast({
-      title: 'Conta criada!',
-      description: `Enviamos um e-mail para ${values.email}. Verifique sua caixa de entrada.`,
-      status: 'success',
-      duration: 8000,
-      isClosable: true,
-      position: 'top-right'
-    })
+    const { error: signInError } = (await signIn('credentials', {
+      user: JSON.stringify({
+        email: values.email,
+        password: values.password
+      }),
+      redirect: false
+    })) as any
 
-    push('/login')
+    if (signInError) {
+      setError('email', { message: signInError, type: 'server' })
+      setError('password', { message: signInError, type: 'server' })
+      return
+    } else {
+      push('/')
+    }
   }
 
   return (

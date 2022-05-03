@@ -1,4 +1,3 @@
-import { accountVerification } from 'domain/emails/accountVerification'
 import { generatePasswordHash } from 'lib/password'
 import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
@@ -55,11 +54,6 @@ export async function signup(params: signupParamsTypes): Promise<signupResponseT
         terms
       }
     })
-
-    const { error } = await accountVerification({ email })
-    if (error) {
-      return { error }
-    }
 
     return {
       data: {
