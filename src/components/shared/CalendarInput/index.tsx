@@ -1,13 +1,11 @@
-import { useRef } from 'react'
+import { Box, Icon, Input, useBoolean, useOutsideClick, useTheme } from '@chakra-ui/react'
+import { addBusinessDays } from 'date-fns'
 import ptBR from 'date-fns/locale/pt-BR'
+import { useRef } from 'react'
 import { Calendar } from 'react-date-range'
-
 import 'react-date-range/dist/styles.css'
 import 'react-date-range/dist/theme/default.css'
-
-import { addBusinessDays } from 'date-fns'
 import { FiCalendar } from 'react-icons/fi'
-import { Input, Icon, Box, useTheme, useOutsideClick, useBoolean } from '@chakra-ui/react'
 
 export const CalendarInput = ({
   name,
@@ -58,6 +56,7 @@ export const CalendarInput = ({
           pos="absolute"
           left="16px"
           top="25%"
+          pointerEvents="none"
         />
       </Box>
       <Box
@@ -74,7 +73,10 @@ export const CalendarInput = ({
           locale={ptBR}
           displayMode="date"
           date={value}
-          onChange={(item) => onChange && onChange(item)}
+          onChange={(item) => {
+            onChange && onChange(item)
+            setOpen.off()
+          }}
           minDate={minDate}
           dragSelectionEnabled={false}
           weekdayDisplayFormat="EEEEEE"
