@@ -7,23 +7,21 @@ import {
   Radio,
   RadioGroup,
   Stack,
-  Textarea,
   Tooltip
 } from '@chakra-ui/react'
-import { parseISO } from 'date-fns'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { CalendarInput } from 'components/shared/CalendarInput'
+import { TextareaInput } from 'components/shared/TextareaInput'
+import { UploadFiles } from 'components/shared/UploadFiles'
+import { useAuth } from 'contexts/AuthContext'
+import { parseISO } from 'date-fns'
 import { Controller, useForm } from 'react-hook-form'
 import { MdOutlineErrorOutline } from 'react-icons/md'
-
-import { step2Schema } from './helpers'
-import { useAuth } from 'contexts/AuthContext'
-import { useHandleSubmitFormStep } from '../helpers'
-import { UploadFiles } from 'components/shared/UploadFiles'
-import { CalendarInput } from 'components/shared/CalendarInput'
-
-import { FormStep2Values } from './types'
-import { FormStepProps } from '../types'
 import { FooterButtons } from '../FooterButtons'
+import { useHandleSubmitFormStep } from '../helpers'
+import { FormStepProps } from '../types'
+import { step2Schema } from './helpers'
+import { FormStep2Values } from './types'
 
 export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
   const { user } = useAuth()
@@ -48,7 +46,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
       expectedDate: expectedDateValue
     }
   })
-  const { hasDescription, filesIds } = watch()
+  const { hasDescription, description, filesIds } = watch()
 
   const handleSubmitForm = async (values: FormStep2Values) => {
     const formattedValues = {
@@ -127,7 +125,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
               <FormLabel htmlFor="description" mb={2}>
                 Qual é o roteiro que o influencer deve seguir?
               </FormLabel>
-              <Textarea rows={4} {...register('description')} />
+              <TextareaInput rows={5} value={description} {...register('description')} />
               <>
                 {!!errors.description && (
                   <FormErrorMessage>{errors.description?.message}</FormErrorMessage>
