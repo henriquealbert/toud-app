@@ -1,22 +1,23 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  Button,
   Box,
+  Button,
+  Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
-  FormErrorMessage,
+  Modal,
+  ModalBody,
+  ModalContent,
   ModalHeader,
-  Flex,
+  ModalOverlay,
   useToast
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { resetPasswordValidator } from 'domain/auth/validation'
 import { api } from 'lib/api'
 import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 export const ResetPasswordModal = () => {
@@ -27,6 +28,8 @@ export const ResetPasswordModal = () => {
     register,
     handleSubmit,
     setError,
+    setValue,
+    watch,
     formState: { isSubmitting, errors }
   } = useForm<valuesTypes>({
     resolver: yupResolver(resetPasswordValidator),
@@ -36,6 +39,13 @@ export const ResetPasswordModal = () => {
       token: (query?.passwordToken as string) || ''
     }
   })
+  const { token } = watch()
+
+  useEffect(() => {
+    if (!token) {
+      setValue('token', query?.passwordToken as string)
+    }
+  }, [query?.passwordToken, setValue, token])
 
   const submitForm = async (values: valuesTypes) => {
     const { errors } = (await api.post('/auth/reset-password', values)) as any
@@ -99,7 +109,6 @@ export const ResetPasswordModal = () => {
               <input
                 type="hidden"
                 id="token"
-                value={query?.passwordToken}
                 defaultValue={query?.passwordToken}
                 {...register('token')}
               />
