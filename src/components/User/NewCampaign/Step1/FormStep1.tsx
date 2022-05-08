@@ -9,21 +9,19 @@ import {
   Stack
 } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { Controller, useForm } from 'react-hook-form'
-
-import { useAuth } from 'contexts/AuthContext'
-import { FooterButtons } from '../FooterButtons'
 import { SelectInput } from 'components/shared/SelectInput'
+import { useAuth } from 'contexts/AuthContext'
+import { Controller, useForm } from 'react-hook-form'
+import { FooterButtons } from '../FooterButtons'
+import { FormStepProps } from '../types'
 import {
-  useActivities,
   genderOptions,
   step1Schema,
+  useActivities,
   useBrazilianStates,
   useHandleSubmitFormStep1
 } from './helpers'
-
 import { FormStep1Values } from './types'
-import { FormStepProps } from '../types'
 
 export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
   const { user } = useAuth()
@@ -48,7 +46,8 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
       gender: data?.gender || '',
       location: data?.location || 'BR',
       state: data?.state || '',
-      userId: user?.id || ''
+      userId: user?.id || '',
+      step: 1
     }
   })
 

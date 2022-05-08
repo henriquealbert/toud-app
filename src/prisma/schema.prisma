@@ -70,6 +70,7 @@ model Campaign {
   files               UserFile[]
   paymentIntentId     String?               @unique @map("payment_intent_id")
   checkoutSessionId   String?               @unique @map("checkout_session_id")
+  step                Int?                  @default(1)
 
   @@map("campaign")
 }

@@ -1,8 +1,7 @@
 import prisma from 'lib/prisma'
 import { validate } from 'lib/yup'
-import { updateCampaignValidator } from './validation'
-
 import { updateCampaignParams } from './types'
+import { updateCampaignValidator } from './validation'
 
 export async function updateCampaign(params: updateCampaignParams) {
   const { fields, errors } = await validate(updateCampaignValidator, params)
@@ -29,7 +28,8 @@ export async function updateCampaign(params: updateCampaignParams) {
     status,
     isActive,
     notes,
-    filesIds
+    filesIds,
+    step
     // placementsIds
   } = fields as updateCampaignParams
 
@@ -66,6 +66,7 @@ export async function updateCampaign(params: updateCampaignParams) {
       status,
       isActive,
       notes,
+      step,
       files: { connect: filesIds }
     },
     include: {

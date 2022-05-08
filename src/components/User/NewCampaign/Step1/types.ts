@@ -7,6 +7,7 @@ export type FormStep1Values = {
   location: string
   state?: string
   userId: string
+  step?: number
 }
 
 export type useBrazilianStatesProps = {

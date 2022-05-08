@@ -43,7 +43,8 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
       description: data?.description || '',
       userId: user?.id || '',
       filesIds: data?.filesIds || [],
-      expectedDate: expectedDateValue
+      expectedDate: expectedDateValue,
+      step: 2
     }
   })
   const { hasDescription, description, filesIds } = watch()

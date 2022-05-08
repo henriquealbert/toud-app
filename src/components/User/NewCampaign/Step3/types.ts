@@ -4,6 +4,7 @@ export type FormStep3Values = {
   amount: string | number
   userId: string
   estimatedReach: string
+  step?: number
 }
 export type AudienceProps = {
   value: string | number

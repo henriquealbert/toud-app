@@ -4,4 +4,5 @@ export type FormStep2Values = {
   userId: string
   filesIds: Array<{ id: string }>
   expectedDate: Date | undefined
+  step?: number
 }
