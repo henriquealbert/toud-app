@@ -1,7 +1,14 @@
 import yup from 'lib/yup'
 
 export const step3Schema = yup.object().shape({
-  amount: yup.string().required('Campo obrigatório'),
+  amount: yup
+    .string()
+    .required('Campo obrigatório')
+    .test(
+      'min-value',
+      'Deve ser maior que R$250,00',
+      (val) => parseValue(String(val || '')) >= 250
+    ),
   userId: yup.string().required('Campo obrigatório')
 })
 

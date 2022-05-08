@@ -12,6 +12,7 @@ export const NumberInput = ({ name, control, placeholder, ...props }: props) => 
   })
   return (
     <NumberFormat
+      isAllowed={({ floatValue }) => (floatValue || 0) < 1000000}
       onChange={onChange}
       onBlur={onBlur}
       value={value}
