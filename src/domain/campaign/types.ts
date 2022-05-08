@@ -15,6 +15,7 @@ export type createCampaignParams = {
   location: string
   userId: string
   activityId: string
+  step?: number
 }
 
 export type updateCampaignParams = {
@@ -33,6 +34,7 @@ export type updateCampaignParams = {
   status: StatusType
   isActive: boolean
   notes: string
+  step?: number
 }
 
 export type GenderType = typeof GENDER_MALE | typeof GENDER_FEMALE | typeof GENDER_BOTH

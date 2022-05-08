@@ -1,5 +1,9 @@
 import { GenderType, StatusType } from 'domain/campaign/types'
 
+export type NewCampaignProps = {
+  campaignData?: NewCampaignDataType
+}
+
 export type NewCampaignDataType = {
   activity: activity
   activityId: string
@@ -20,6 +24,7 @@ export type NewCampaignDataType = {
   hasDescription: 'Yes' | 'No'
   filesIds?: Array<{ id: string }>
   state?: string
+  step?: number
 }
 
 type activity = {

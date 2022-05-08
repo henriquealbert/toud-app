@@ -1,16 +1,15 @@
-import { useState } from 'react'
 import { Flex } from '@chakra-ui/react'
+import { useState } from 'react'
 import { FormStep1 } from './Step1/FormStep1'
 import { FormStep2 } from './Step2/FormStep2'
 import { FormStep3 } from './Step3/FormStep3'
-import { StepsProgress } from './StepsProgress'
 import { ReviewCampaign } from './Step4/ReviewCampaign'
+import { StepsProgress } from './StepsProgress'
+import { NewCampaignDataType, NewCampaignProps } from './types'
 
-import { NewCampaignDataType } from './types'
-
-export const NewCampaign = () => {
-  const [step, setStep] = useState(1)
-  const [data, setData] = useState<NewCampaignDataType>()
+export const NewCampaign = ({ campaignData }: NewCampaignProps) => {
+  const [step, setStep] = useState(campaignData?.step || 1)
+  const [data, setData] = useState<NewCampaignDataType | undefined>(campaignData)
 
   const handleNextStep = (data: NewCampaignDataType) => {
     setData((prev) => ({ ...prev, ...data }))

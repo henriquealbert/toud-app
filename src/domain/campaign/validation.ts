@@ -7,7 +7,8 @@ export const createCampaignValidator = yup
     gender: yup.string().oneOf(ALL_GENDERS).required(),
     location: yup.string().required(),
     userId: yup.string().required(),
-    activityId: yup.string().required()
+    activityId: yup.string().required(),
+    step: yup.number().required()
   })
   .required()
 
@@ -29,7 +30,8 @@ export const updateCampaignValidator = yup.object({
     .optional(),
   status: yup.string().oneOf(ALL_STATUS).optional(),
   isActive: yup.bool().optional(),
-  notes: yup.string().optional()
+  notes: yup.string().optional(),
+  step: yup.number().optional()
 })
 
 export const getCampaignByIdValidator = yup.object({

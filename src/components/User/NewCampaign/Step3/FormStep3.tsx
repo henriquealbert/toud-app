@@ -1,16 +1,14 @@
-import { Flex, FormControl, FormErrorMessage, FormLabel, FormHelperText } from '@chakra-ui/react'
-import { useForm } from 'react-hook-form'
+import { Flex, FormControl, FormErrorMessage, FormHelperText, FormLabel } from '@chakra-ui/react'
 import { yupResolver } from '@hookform/resolvers/yup'
-
+import { NumberInput } from 'components/shared/NumberInput'
+import { useAuth } from 'contexts/AuthContext'
+import { useForm } from 'react-hook-form'
+import { FooterButtons } from '../FooterButtons'
+import { useHandleSubmitFormStep } from '../helpers'
+import { FormStepProps } from '../types'
 import { Audience } from './Audience'
 import { parseValue, step3Schema } from './helpers'
-import { useHandleSubmitFormStep } from '../helpers'
-import { NumberInput } from 'components/shared/NumberInput'
-
 import { FormStep3Values } from './types'
-import { FormStepProps } from '../types'
-import { useAuth } from 'contexts/AuthContext'
-import { FooterButtons } from '../FooterButtons'
 
 export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProps) => {
   const { user } = useAuth()
@@ -27,7 +25,8 @@ export const FormStep3 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
     defaultValues: {
       amount: data?.amount || '',
       userId: user?.id || '',
-      estimatedReach: data?.estimatedReach || ''
+      estimatedReach: data?.estimatedReach || '',
+      step: 3
     }
   })
   const { amount } = watch()
