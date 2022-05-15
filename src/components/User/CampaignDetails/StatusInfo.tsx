@@ -17,7 +17,7 @@ export const StatusInfo = ({ data }: { data: { title: string; text: string } }) 
 export const statusInfos = {
   [STATUS_SUBMITTED]: {
     title: 'Seu anúncio está em análise',
-    text: 'Nosso robozinho está analisando seu anuncio para garantir que ele está nos conformes da nossa plataforma. Pode levar até 24h para o anuncio ser aprovado e começar a ser distribuiído.'
+    text: 'Nosso robozinho está analisando seu anuncio para garantir que ele está nos conformes da nossa plataforma. Pode levar até 24h para o anuncio ser aprovado e começar a ser distribuído.'
   },
   [STATUS_ONGOING]: {
     title: 'Suas métricas aparecerão aqui em breve',
