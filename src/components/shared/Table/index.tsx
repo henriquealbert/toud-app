@@ -1,8 +1,7 @@
 /* eslint-disable react/jsx-key */
-import { useTable, useSortBy, useGlobalFilter } from 'react-table'
-import { MdOutlineArrowDropDown, MdOutlineArrowDropUp } from 'react-icons/md'
 import { Box, Flex, Icon, Table as ChakraTable, Tbody, Td, Th, Thead, Tr } from '@chakra-ui/react'
-
+import { MdOutlineArrowDropDown, MdOutlineArrowDropUp } from 'react-icons/md'
+import { useGlobalFilter, useSortBy, useTable } from 'react-table'
 import { Search } from './Search'
 
 export const Table = ({
@@ -57,18 +56,20 @@ export const Table = ({
                   maxW={column.maxWidth || '215px'}
                 >
                   <Flex alignItems="center" h={4}>
-                    {column.render('Header')}
-                    <Box h={4}>
-                      {column.isSorted ? (
-                        column.isSortedDesc ? (
-                          <Icon as={MdOutlineArrowDropUp} ml={0.5} w={4} h={4} />
+                    <>
+                      {column.render('Header')}
+                      <Box h={4}>
+                        {column.isSorted ? (
+                          column.isSortedDesc ? (
+                            <Icon as={MdOutlineArrowDropUp} ml={0.5} w={4} h={4} />
+                          ) : (
+                            <Icon as={MdOutlineArrowDropDown} ml={0.5} w={4} h={4} />
+                          )
                         ) : (
-                          <Icon as={MdOutlineArrowDropDown} ml={0.5} w={4} h={4} />
-                        )
-                      ) : (
-                        ''
-                      )}
-                    </Box>
+                          ''
+                        )}
+                      </Box>
+                    </>
                   </Flex>
                 </Th>
               ))}
@@ -87,11 +88,12 @@ export const Table = ({
                     fontSize="sm"
                     color="text"
                     p={6}
-                    isTruncated
                     maxW={cell.column.maxWidth || '215px'}
                     {...cell.getCellProps()}
                   >
-                    {cell.render('Cell')}
+                    <Box noOfLines={1}>
+                      <>{cell.render('Cell')}</>
+                    </Box>
                   </Td>
                 ))}
               </Tr>
