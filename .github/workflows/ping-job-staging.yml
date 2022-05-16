@@ -1,0 +1,13 @@
+name: STAGING - Keep Supabase DB up
+on:
+  schedule:
+    - cron: '0 0 * * *' # every day at 12AM
+jobs:
+  staging:
+    name: Staging job runner
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/development'
+    steps:
+      - shell: bash
+        run: curl -m 300 -X GET https://staging.app.toud.io/api/jobs/ping
+
