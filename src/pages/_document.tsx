@@ -16,9 +16,7 @@ class MyDocument extends Document {
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap"
             rel="stylesheet"
           />
-          <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-          <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+          <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
         </Head>
         <body>
           <Main />
