@@ -1,3 +1,4 @@
+import { GoogleTagManagerBody, GoogleTagManagerHeader } from 'lib/GoogleTagManager'
 import Document, { DocumentContext, Head, Html, Main, NextScript } from 'next/document'
 
 class MyDocument extends Document {
@@ -10,6 +11,7 @@ class MyDocument extends Document {
     return (
       <Html lang="pt-BR">
         <Head>
+          <GoogleTagManagerHeader />
           <link rel="preconnect" href="https://fonts.googleapis.com" />
           <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
           <link
@@ -19,6 +21,7 @@ class MyDocument extends Document {
           <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
         </Head>
         <body>
+          <GoogleTagManagerBody />
           <Main />
           <NextScript />
         </body>
