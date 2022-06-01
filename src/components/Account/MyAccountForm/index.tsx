@@ -81,9 +81,9 @@ export const MyAccountForm = () => {
   }
 
   return (
-    <Flex direction="column" as="form" onSubmit={handleSubmit(submitForm)} maxW="90%">
-      <Flex gap={6}>
-        <FormControl id="name" mb={3} isInvalid={!!errors.name}>
+    <Flex direction="column" as="form" onSubmit={handleSubmit(submitForm)} maxW={{ lg: '90%' }}>
+      <Flex gap={6} flexWrap={{ base: 'wrap', lg: 'initial' }}>
+        <FormControl id="name" mb={3} minW={{ lg: '200px' }} isInvalid={!!errors.name}>
           <FormLabel htmlFor="name">Nome</FormLabel>
           <Input
             variant="outlineWhite"
@@ -94,7 +94,7 @@ export const MyAccountForm = () => {
           <>{!!errors.name && <FormErrorMessage>{errors.name?.message}</FormErrorMessage>}</>
         </FormControl>
 
-        <FormControl id="email" mb={3} isInvalid={!!errors.email}>
+        <FormControl id="email" mb={3} minW={{ lg: '200px' }} isInvalid={!!errors.email}>
           <FormLabel htmlFor="email">E-mail</FormLabel>
           <Input
             variant="outlineWhite"
@@ -105,7 +105,12 @@ export const MyAccountForm = () => {
           <>{!!errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}</>
         </FormControl>
 
-        <FormControl id="phoneNumber" mb={3} isInvalid={!!errors.phoneNumber}>
+        <FormControl
+          id="phoneNumber"
+          mb={3}
+          minW={{ lg: '200px' }}
+          isInvalid={!!errors.phoneNumber}
+        >
           <FormLabel htmlFor="phoneNumber">Número de Telefone</FormLabel>
           <PhoneInput
             variant="outlineWhite"
@@ -121,7 +126,7 @@ export const MyAccountForm = () => {
         </FormControl>
       </Flex>
 
-      <Flex mt={10} gap={6}>
+      <Flex mt={10} gap={6} flexWrap={{ base: 'wrap', lg: 'initial' }}>
         <FormControl id="currentPassword" mb={3} isInvalid={!!errors.currentPassword}>
           <FormLabel htmlFor="currentPassword">Senha atual</FormLabel>
           <Input
@@ -153,7 +158,14 @@ export const MyAccountForm = () => {
         </FormControl>
       </Flex>
 
-      <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." maxW="245px" mt={24}>
+      <Button
+        type="submit"
+        isLoading={isSubmitting}
+        loadingText="Salvando..."
+        maxW={{ lg: '245px' }}
+        mt={{ base: 8, lg: 24 }}
+        mb={{ base: 8, lg: 0 }}
+      >
         Salvar
       </Button>
     </Flex>

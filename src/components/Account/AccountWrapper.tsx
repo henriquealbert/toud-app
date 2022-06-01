@@ -1,4 +1,4 @@
-import { Flex, Heading, Icon, Text, IconButton } from '@chakra-ui/react'
+import { Flex, Heading, Icon, IconButton, Text } from '@chakra-ui/react'
 import { BackButton } from 'components/shared/BackButton'
 import { useAuth } from 'contexts/AuthContext'
 import { useState } from 'react'
@@ -10,7 +10,7 @@ export const AccountWrapper = () => {
   const [isEditable, setEditable] = useState(false)
 
   return (
-    <Flex direction="column" mx={20} mt={10}>
+    <Flex direction="column" mx={{ lg: 20 }} mt={{ lg: 10 }}>
       {isEditable && <BackButton onClick={() => setEditable(false)} />}
 
       <Heading fontSize="3xl" mb={4}>
@@ -22,15 +22,15 @@ export const AccountWrapper = () => {
       {!isEditable && (
         <Flex
           boxShadow="0px 3px 8px 4px rgba(193, 212, 255, 0.25)"
-          p={10}
+          p={{ base: 5, lg: 10 }}
           maxW="50%"
           w="fit-content"
-          minW="465px"
+          minW={{ base: 'full', lg: '465px' }}
           borderRadius="lg"
           bgColor="whiteAlpha.900"
           align="center"
         >
-          <Icon as={MdOutlineFace} w="40px" h="40px" mr={12} />
+          <Icon as={MdOutlineFace} w="40px" h="40px" mr={{ base: 4, lg: 12 }} />
           <Flex color="text" direction="column">
             <Text fontSize="lg" fontWeight="bold">
               {user?.name}

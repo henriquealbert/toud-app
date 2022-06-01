@@ -11,6 +11,7 @@ export const MobileTabBar = () => {
     <Flex
       display={{ lg: 'none' }}
       position="fixed"
+      zIndex="sticky"
       bottom={0}
       bgColor="white"
       borderTop="1px"

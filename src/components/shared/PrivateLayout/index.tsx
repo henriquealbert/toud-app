@@ -25,7 +25,14 @@ export const PrivateLayout = ({ children }: props) => {
           <DesktopSidebar />
           <MobileTabBar />
 
-          <Flex direction="column" w="full" p={8} h="full" minH="calc(100vh - 60px)">
+          <Flex
+            direction="column"
+            w="full"
+            p={{ base: 4, lg: 8 }}
+            h={{ base: 'calc(100vh - 75px - 60px)', lg: 'full' }}
+            minH={{ lg: 'calc(100vh - 60px)' }}
+            overflowY="auto"
+          >
             {children}
           </Flex>
         </Flex>
