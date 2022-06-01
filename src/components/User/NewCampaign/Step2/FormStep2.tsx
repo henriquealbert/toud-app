@@ -59,7 +59,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
 
   return (
     <Flex as="form" direction="column" flex={1} onSubmit={handleSubmit(handleSubmitForm)}>
-      <Flex w="full" my={8}>
+      <Flex w="full" my={{ base: 4, lg: 8 }} flexWrap={{ base: 'wrap', lg: 'initial' }}>
         <FormControl id="hasDescription" mb={3} isInvalid={!!errors.hasDescription}>
           <FormLabel htmlFor="hasDescription" mb={2}>
             Você possui um roteiro em texto que gostaria que o influencer seguisse?
@@ -99,7 +99,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
           </>
         </FormControl>
 
-        <FormControl id="placementId" mb={3} ml={8}>
+        <FormControl id="placementId" mb={3} ml={{ lg: 8 }}>
           <FormLabel htmlFor="placementId" mb={2}>
             Rede social de veiculação
           </FormLabel>
@@ -119,10 +119,10 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
         </FormControl>
       </Flex>
 
-      <Flex w="full" my={5}>
+      <Flex w="full" my={{ base: 0, lg: 5 }} flexWrap={{ base: 'wrap', lg: 'initial' }}>
         <Flex flexDir="column" w="full">
           {hasDescription === 'Yes' && (
-            <FormControl id="description" mb={3} isInvalid={!!errors.description}>
+            <FormControl id="description" mb={{ lg: 3 }} isInvalid={!!errors.description}>
               <FormLabel htmlFor="description" mb={2}>
                 Qual é o roteiro que o influencer deve seguir?
               </FormLabel>
@@ -152,7 +152,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
           </FormControl>
         </Flex>
 
-        <FormControl ml={8} id="expectedDate" isInvalid={!!errors.expectedDate}>
+        <FormControl ml={{ lg: 8 }} id="expectedDate" isInvalid={!!errors.expectedDate}>
           <FormLabel htmlFor="expectedDate" mb={2} display="flex">
             Dia de veiculação
             <ExclamationTooltip label="Só é possível vincular anúncios a partir de 2 dias úteis em relação a data atual." />

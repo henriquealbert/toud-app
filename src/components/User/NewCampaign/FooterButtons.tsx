@@ -10,7 +10,12 @@ export const FooterButtons = ({
 }: FooterButtonsProps) => (
   <Flex mt={12}>
     {canGoBack && (
-      <Button variant="outline" mr={20} w="245px" onClick={handlePrevStep}>
+      <Button
+        variant="outline"
+        mr={{ base: 4, lg: 20 }}
+        w={{ base: 'full', lg: '245px' }}
+        onClick={handlePrevStep}
+      >
         Voltar
       </Button>
     )}
