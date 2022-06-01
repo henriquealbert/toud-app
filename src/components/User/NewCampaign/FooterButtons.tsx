@@ -15,7 +15,12 @@ export const FooterButtons = ({
       </Button>
     )}
     {canSubmit && (
-      <Button type="submit" isLoading={isSubmitting} loadingText="Salvando..." w="245px">
+      <Button
+        type="submit"
+        isLoading={isSubmitting}
+        loadingText="Salvando..."
+        w={{ base: 'full', lg: '245px' }}
+      >
         Salvar
       </Button>
     )}

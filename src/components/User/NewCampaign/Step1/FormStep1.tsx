@@ -53,7 +53,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
 
   return (
     <Flex as="form" direction="column" onSubmit={handleSubmit(submitForm)} flex={1}>
-      <Flex w="full" my={8}>
+      <Flex w="full" my={{ base: 4, lg: 8 }} flexWrap={{ base: 'wrap', lg: 'initial' }}>
         <FormControl id="name" mb={3} isInvalid={!!errors.name}>
           <FormLabel htmlFor="name">Nome da campanha</FormLabel>
           <Input
@@ -66,7 +66,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
           <>{!!errors.name && <FormErrorMessage>{errors.name?.message}</FormErrorMessage>}</>
         </FormControl>
 
-        <FormControl id="gender" mb={3} ml={8} isInvalid={!!errors.gender}>
+        <FormControl id="gender" mb={{ lg: 3 }} ml={{ lg: 8 }} isInvalid={!!errors.gender}>
           <FormLabel htmlFor="gender">Gênero do público alvo</FormLabel>
           <Controller
             name="gender"
@@ -89,7 +89,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
         </FormControl>
       </Flex>
 
-      <Flex w="full" my={8}>
+      <Flex w="full" my={{ base: 0, lg: 8 }} flexWrap={{ base: 'wrap', lg: 'initial' }}>
         <FormControl id="activityId" mb={3} isInvalid={!!errors.activityId}>
           <FormLabel htmlFor="activityId">Segmento</FormLabel>
           <Controller
@@ -117,7 +117,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
           </>
         </FormControl>
 
-        <FormControl id="location" mb={3} ml={8} isInvalid={!!errors.location}>
+        <FormControl id="location" mb={3} ml={{ lg: 8 }} isInvalid={!!errors.location}>
           <FormLabel htmlFor="location" mb={2}>
             Localização em que será feita a divulgação
           </FormLabel>
@@ -157,9 +157,9 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
         </FormControl>
       </Flex>
       <Flex>
-        <Flex w="full" />
+        <Flex w="full" display={{ base: 'none', lg: 'flex' }} />
         {specificState && (
-          <FormControl id="state" mb={3} ml={5} isInvalid={!!errors.state}>
+          <FormControl id="state" mb={3} ml={{ lg: 5 }} isInvalid={!!errors.state}>
             <FormLabel htmlFor="state">Estado em que será divulgado</FormLabel>
             <Controller
               name="state"
@@ -168,7 +168,7 @@ export const FormStep1 = ({ handleNextStep, data }: FormStepProps) => {
                 <SelectInput
                   isSearchable
                   options={statesOptions}
-                  placeholder="Selecione o estado em que será divulgado"
+                  placeholder="Selecione o estado"
                   onChange={(option: any) => {
                     onChange(option?.value)
                     setValue('location', option?.value)
