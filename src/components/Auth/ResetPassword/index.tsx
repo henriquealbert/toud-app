@@ -70,7 +70,12 @@ export const ResetPasswordModal = () => {
 
   return (
     <>
-      <Modal isOpen={!!query?.passwordToken} onClose={() => null} size="xl" isCentered>
+      <Modal
+        isOpen={!!query?.passwordToken}
+        onClose={() => null}
+        size={{ base: 'xs', md: 'xl' }}
+        isCentered
+      >
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Resetar senha</ModalHeader>
