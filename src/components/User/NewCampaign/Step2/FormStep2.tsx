@@ -155,7 +155,7 @@ export const FormStep2 = ({ handleNextStep, handlePrevStep, data }: FormStepProp
         <FormControl ml={8} id="expectedDate" isInvalid={!!errors.expectedDate}>
           <FormLabel htmlFor="expectedDate" mb={2} display="flex">
             Dia de veiculação
-            <ExclamationTooltip label="Só é possível vincular anúncios para o dia seguinte da data atual." />
+            <ExclamationTooltip label="Só é possível vincular anúncios a partir de 2 dias úteis em relação a data atual." />
           </FormLabel>
           <Controller
             name="expectedDate"
