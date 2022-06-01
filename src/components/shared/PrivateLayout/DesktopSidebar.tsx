@@ -1,14 +1,20 @@
+import { Button, Flex, Icon, Stack } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { useRouter } from 'next/router'
 import { BiPlus } from 'react-icons/bi'
-import { Button, Flex, Icon, Stack } from '@chakra-ui/react'
-
 import { sidebarLinks } from './sidebarLinks'
 
-export const Sidebar = () => {
+export const DesktopSidebar = () => {
   const { pathname } = useRouter()
   return (
-    <Flex bgColor="white" direction="column" w="full" maxW="325px" p={10}>
+    <Flex
+      display={{ base: 'none', lg: 'flex' }}
+      bgColor="white"
+      direction="column"
+      w="full"
+      maxW="325px"
+      p={10}
+    >
       <NextLink href="/campaigns/create" passHref>
         <Button as="a" h="50px" leftIcon={<Icon as={BiPlus} w={6} h={6} />}>
           Nova Campanha
