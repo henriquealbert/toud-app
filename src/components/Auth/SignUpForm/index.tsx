@@ -64,7 +64,7 @@ export const SignUpForm = () => {
 
   return (
     <Box as="form" onSubmit={handleSubmit(handleSignUp)}>
-      <FormControl id="name" mb={3} isInvalid={!!errors.name}>
+      <FormControl id="name" mb={5} isInvalid={!!errors.name}>
         <FormLabel htmlFor="name">Nome</FormLabel>
         <Input
           type="name"
@@ -74,19 +74,19 @@ export const SignUpForm = () => {
         <>{!!errors.name && <FormErrorMessage>{errors.name?.message}</FormErrorMessage>}</>
       </FormControl>
 
-      <FormControl id="email" mb={3} isInvalid={!!errors.email}>
+      <FormControl id="email" mb={5} isInvalid={!!errors.email}>
         <FormLabel htmlFor="email">E-mail</FormLabel>
         <Input type="email" placeholder="Digite aqui seu melhor e-mail" {...register('email')} />
         <>{!!errors.email && <FormErrorMessage>{errors.email?.message}</FormErrorMessage>}</>
       </FormControl>
 
-      <FormControl id="password" mb={3} isInvalid={!!errors.password}>
+      <FormControl id="password" mb={5} isInvalid={!!errors.password}>
         <FormLabel htmlFor="password">Senha</FormLabel>
         <Input type="password" placeholder="Crie aqui sua senha" {...register('password')} />
         <>{!!errors.password && <FormErrorMessage>{errors.password?.message}</FormErrorMessage>}</>
       </FormControl>
 
-      <FormControl id="phoneNumber" mb={3} isInvalid={!!errors.phoneNumber}>
+      <FormControl id="phoneNumber" mb={5} isInvalid={!!errors.phoneNumber}>
         <FormLabel htmlFor="phoneNumber">Número de Telefone</FormLabel>
         <PhoneInput placeholder="(DDD) 9 9999-9999" name="phoneNumber" control={control} />
         <>
