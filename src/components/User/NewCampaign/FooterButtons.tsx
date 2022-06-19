@@ -8,7 +8,7 @@ export const FooterButtons = ({
   canSubmit = true,
   children
 }: FooterButtonsProps) => (
-  <Flex mt={12}>
+  <Flex mt={12} direction={{ base: 'column-reverse', lg: 'row' }} gap={{ base: 2, lg: 0 }}>
     {canGoBack && (
       <Button
         variant="outline"
