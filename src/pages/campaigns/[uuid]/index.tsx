@@ -26,6 +26,7 @@ const CampaignDetailsPage: NextPage = () => {
       enabled: !!session && !!query?.uuid && !!user?.id
     }
   )
+  console.log(data)
 
   if (!data) {
     return (
