@@ -20,6 +20,12 @@ export type CampaignType = {
   status: StatusType
   updatedAt: string
   userId: string
+  totalReach?: number
+  clicks?: number
+  cpm?: number
+  cpc?: number
+  ctr?: number
+  displayTime?: string
 }
 
 export type CampaignDetailsProps = {

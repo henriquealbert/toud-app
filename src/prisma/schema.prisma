@@ -71,6 +71,12 @@ model Campaign {
   paymentIntentId     String?               @unique @map("payment_intent_id")
   checkoutSessionId   String?               @unique @map("checkout_session_id")
   step                Int?                  @default(1)
+  totalReach          Decimal?              @map("total_reach") @db.Decimal(18, 2)
+  clicks              Int?                  @map("clicks")
+  cpm                 Decimal?              @map("cpm") @db.Decimal(18, 2)
+  cpc                 Decimal?              @map("cpc") @db.Decimal(18, 2)
+  ctr                 Decimal?              @map("ctr") @db.Decimal(18, 2)
+  displayTime         String?               @map("display_time")
 
   @@map("campaign")
 }
