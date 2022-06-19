@@ -7,7 +7,7 @@ import { DesktopSidebar } from './DesktopSidebar'
 import { Header } from './Header'
 import { MobileTabBar } from './MobileTabBar'
 
-export const PrivateLayout = ({ children }: props) => {
+export const PrivateLayout = ({ children, pageTitle = '' }: props) => {
   const { push } = useRouter()
   const { isLoading, user } = useAuth()
 
@@ -20,7 +20,7 @@ export const PrivateLayout = ({ children }: props) => {
   if (user) {
     return (
       <Flex direction="column" minH="100vh" bgColor="gray.100">
-        <Header />
+        <Header pageTitle={pageTitle} />
         <Flex>
           <DesktopSidebar />
           <MobileTabBar />
@@ -45,4 +45,5 @@ export const PrivateLayout = ({ children }: props) => {
 
 type props = {
   children: ReactNode
+  pageTitle?: string
 }

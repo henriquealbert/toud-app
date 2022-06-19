@@ -4,10 +4,11 @@ import type { NextPage } from 'next'
 import { BsWhatsapp } from 'react-icons/bs'
 
 const HelpPage: NextPage = () => (
-  <PrivateLayout>
+  <PrivateLayout pageTitle="Ajuda">
     <Flex direction="column" gap={6} mx={{ lg: 20 }} mt={{ lg: 10 }}>
-      <Heading mb={6}>Ajuda</Heading>
+      <Heading display={{ base: 'none', lg: 'block' }}>Ajuda</Heading>
       <Flex
+        mt={6}
         as="a"
         href="https://toud.io/ajuda"
         target="_blank"

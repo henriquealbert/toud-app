@@ -30,7 +30,7 @@ const SuccessCampaignPage = () => {
   }
 
   return (
-    <PrivateLayout>
+    <PrivateLayout pageTitle="Nova campanha">
       <Flex direction="column" flex={1} px={{ base: 4, lg: 28 }} py={12}>
         <Icon as={MdOutlineCheckCircleOutline} w="64px" h="64px" mb={8} color="green.400" />
         <Heading fontSize="3xl" mb={5}>

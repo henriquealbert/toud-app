@@ -1,19 +1,20 @@
-import { Flex, Heading, Icon, IconButton, Text } from '@chakra-ui/react'
+import { Button, Flex, Heading, Icon, IconButton, Text } from '@chakra-ui/react'
 import { BackButton } from 'components/shared/BackButton'
 import { useAuth } from 'contexts/AuthContext'
 import { useState } from 'react'
 import { MdOutlineFace, MdOutlineMode } from 'react-icons/md'
 import { MyAccountForm } from './MyAccountForm'
+import { signOut } from 'next-auth/react'
 
 export const AccountWrapper = () => {
   const { user } = useAuth()
   const [isEditable, setEditable] = useState(false)
 
   return (
-    <Flex direction="column" mx={{ lg: 20 }} mt={{ lg: 10 }}>
+    <Flex direction="column" mx={{ lg: 20 }} mt={{ lg: 10 }} height="full">
       {isEditable && <BackButton onClick={() => setEditable(false)} />}
 
-      <Heading fontSize="3xl" mb={4}>
+      <Heading fontSize="3xl" mb={4} display={{ base: 'none', lg: 'block' }}>
         Minha conta
       </Heading>
       <Text color="text" mb={12}>
@@ -51,6 +52,11 @@ export const AccountWrapper = () => {
         </Flex>
       )}
       {isEditable && <MyAccountForm />}
+      <Flex mt="auto" justify="center" mb={4} display={{ base: 'flex', lg: 'none' }}>
+        <Button onClick={() => signOut({ callbackUrl: '/login' })} variant="link">
+          Logout
+        </Button>
+      </Flex>
     </Flex>
   )
 }

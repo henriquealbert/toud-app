@@ -45,7 +45,7 @@ const CampaignDetailsPage: NextPage = () => {
   }
 
   return (
-    <PrivateLayout>
+    <PrivateLayout pageTitle="Detalhes da campanha">
       <CampaignDetails data={data} />
     </PrivateLayout>
   )

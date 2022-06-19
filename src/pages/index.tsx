@@ -5,7 +5,7 @@ import { CampaignList } from 'components/User/CampaignList'
 
 const Home: NextPage = () => {
   return (
-    <PrivateLayout>
+    <PrivateLayout pageTitle="Acompanhamento">
       <Heading display={{ base: 'none', lg: 'block' }} fontSize="3xl" color="purple.800" mb={2}>
         Acompanhamento
       </Heading>
