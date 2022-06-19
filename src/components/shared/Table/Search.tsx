@@ -5,6 +5,7 @@ export const Search = ({ filter, setFilter, ...props }: SearchProps) => {
   return (
     <Box position="relative">
       <Input
+        bgColor={{ base: 'white', lg: 'none' }}
         type="search"
         maxW="436px"
         h="34px"
@@ -19,7 +20,16 @@ export const Search = ({ filter, setFilter, ...props }: SearchProps) => {
         }}
         {...props}
       />
-      <Icon position="absolute" top="23px" left="32px" as={MdSearch} h={5} w={5} color="text" />
+      <Icon
+        position="absolute"
+        top="23px"
+        left={{ base: '8px', lg: '32px' }}
+        as={MdSearch}
+        h={5}
+        w={5}
+        zIndex={1}
+        color="text"
+      />
     </Box>
   )
 }
