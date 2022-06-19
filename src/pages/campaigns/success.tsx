@@ -25,8 +25,8 @@ const SuccessCampaignPage = () => {
   )
   const queryClient = useQueryClient()
 
-  const handleClearCache = () => {
-    queryClient.invalidateQueries('me')
+  const handleClearCache = async () => {
+    await queryClient.invalidateQueries('me')
   }
 
   return (

@@ -27,6 +27,14 @@ const CampaignDetailsPage: NextPage = () => {
     }
   )
 
+  if (!data) {
+    return (
+      <PrivateLayout>
+        <Loader />
+      </PrivateLayout>
+    )
+  }
+
   if (data?.status === STATUS_DRAFT) {
     push(`/campaigns/create/?uuid=${data?.id}`)
     return (

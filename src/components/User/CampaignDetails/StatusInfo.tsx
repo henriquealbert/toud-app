@@ -7,7 +7,7 @@ export const StatusInfo = ({ data }: { data: { title: string; text: string } }) 
       <Heading as="h2" fontSize="sm" mb={4}>
         {data.title}
       </Heading>
-      <Text fontSize="sm" maxW="75%">
+      <Text fontSize="sm" maxW={{ lg: '75%' }}>
         {data.text}
       </Text>
     </Flex>
