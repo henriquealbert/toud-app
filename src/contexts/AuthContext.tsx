@@ -13,9 +13,7 @@ const AuthProvider: FC = ({ children }) => {
     'me',
     async () => await getMe({ token: session?.accessToken as string }),
     {
-      enabled: !!session,
-      staleTime: 60 * 60 * 1000, // 1 hour
-      keepPreviousData: true
+      enabled: !!session
     }
   )
 

@@ -9,7 +9,7 @@ import { statusInfos, StatusInfo } from './StatusInfo'
 
 export const CampaignDetails = ({ data }: CampaignDetailsProps) => {
   return (
-    <Flex direction="column" mx={20} mt={10}>
+    <Flex direction="column" mx={{ lg: 20 }} mt={10}>
       <NextLink href="/" passHref>
         <Flex as="a" fontSize="lg" color="purple.500" align="center" mb={8}>
           <Icon as={MdArrowBack} w="24px" h="24px" mr={6} /> Voltar para listagem
@@ -19,11 +19,11 @@ export const CampaignDetails = ({ data }: CampaignDetailsProps) => {
         bgColor="whiteAlpha.600"
         boxShadow="0px 3px 8px 4px rgba(193, 212, 255, 0.25)"
         borderRadius="lg"
-        p={16}
+        p={{ base: 6, lg: 16 }}
         direction="column"
       >
-        <Flex mb={12}>
-          <Heading fontSize="xl" mr={4}>
+        <Flex mb={{ base: 6, lg: 12 }} justifyContent={{ base: 'space-between', lg: 'flex-start' }}>
+          <Heading fontSize="xl" mr={{ lg: 4 }} noOfLines={{ base: 1, lg: 4 }}>
             {data?.name}
           </Heading>
           <StatusBadge status={data?.status} />

@@ -25,7 +25,7 @@ const NewCampaignPage = () => {
   )
 
   return (
-    <PrivateLayout>
+    <PrivateLayout pageTitle={query?.uuid ? 'Editar campanha' : 'Nova campanha'}>
       <NewCampaign campaignData={data} />
     </PrivateLayout>
   )

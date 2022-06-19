@@ -28,9 +28,9 @@ export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
   }
 
   return (
-    <Flex direction="column" flex={1}>
+    <Flex direction="column" flex={1} h="fit-content">
       <Flex
-        p={20}
+        p={{ base: 4, lg: 20 }}
         bgColor="white"
         borderRadius="lg"
         boxShadow="0px 3px 8px 4px rgba(193, 212, 255, 0.25)"
@@ -39,24 +39,30 @@ export const ReviewCampaign = ({ handlePrevStep, data }: FormStepProps) => {
         <Heading as="h2" fontWeight="bold" fontSize="xl" mb={8}>
           Resumo da campanha
         </Heading>
-        <SimpleGrid columns={4} gap={8}>
+        <SimpleGrid columns={{ base: 1, lg: 4 }} gap={{ base: 4, lg: 8 }}>
           {reviewData.map((item) => (
-            <Flex key={item.text} direction="column" color="text">
-              <Text fontSize="xs" mb={2}>
+            <Flex
+              key={item.text}
+              direction={{ lg: 'column' }}
+              alignItems={{ base: 'center', lg: 'initial' }}
+              justifyContent={{ base: 'space-between', lg: 'flex-start' }}
+              color="text"
+            >
+              <Text fontSize="xs" mb={{ lg: 2 }} fontWeight="bold" noOfLines={1}>
                 {item?.text}
               </Text>
-              <Text fontSize="sm" fontWeight="bold">
+              <Text fontSize="sm" noOfLines={1}>
                 {item.value}
               </Text>
             </Flex>
           ))}
         </SimpleGrid>
       </Flex>
-      <FooterButtons isSubmitting={false} handlePrevStep={handlePrevStep} canSubmit={false}>
+      <FooterButtons isSubmitting={isLoading} handlePrevStep={handlePrevStep} canSubmit={false}>
         <Button
           type="button"
           variant="success"
-          w="245px"
+          w={{ lg: '245px' }}
           isLoading={isLoading}
           loadingText="Finalizando..."
           onClick={handleSubmit}

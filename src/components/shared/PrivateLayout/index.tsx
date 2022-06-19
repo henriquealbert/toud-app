@@ -1,13 +1,13 @@
-import { ReactNode, useEffect } from 'react'
 import { Flex } from '@chakra-ui/react'
-import { useRouter } from 'next/router'
-
-import { Loader } from '../Loader'
 import { useAuth } from 'contexts/AuthContext'
+import { useRouter } from 'next/router'
+import { ReactNode, useEffect } from 'react'
+import { Loader } from '../Loader'
+import { DesktopSidebar } from './DesktopSidebar'
 import { Header } from './Header'
-import { Sidebar } from './Sidebar'
+import { MobileTabBar } from './MobileTabBar'
 
-export const PrivateLayout = ({ children }: props) => {
+export const PrivateLayout = ({ children, pageTitle = '' }: props) => {
   const { push } = useRouter()
   const { isLoading, user } = useAuth()
 
@@ -20,11 +20,19 @@ export const PrivateLayout = ({ children }: props) => {
   if (user) {
     return (
       <Flex direction="column" minH="100vh" bgColor="gray.100">
-        <Header />
+        <Header pageTitle={pageTitle} />
         <Flex>
-          <Sidebar />
+          <DesktopSidebar />
+          <MobileTabBar />
 
-          <Flex direction="column" w="full" p={8} h="full" minH="calc(100vh - 60px)">
+          <Flex
+            direction="column"
+            w="full"
+            p={{ base: 4, lg: 8 }}
+            h={{ base: 'calc(100vh - 75px - 60px)', lg: 'full' }}
+            minH={{ lg: 'calc(100vh - 60px)' }}
+            overflowY="auto"
+          >
             {children}
           </Flex>
         </Flex>
@@ -37,4 +45,5 @@ export const PrivateLayout = ({ children }: props) => {
 
 type props = {
   children: ReactNode
+  pageTitle?: string
 }

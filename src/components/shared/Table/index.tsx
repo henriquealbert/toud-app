@@ -36,7 +36,7 @@ export const Table = ({
   return (
     <Box>
       {isSearchable && (
-        <Search filter={globalFilter} setFilter={setGlobalFilter} mb={8} ml={6} mt={4} />
+        <Search filter={globalFilter} setFilter={setGlobalFilter} mb={8} ml={{ lg: 6 }} mt={4} />
       )}
 
       <ChakraTable {...getTableProps()}>
@@ -54,6 +54,7 @@ export const Table = ({
                   letterSpacing="normal"
                   fontWeight="normal"
                   maxW={column.maxWidth || '215px'}
+                  display={{ base: 'none', lg: 'table-cell' }}
                 >
                   <Flex alignItems="center" h={4}>
                     <>
@@ -76,13 +77,20 @@ export const Table = ({
             </Tr>
           ))}
         </Thead>
-        <Tbody {...getTableBodyProps()}>
+        <Tbody {...getTableBodyProps()} display={{ base: 'block', lg: 'table-row-group' }}>
           {rows.map((row) => {
             prepareRow(row)
             return (
-              <Tr {...row.getRowProps()}>
+              <Tr
+                {...row.getRowProps()}
+                display={{ base: 'block', lg: 'table-row' }}
+                mb={{ base: 4, lg: 0 }}
+              >
                 {row.cells.map((cell) => (
                   <Td
+                    bgColor={{ base: 'white', lg: 'none' }}
+                    borderRadius={{ base: 'lg', lg: 'none' }}
+                    display={{ base: 'block', lg: 'table-cell' }}
                     borderColor="purple.200"
                     fontWeight="bold"
                     fontSize="sm"

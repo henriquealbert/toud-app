@@ -44,7 +44,7 @@ const texts = [
     ),
     min: 250,
     max: 499.99,
-    width: '210px',
+    width: { base: '150px', lg: '210px' },
     estimatedReach: '30.000 mil à 50.000 mil'
   },
   {
@@ -57,7 +57,7 @@ const texts = [
     ),
     min: 500,
     max: 699.99,
-    width: '420px',
+    width: { base: '300px', lg: '420px' },
     estimatedReach: '60.000 mil à 80.000 mil'
   },
   {
@@ -70,7 +70,7 @@ const texts = [
     ),
     min: 700,
     max: 999.99,
-    width: '525px',
+    width: { base: '350px', lg: '525px' },
     estimatedReach: '90.000 mil à 120.000 mil'
   },
   {
@@ -83,7 +83,7 @@ const texts = [
     ),
     min: 1000,
     max: 1199.99,
-    width: '630px',
+    width: { base: '440px', lg: '630px' },
     estimatedReach: '130.000 mil à 150.000 mil'
   },
   {
@@ -96,7 +96,7 @@ const texts = [
     ),
     min: 1200,
     max: 1499.99,
-    width: '735px',
+    width: { base: '500px', lg: '735px' },
     estimatedReach: '160.000 mil à 180.000 mil'
   },
   {
@@ -109,7 +109,7 @@ const texts = [
     ),
     min: 1500,
     max: Infinity,
-    width: '840px',
+    width: { base: '585px', lg: '840px' },
     estimatedReach: '190.000 mil à 210.000 mil'
   }
 ]

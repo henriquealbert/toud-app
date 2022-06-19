@@ -1,15 +1,22 @@
-import type { NextPage } from 'next'
-import { Flex, Heading, Text, SimpleGrid, Img } from '@chakra-ui/react'
-
+import { Flex, Heading, Img, SimpleGrid, Text } from '@chakra-ui/react'
 import { LoginForm } from 'components/Auth/LoginForm'
 import { ToudLogo } from 'components/shared/ToudLogo'
+import type { NextPage } from 'next'
 
 const LoginPage: NextPage = () => (
-  <SimpleGrid columns={2} minH="100vh">
+  <SimpleGrid columns={{ base: 1, md: 2 }} minH="100vh" px={{ base: 8, md: 0 }}>
     <Flex direction="column" flex="1">
-      <ToudLogo m={4} />
+      <ToudLogo m={{ md: 4 }} mt={{ base: 8, md: 4 }} />
 
-      <Flex direction="column" w="438px" mx="auto" h="calc(100% - 150px)" justify="center">
+      <Flex
+        direction="column"
+        maxW={{ base: 'none', lg: '438px' }}
+        w="full"
+        mx={{ md: 'auto' }}
+        h={{ base: 'full', md: 'calc(100% - 150px)' }}
+        justify="center"
+        px={{ md: 4, lg: 0 }}
+      >
         <Heading color="purple.800" fontSize="3xl" mb={3}>
           Login
         </Heading>
@@ -26,6 +33,7 @@ const LoginPage: NextPage = () => (
       w="full"
       objectFit="cover"
       objectPosition="center"
+      display={{ base: 'none', md: 'block' }}
     />
   </SimpleGrid>
 )

@@ -3,7 +3,7 @@ import { PrivateLayout } from 'components/shared/PrivateLayout'
 import { AccountWrapper } from 'components/Account/AccountWrapper'
 
 const MyAccountPage: NextPage = () => (
-  <PrivateLayout>
+  <PrivateLayout pageTitle="Minha conta">
     <AccountWrapper />
   </PrivateLayout>
 )
