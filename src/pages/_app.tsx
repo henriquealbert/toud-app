@@ -9,23 +9,21 @@ import { QueryClient, QueryClientProvider } from 'react-query'
 
 const queryClient = new QueryClient()
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Head>
-        <title>Toud</title>
-      </Head>
-      <SessionProvider session={pageProps.session}>
-        <QueryClientProvider client={queryClient}>
-          <AuthProvider>
-            <CustomThemeProvider>
-              <Component {...pageProps} />
-            </CustomThemeProvider>
-          </AuthProvider>
-        </QueryClientProvider>
-      </SessionProvider>
-    </>
-  )
-}
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <>
+    <Head>
+      <title>Toud</title>
+    </Head>
+    <SessionProvider session={pageProps.session}>
+      <QueryClientProvider client={queryClient}>
+        <AuthProvider>
+          <CustomThemeProvider>
+            <Component {...pageProps} />
+          </CustomThemeProvider>
+        </AuthProvider>
+      </QueryClientProvider>
+    </SessionProvider>
+  </>
+)
 
 export default MyApp
