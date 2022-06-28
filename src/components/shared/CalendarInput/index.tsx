@@ -25,7 +25,7 @@ export const CalendarInput = ({
     handler: () => setOpen.off()
   })
 
-  const minDate = addBusinessDays(new Date(), 2)
+  const minDate = addBusinessDays(new Date(), 3)
 
   return (
     <Box pos="relative" ref={ref}>
