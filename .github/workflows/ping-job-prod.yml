@@ -6,7 +6,7 @@ jobs:
   production:
     name: Production job runner
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref == 'refs/heads/prod'
     steps:
       - shell: bash
         run: curl -m 300 -X GET https://app.toud.io/api/jobs/ping
