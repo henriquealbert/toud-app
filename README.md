@@ -1,4 +1,4 @@
 ## Toud
 
-Staging: staging.app.toud.io
-Production: app.toud.io
+Staging: staging.app.toud.com.br
+Production: app.toud.com.br

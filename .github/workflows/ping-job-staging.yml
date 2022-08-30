@@ -9,5 +9,5 @@ jobs:
     if: github.ref == 'refs/heads/development'
     steps:
       - shell: bash
-        run: curl -m 300 -X GET https://staging.app.toud.io/api/jobs/ping
+        run: curl -m 300 -X GET https://staging.app.toud.com.br/api/jobs/ping
 

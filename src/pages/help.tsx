@@ -10,7 +10,7 @@ const HelpPage: NextPage = () => (
       <Flex
         mt={6}
         as="a"
-        href="https://toud.io/ajuda"
+        href="https://toud.com.br/ajuda"
         target="_blank"
         rel="noopener noreferrer"
         bgColor="whiteAlpha.900"
@@ -32,7 +32,7 @@ const HelpPage: NextPage = () => (
 
       <Flex
         as="a"
-        href="https://toud.io/whatsapp"
+        href="https://toud.com.br/whatsapp"
         target="_blank"
         rel="noopener noreferrer"
         bgColor="whiteAlpha.900"

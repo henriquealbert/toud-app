@@ -8,7 +8,13 @@ sendgrid.setApiKey(SENDGRID_API_KEY)
 
 export const sendEmail = async ({ to, html, subject, text }: params) => {
   try {
-    return await sendgrid.send({ from: 'Suporte Toud <no-reply@toud.io>', to, html, subject, text })
+    return await sendgrid.send({
+      from: 'Suporte Toud <no-reply@toud.com.br>',
+      to,
+      html,
+      subject,
+      text
+    })
   } catch (error) {
     console.error(error)
     throw new Error('Error sending email')
