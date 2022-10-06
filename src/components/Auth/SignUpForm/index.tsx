@@ -58,7 +58,7 @@ export const SignUpForm = () => {
       setError('password', { message: signInError, type: 'server' })
       return
     } else {
-      push('/')
+      push('/bemvindo')
     }
   }
 
